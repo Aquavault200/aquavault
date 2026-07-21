@@ -27,8 +27,8 @@
     var hasGsap = typeof window.gsap !== 'undefined' && typeof window.ScrollTrigger !== 'undefined';
 
     /* Particules ambiantes à deux vitesses (décor, non liées au scroll) */
-    makeBubbles(document.getElementById('diveParticlesFar'), isMobile ? 8 : 16, false);
-    makeBubbles(document.getElementById('diveParticlesNear'), isMobile ? 3 : 6, true);
+    makeBubbles(document.getElementById('diveParticlesFar'), isMobile ? 6 : 11, false);
+    makeBubbles(document.getElementById('diveParticlesNear'), isMobile ? 2 : 4, true);
 
     /* Boutons magnétiques — léger déplacement vers le curseur (desktop uniquement) */
     var canHover = window.matchMedia('(pointer: fine)').matches && !prefersReduced;
@@ -95,14 +95,16 @@
     gsap.set(closureSweeps, { xPercent: -220 });
 
     /* ---------- Timeline principale : entrée → immersion → fermeture ----------
-       Rythme cinématographique : la distance de scroll (+=440%) et le lissage
-       du scrub (0.85) sont volontairement généreux pour éviter tout à-coup. */
+       Le rythme cinématographique vient surtout de la distance de scroll (+=440%),
+       pas d'un lissage de scrub excessif : un scrub trop élevé se ressent comme de
+       la latence (l'écran répond en retard au geste de scroll). 0.4 reste fluide
+       sans donner d'impression de lag. */
     var tl = gsap.timeline({
       scrollTrigger: {
         trigger: '#dive-pin',
         start: 'top top',
         end: '+=440%',
-        scrub: 0.85,
+        scrub: 0.4,
         pin: true,
         anticipatePin: 1
       }
@@ -209,7 +211,7 @@
         resurfaceBubbles = document.createElement('div');
         resurfaceBubbles.className = 'dive-particles dive-resurface-bubbles';
         resurfaceSection.insertBefore(resurfaceBubbles, resurfaceSection.firstChild);
-        makeBubbles(resurfaceBubbles, 9, false);
+        makeBubbles(resurfaceBubbles, 6, false);
         gsap.set(resurfaceBubbles, { opacity: 0.55 });
       }
 
