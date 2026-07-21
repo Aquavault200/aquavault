@@ -10,10 +10,9 @@ Site vitrine statique (HTML/CSS/JS, sans framework, sans build) pour la boutique
 aquavault/
 ├── index.html                       Page d'accueil
 ├── product.html                      Section produit + emplacement Buy Button
-├── faq.html                           FAQ (recherche) + section Livraison & Retours
+├── faq.html                           FAQ (recherche) + section Livraison
 ├── mentions-legales.html              Mentions légales (modèle)
 ├── politique-confidentialite.html     Politique de confidentialité RGPD (modèle)
-├── conditions-generales-vente.html    CGV (modèle)
 ├── css/
 │   ├── style.css         Design system : couleurs, typographie, boutons, header, footer, accordéon
 │   ├── animations.css    Animations : reveal au scroll, flottement, bulles, ripples, marquee
@@ -57,9 +56,11 @@ La barre sticky qui apparaît au scroll ne fait plus d'ajout au panier : elle ra
 
 ## 4. Pages légales
 
-Les trois pages légales (`mentions-legales.html`, `politique-confidentialite.html`, `conditions-generales-vente.html`) sont des **modèles** rédigés pour une boutique headless adossée à Shopify : elles précisent explicitement que le paiement et les données bancaires sont intégralement gérés par Shopify, jamais par ce site.
+Les deux pages légales (`mentions-legales.html`, `politique-confidentialite.html`) sont des **modèles** rédigés pour une boutique headless adossée à Shopify : elles précisent explicitement que le paiement et les données bancaires sont intégralement gérés par Shopify, jamais par ce site.
 
 Tous les champs à personnaliser sont surlignés en bleu, au format `[à compléter]` (nom de société, SIRET, adresse, email de contact...). **Faites relire ces documents par un professionnel du droit avant mise en ligne** — ce ne sont pas des textes juridiquement définitifs.
+
+⚠️ Les conditions générales de vente (CGV) ne sont pas incluses sur ce site : elles sont gérées séparément. Pense à t'assurer qu'un lien vers tes CGV reste accessible avant paiement (obligation légale pour toute vente en ligne en France/UE), par exemple via une page légale Shopify ou un lien ajouté manuellement dans le footer.
 
 ## 5. Lancer le site en local
 
