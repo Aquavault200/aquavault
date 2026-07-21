@@ -29,9 +29,9 @@
     </nav>
     <div class="header-actions">
       <button class="icon-btn"><svg viewBox="0 0 24 24"><use href="#icon-search"></use></svg></button>
-      <button class="icon-btn" id="shopify-buy-button-cart" title="Panier Shopify — emplacement à intégrer">
+      <a class="icon-btn" id="shopify-buy-button-cart" href="https://aquavault-8696.myshopify.com/cart" title="Voir mon panier">
         <svg viewBox="0 0 24 24"><use href="#icon-bag"></use></svg>
-      </button>
+      </a>
       <button class="icon-btn mobile-toggle"><svg viewBox="0 0 24 24"><use href="#icon-menu"></use></svg></button>
     </div>
   </div>
@@ -174,13 +174,11 @@
             <span class="price-save">-23%</span>
           </div>
           <p class="product-price-note">TVA incluse · Expédié sous 24h</p>
-          <!-- Emplacement Shopify Buy Button — coller ici le script Shopify (voir README.md) -->
+          <!-- Achat : redirection vers la fiche produit Shopify (panier + paiement gérés par Shopify) -->
           <div class="cta-stack mt-32">
-            <div class="buy-button-slot" id="shopify-buy-button-home" data-shopify-buy-button>
-              <div class="buy-button-slot-icon"><svg viewBox="0 0 24 24"><use href="#icon-bag"></use></svg></div>
-              <p class="buy-button-slot-label">Emplacement du bouton Shopify Buy Button</p>
-              <p class="buy-button-slot-hint">Le panier et le paiement seront gérés par Shopify une fois le composant intégré ici.</p>
-            </div>
+            <a href="https://aquavault-8696.myshopify.com/products/aquavault-pro-sac-banane-etanche" class="btn btn-primary btn-lg btn-block" id="shopify-buy-button-home" data-shopify-buy-button>
+              <svg viewBox="0 0 24 24"><use href="#icon-bag"></use></svg> Acheter maintenant — 22,90 €
+            </a>
           </div>
           <a href="product.html" class="btn btn-outline mt-16">Voir la fiche produit complète <svg viewBox="0 0 24 24"><use href="#icon-arrow-right"></use></svg></a>
         </div>

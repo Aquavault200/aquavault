@@ -1,8 +1,10 @@
-# AQUAVAULT — Site headless prêt pour Shopify Buy Button
+# AQUAVAULT — Site headless connecté à Shopify
 
-Site vitrine statique (HTML/CSS/JS, sans framework, sans build) pour la boutique **AquaVault** (pochette étanche premium). Le design, le contenu et toutes les pages sont hébergés indépendamment de Shopify ; **Shopify sert uniquement de moteur e-commerce en arrière-plan** (catalogue produit, panier, paiement, commandes) via le composant **Shopify Buy Button**.
+Site vitrine statique (HTML/CSS/JS, sans framework, sans build) pour la boutique **AquaVault** (pochette étanche premium). Le design, le contenu et toutes les pages sont hébergés indépendamment de Shopify ; **Shopify sert uniquement de moteur e-commerce en arrière-plan** (catalogue produit, panier, paiement, commandes).
 
-⚠️ Ce site ne collecte, ne traite ni ne stocke aucune donnée bancaire. Aucun système de paiement n'est simulé : le panier et le paiement n'existeront qu'une fois le Buy Button Shopify intégré aux emplacements prévus à cet effet.
+⚠️ Ce site ne collecte, ne traite ni ne stocke aucune donnée bancaire. Les boutons d'achat renvoient directement vers la fiche produit Shopify (`https://aquavault-8696.myshopify.com/products/aquavault-pro-sac-banane-etanche`), où le panier et le paiement sont intégralement gérés par Shopify.
+
+ℹ️ Le canal historique "Shopify Buy Button" (JS Buy SDK) a été retiré par Shopify mi-2025. Ce site utilise donc une simple redirection vers la boutique Shopify plutôt qu'un composant embarqué — c'est l'approche la plus simple et la plus fiable pour une intégration sans code côté panier/paiement.
 
 ## 1. Architecture du projet
 
@@ -30,29 +32,22 @@ aquavault/
 
 Chaque page est autonome : elle peut être ouverte directement dans un navigateur ou servie par n'importe quel serveur statique (voir section 5).
 
-## 2. Emplacements prévus pour Shopify Buy Button
+## 2. Emplacements des liens d'achat Shopify
 
-Deux emplacements sont clairement identifiés dans le HTML, prêts à recevoir le script généré par **Shopify → Composants achetables (Buy Button Channel)** :
+Trois emplacements pointent vers la boutique Shopify :
 
-1. **Sur la fiche produit** (`product.html`) : un bloc à bordure pointillée avec l'id `shopify-buy-button-product` (attribut `data-shopify-buy-button`), juste sous le sélecteur de quantité. C'est ici qu'il faut coller le script d'intégration du bouton produit Shopify.
-   ```html
-   <div class="buy-button-slot" id="shopify-buy-button-product" data-shopify-buy-button>
-     <!-- Remplacer ce bloc par le script Shopify Buy Button -->
-   </div>
-   ```
-2. **Dans le header** (toutes les pages) : un bouton panier vide avec l'id `shopify-buy-button-cart`, prévu pour accueillir soit le composant "cart" du Buy Button SDK, soit un déclencheur `client.checkout` de votre choix.
+1. **Sur la fiche produit** (`product.html`, id `shopify-buy-button-product`) et **dans la scène de remontée de l'accueil** (`index.html`, id `shopify-buy-button-home`) : un bouton `<a>` qui renvoie directement vers `https://aquavault-8696.myshopify.com/products/aquavault-pro-sac-banane-etanche`. L'attribut `data-shopify-buy-button` est conservé car `js/product.js` s'en sert pour faire défiler la page jusqu'à ce bouton depuis la barre sticky.
+2. **Dans le header** (toutes les pages, id `shopify-buy-button-cart`) : un lien `<a>` vers `https://aquavault-8696.myshopify.com/cart`.
 
-Le **sélecteur de quantité** (`#buyButtonQuantity`, boutons `data-qty-minus` / `data-qty-plus`) est fonctionnel côté interface (incrémente/décrémente entre 1 et 10) mais n'est relié à aucun prix ni panier : une fois le Buy Button intégré, lisez sa valeur (`document.getElementById('buyButtonQuantity').value`) pour préremplir la quantité du composant Shopify, par exemple via l'option `variantId` / `quantity` du SDK `@shopify/buy-button-js` ou l'API Storefront.
+Le **sélecteur de quantité** (`#buyButtonQuantity`, boutons `data-qty-minus` / `data-qty-plus`) reste une simple interface côté site (incrémente/décrémente entre 1 et 10) : la quantité réelle se choisit ensuite sur la fiche produit Shopify après redirection.
 
-La barre sticky qui apparaît au scroll ne fait plus d'ajout au panier : elle ramène l'utilisateur vers l'emplacement du Buy Button (`data-scroll-to-buy-button`).
+La barre sticky qui apparaît au scroll ne fait pas d'ajout au panier : elle ramène l'utilisateur vers le bouton d'achat (`data-scroll-to-buy-button`), qui redirige lui-même vers Shopify.
 
-## 3. Marche à suivre pour intégrer le Buy Button (à faire côté Shopify)
+## 3. Pourquoi une redirection plutôt qu'un bouton intégré ?
 
-1. Dans l'admin Shopify : **Paramètres → Applications et canaux de vente → Composants achetables**, activer le canal pour le produit AquaVault Pro.
-2. Générer le script d'intégration (bouton produit).
-3. Remplacer le contenu du `<div id="shopify-buy-button-product">` dans `product.html` par le script généré (il contient son propre `<script>` chargeant `buy-button-storefront.min.js` et sa configuration `ShopifyBuy.buildClient(...)` / `ui.createComponent('product', ...)`).
-4. Adapter la configuration `moneyFormat`, les couleurs (`options.product.styles`) pour rester cohérent avec la charte (bleu océan `#0a5cc4`, noir `#060708`, coins arrondis).
-5. Répéter l'opération pour le panier (`shopify-buy-button-cart`) avec un composant `cart` ou `toggle`.
+Le canal "Composants achetables" / Buy Button de Shopify reposait sur le JS Buy SDK, que Shopify a retiré mi-2025 — il n'est plus proposé dans l'admin pour les nouvelles boutiques. La solution la plus simple et la plus robuste, sans code ni token d'API à gérer, est donc de renvoyer directement vers la fiche produit et le panier hébergés par Shopify, qui gèrent eux-mêmes tout le tunnel d'achat (variantes, paiement, confirmation de commande).
+
+Si l'URL du produit ou de la boutique change un jour (nouveau nom de domaine, produit renommé...), il suffit de mettre à jour les liens `href` aux emplacements listés ci-dessus.
 
 ## 4. Pages légales
 
@@ -84,6 +79,6 @@ puis ouvrez http://localhost:8080.
 
 Naviguez ensuite entre les pages via le menu (Accueil, Produit, FAQ) ou directement via `product.html`, `faq.html`, `mentions-legales.html`, etc.
 
-## 6. Prochaine étape possible
+## 6. Déploiement
 
-Une fois le Buy Button Shopify intégré et testé, ce même site pourra être déployé tel quel sur n'importe quel hébergeur statique (Vercel, Netlify, Cloudflare Pages...), indépendamment de Shopify — c'est tout l'intérêt de l'architecture headless.
+Le site est déployé sur Vercel (import direct du dépôt GitHub, preset "Other", sans commande de build) : chaque `git push` sur `main` redéploie automatiquement la version en ligne — c'est tout l'intérêt de l'architecture headless.
