@@ -55,7 +55,6 @@
     gsap.registerPlugin(ScrollTrigger);
 
     /* ---------- Références ---------- */
-    var pinInner = document.querySelector('.dive-pin-inner');
     var bgBright = document.querySelector('.dive-bg-bright');
     var bgDeep = document.querySelector('.dive-bg-deep');
     var vignette = document.querySelector('.dive-vignette');
@@ -86,7 +85,7 @@
     /* ---------- États initiaux ---------- */
     gsap.set(entrySplash, { opacity: 0, scale: 0.5 });
     gsap.set(pinProduct, { opacity: 0, scale: 0.9 });
-    gsap.set(lines, { opacity: 0, y: 22, filter: 'blur(8px)' });
+    gsap.set(lines, { opacity: 0, y: 22 });
     gsap.set(depthFill, { scaleY: 0 });
     gsap.set(depthCursor, { y: 0 });
     gsap.set(closure, { opacity: 0 });
@@ -110,15 +109,12 @@
       }
     });
 
-    /* Phase 1 — Entrée dans l'eau (0 → 1.2) : vague organique, brève distorsion
-       optique (flou) au passage de la surface, éclaboussure subtile */
+    /* Phase 1 — Entrée dans l'eau (0 → 1.2) : vague organique, éclaboussure subtile */
     tl.fromTo(entryWave, { yPercent: -100 }, { yPercent: 0, duration: 0.42, ease: 'sine.out' }, 0)
       .to(entryWave, { yPercent: 130, opacity: 0, duration: 0.55, ease: 'sine.inOut' }, 0.45)
       .to(entrySplash, { opacity: 0.5, scale: 0.9, duration: 0.35, ease: 'sine.out' }, 0.1)
       .to(entrySplash, { opacity: 0, scale: 1.15, duration: 0.4, ease: 'sine.in' }, 0.42)
       .to(bgBright, { opacity: 0, duration: 0.9, ease: 'sine.inOut' }, 0)
-      .fromTo(pinInner, { filter: 'blur(0px)' }, { filter: 'blur(3px)', duration: 0.14, ease: 'sine.in' }, 0.05)
-      .to(pinInner, { filter: 'blur(0px)', duration: 0.35, ease: 'sine.out' }, 0.19)
       .to(pinProduct, { opacity: 1, scale: 1, duration: 0.65, ease: 'sine.out' }, 0.4);
 
     /* Phase 2 — Immersion progressive (1.2 → 6.5)
@@ -148,12 +144,12 @@
     });
 
     /* Trois messages qui se succèdent — montée, fondu, flou qui se dissipe */
-    tl.to(lines[0], { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.55, ease: 'sine.out' }, 1.6)
-      .to(lines[0], { opacity: 0, y: -20, filter: 'blur(8px)', duration: 0.45, ease: 'sine.in' }, 2.9)
-      .to(lines[1], { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.55, ease: 'sine.out' }, 3.3)
-      .to(lines[1], { opacity: 0, y: -20, filter: 'blur(8px)', duration: 0.45, ease: 'sine.in' }, 4.6)
-      .to(lines[2], { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.55, ease: 'sine.out' }, 5.0)
-      .to(lines[2], { opacity: 0, y: -20, filter: 'blur(8px)', duration: 0.45, ease: 'sine.in' }, 6.2)
+    tl.to(lines[0], { opacity: 1, y: 0, duration: 0.55, ease: 'sine.out' }, 1.6)
+      .to(lines[0], { opacity: 0, y: -20, duration: 0.45, ease: 'sine.in' }, 2.9)
+      .to(lines[1], { opacity: 1, y: 0, duration: 0.55, ease: 'sine.out' }, 3.3)
+      .to(lines[1], { opacity: 0, y: -20, duration: 0.45, ease: 'sine.in' }, 4.6)
+      .to(lines[2], { opacity: 1, y: 0, duration: 0.55, ease: 'sine.out' }, 5.0)
+      .to(lines[2], { opacity: 0, y: -20, duration: 0.45, ease: 'sine.in' }, 6.2)
       .to(textStack, { opacity: 0, duration: 0.25 }, immersionEnd)
       .to(depthMeter, { opacity: 0, duration: 0.25 }, immersionEnd);
 

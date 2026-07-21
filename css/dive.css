@@ -188,7 +188,6 @@
   position: absolute; top: 0; left: 0;
   font-size: clamp(24px, 2.8vw, 38px); font-weight: 700; letter-spacing: -0.02em;
   color: var(--white); line-height: 1.2;
-  filter: blur(8px);
 }
 
 .dive-closure {
@@ -300,7 +299,7 @@ body.dive-static .dive-text-stack {
   position: static; width: 100%; max-width: 480px; margin: 0 auto 48px;
   display: flex; flex-direction: column; gap: 18px;
 }
-body.dive-static .dive-line { position: static; opacity: 1 !important; filter: blur(0) !important; }
+body.dive-static .dive-line { position: static; opacity: 1 !important; }
 body.dive-static .dive-depth-meter { display: none; }
 body.dive-static .dive-closure { position: static; opacity: 1 !important; padding: 0; }
 body.dive-static .dive-closure-visual { width: 100%; max-width: 320px; margin: 0 auto; }
