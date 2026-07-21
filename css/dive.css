@@ -1,0 +1,318 @@
+/* ==========================================================================
+   AQUAVAULT — Expérience d'immersion (page d'accueil)
+   Scroll cinématique : surface → entrée dans l'eau → immersion → fermeture → usages → remontée
+   ========================================================================== */
+
+.dive { position: relative; background: var(--black); }
+
+/* ---------- Scène 1 : Surface ---------- */
+.dive-surface {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  text-align: center;
+  overflow: hidden;
+  padding: 140px 32px 80px;
+  background: linear-gradient(180deg, #eaf8ff 0%, #bfe9ff 35%, #5fc4ef 75%, #1f9fd9 100%);
+  color: var(--black);
+}
+.dive-surface-shimmer {
+  position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background: radial-gradient(60% 40% at 30% 15%, rgba(255,255,255,0.85), transparent 60%),
+              radial-gradient(40% 30% at 75% 8%, rgba(255,255,255,0.6), transparent 65%);
+  animation: shimmerDrift 10s ease-in-out infinite;
+}
+@keyframes shimmerDrift {
+  0%, 100% { opacity: .7; transform: translateX(0); }
+  50% { opacity: 1; transform: translateX(3%); }
+}
+.dive-surface-content { position: relative; z-index: 2; max-width: 720px; }
+.dive-surface-content .badge { margin-bottom: 22px; }
+.dive-surface-content h1 { margin-bottom: 32px; color: var(--ocean-deep); }
+.dive-surface-content h1 span { color: var(--ocean); }
+.dive-product-surface {
+  position: relative; z-index: 2;
+  width: min(60vw, 520px);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: 0 40px 90px rgba(3, 20, 40, 0.28), 0 0 0 1px rgba(255,255,255,0.4);
+  transition: transform .5s var(--ease);
+}
+.dive-product-surface img { width: 100%; display: block; }
+.dive-surface .scroll-hint { color: rgba(3, 32, 61, 0.55); }
+.dive-surface .scroll-hint .line { background: linear-gradient(180deg, rgba(3,32,61,0.6), transparent); }
+
+/* ---------- Scènes 2+3 : pin GSAP (entrée + immersion + fermeture) ---------- */
+.dive-pin {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+  background: linear-gradient(180deg, #1f9fd9 0%, #0a5cc4 100%);
+}
+.dive-pin-inner { position: relative; width: 100%; height: 100%; }
+
+.dive-bg-bright {
+  position: absolute; inset: 0; z-index: 0;
+  background: linear-gradient(180deg, #bfe9ff 0%, #5fc4ef 100%);
+}
+.dive-bg-deep { position: absolute; inset: 0; background: var(--gradient-deep); opacity: 0; z-index: 0; }
+
+/* Voile de pression : vignette sombre et légèrement bleutée (lumière plus froide) qui se referme avec la profondeur */
+.dive-vignette {
+  position: absolute; inset: 0; z-index: 2; pointer-events: none;
+  background: radial-gradient(120% 90% at 50% 45%, transparent 45%, rgba(4, 18, 46, 0.6) 100%);
+  opacity: 0;
+}
+
+/* Entrée dans l'eau : ligne de surface + splash, joués une fois au tout début du pin */
+.dive-entry { position: absolute; inset: 0; z-index: 3; pointer-events: none; overflow: hidden; }
+.dive-entry-wave {
+  position: absolute; top: 0; left: 0; width: 100%; height: 90px;
+  fill: rgba(255, 255, 255, 0.55);
+  transform: translateY(-100%);
+}
+.dive-entry-splash {
+  position: absolute; top: 0; left: 50%; width: 240px; height: 240px;
+  transform: translate(-50%, -50%) scale(0.4);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,255,255,0.7) 0%, rgba(255,255,255,0) 70%);
+  opacity: 0;
+}
+
+.dive-rays { position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: 1; }
+.dive-rays::before, .dive-rays::after {
+  content: ''; position: absolute; top: -20%; width: 140px; height: 160%;
+  background: linear-gradient(180deg, rgba(255,255,255,0.30), transparent 70%);
+  transform: rotate(12deg);
+  filter: blur(6px);
+  animation: rayDrift 14s ease-in-out infinite;
+}
+.dive-rays::before { left: 12%; animation-delay: 0s; }
+.dive-rays::after { left: 58%; width: 90px; animation-delay: 4.5s; opacity: .6; }
+@keyframes rayDrift {
+  0%, 100% { opacity: .4; transform: rotate(12deg) translateX(0); }
+  50% { opacity: .8; transform: rotate(8deg) translateX(26px); }
+}
+
+/* Particules à deux vitesses : lointaines (nombreuses, nettes) et proches (rares, floues) */
+.dive-particles { position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: 1; }
+.dive-particles-near { z-index: 3; }
+.dive-particles-near .bubble { filter: blur(2.5px); opacity: .5; }
+
+.dive-depth-meter {
+  position: absolute; right: 36px; top: 50%; transform: translateY(-50%);
+  display: flex; flex-direction: column; gap: 36px; z-index: 5; align-items: flex-end;
+}
+.dive-depth-line {
+  position: absolute; right: 5px; top: -8px; bottom: -8px; width: 1px;
+  background: rgba(255,255,255,0.14);
+}
+.dive-depth-line-fill {
+  position: absolute; left: 0; top: 0; width: 100%; height: 100%;
+  background: linear-gradient(180deg, var(--cyan), rgba(0,212,255,0.2));
+  transform-origin: top;
+  transform: scaleY(0);
+}
+.dive-depth-cursor {
+  position: absolute; right: -3px; top: 0;
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--cyan);
+  box-shadow: 0 0 10px 2px rgba(0,212,255,0.7);
+  transform: translateY(0);
+}
+.dive-depth-mark {
+  display: flex; align-items: center; gap: 10px;
+  font-family: var(--font-mono); font-size: 13px; color: rgba(255,255,255,0.35);
+}
+.dive-depth-tick { width: 14px; height: 1px; background: rgba(255,255,255,0.35); }
+
+.dive-pin-product {
+  position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+  width: min(42vw, 460px);
+  z-index: 4;
+}
+.dive-pin-product-glow {
+  position: absolute; inset: -14%; z-index: 0;
+  background: radial-gradient(circle, rgba(0, 212, 255, 0.35), transparent 68%);
+  filter: blur(18px);
+}
+.dive-pin-product-float {
+  position: relative; z-index: 1;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: 0 50px 110px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.1);
+  animation: divePinFloat 11s ease-in-out infinite;
+  transform-style: preserve-3d;
+}
+.dive-pin-product-float img { width: 100%; display: block; }
+/* Flottabilité naturelle : dérive X/Y + rotation combinées dans un seul keyframe
+   (deux animations CSS sur la même propriété "transform" s'écraseraient l'une l'autre) */
+@keyframes divePinFloat {
+  0%   { transform: translate(0px, 0px) rotate(-1.1deg); }
+  22%  { transform: translate(5px, -9px) rotate(0.5deg); }
+  48%  { transform: translate(-4px, -15px) rotate(1.3deg); }
+  74%  { transform: translate(4px, -5px) rotate(-0.4deg); }
+  100% { transform: translate(0px, 0px) rotate(-1.1deg); }
+}
+/* Léger reflet lumineux mouvant sur le produit — jamais sur l'image elle-même, uniquement en surcouche */
+.dive-pin-product-float::after {
+  content: '';
+  position: absolute; inset: 0; z-index: 2; pointer-events: none;
+  background: linear-gradient(115deg, transparent 32%, rgba(255,255,255,0.16) 48%, transparent 64%);
+  background-size: 240% 240%;
+  animation: diveSheen 12s ease-in-out infinite;
+}
+@keyframes diveSheen {
+  0%, 100% { background-position: 115% 115%; }
+  50% { background-position: -15% -15%; }
+}
+
+.dive-text-stack {
+  position: absolute; left: 8%; top: 50%; transform: translateY(-50%);
+  z-index: 5; width: min(38vw, 440px);
+}
+.dive-line {
+  position: absolute; top: 0; left: 0;
+  font-size: clamp(24px, 2.8vw, 38px); font-weight: 700; letter-spacing: -0.02em;
+  color: var(--white); line-height: 1.2;
+  filter: blur(8px);
+}
+
+.dive-closure {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 40px;
+  z-index: 5; text-align: center; padding: 0 24px;
+}
+.dive-closure-visual {
+  width: min(30vw, 320px);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: 0 40px 90px rgba(0,0,0,0.45), 0 0 0 1px rgba(255,255,255,0.12);
+}
+.dive-closure-visual img { width: 100%; display: block; }
+.dive-closure-steps { display: flex; gap: 32px; }
+.dive-closure-step { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+.dive-closure-step span:last-child { font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.7); letter-spacing: 0.02em; text-transform: uppercase; }
+.dive-closure-num {
+  position: relative;
+  width: 56px; height: 56px; border-radius: 50%;
+  border: 2px solid rgba(255,255,255,0.28);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-mono); font-size: 19px; color: var(--white);
+  overflow: hidden;
+}
+.dive-closure-sweep {
+  position: absolute; top: 0; left: -120%; width: 60%; height: 100%;
+  background: linear-gradient(100deg, transparent, rgba(255,255,255,0.75), transparent);
+  transform: skewX(-18deg);
+}
+.dive-closure h2 { color: var(--white); max-width: 620px; }
+
+/* ---------- Scène 4 : usages ---------- */
+.dive-usages { position: relative; background: var(--gradient-deep); color: var(--white); padding: 130px 0; }
+/* Transition douce vers le clair de la scène de remontée, plutôt qu'une coupure nette */
+.dive-usages::after {
+  content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 160px;
+  background: linear-gradient(180deg, transparent, #eaf6ff);
+  pointer-events: none;
+}
+.dive-usages .section-head { max-width: 640px; margin: 0 auto 56px; text-align: center; }
+.dive-usages .lede { color: rgba(255,255,255,0.65); margin: 0 auto; }
+.dive-usage-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+.dive-usage-card {
+  position: relative; border-radius: var(--radius-md); overflow: hidden; aspect-ratio: 3 / 4;
+  transition: transform .5s var(--ease), box-shadow .5s var(--ease);
+}
+.dive-usage-card:hover { transform: translateY(-8px); box-shadow: 0 24px 50px rgba(0,0,0,0.35); }
+.dive-usage-card img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 1.4s var(--ease); }
+.dive-usage-card:hover img { transform: scale(1.06); }
+.dive-usage-card::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(180deg, transparent 45%, rgba(3,20,40,0.75) 100%);
+}
+.dive-usage-label {
+  position: absolute; left: 18px; bottom: 16px; z-index: 2;
+  font-weight: 700; font-size: 15px; color: var(--white);
+}
+
+/* ---------- Scène 5 : retour à la surface ---------- */
+.dive-resurface { position: relative; overflow: hidden; background: var(--gradient-ocean-soft); padding: 140px 0; }
+.dive-resurface-rays { position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: 0; opacity: 0; }
+.dive-resurface-rays::before, .dive-resurface-rays::after {
+  content: ''; position: absolute; top: -20%; width: 160px; height: 160%;
+  background: linear-gradient(180deg, rgba(255,255,255,0.6), transparent 70%);
+  transform: rotate(10deg);
+  filter: blur(10px);
+}
+.dive-resurface-rays::before { left: 8%; }
+.dive-resurface-rays::after { left: 68%; width: 110px; }
+.dive-resurface-grid { position: relative; z-index: 1; display: grid; grid-template-columns: 1fr 1.1fr; gap: 64px; align-items: center; }
+.dive-resurface-visual .photo-frame { aspect-ratio: 4 / 3; position: relative; }
+.dive-droplet {
+  position: absolute; z-index: 2; pointer-events: none;
+  width: 6px; height: 14px; border-radius: 50% 50% 50% 0;
+  background: linear-gradient(180deg, rgba(255,255,255,0.85), rgba(255,255,255,0.15));
+  transform: rotate(45deg);
+  opacity: 0;
+}
+.dive-droplet.dd1 { top: 14%; left: 30%; }
+.dive-droplet.dd2 { top: 10%; left: 55%; width: 5px; height: 11px; }
+.dive-droplet.dd3 { top: 20%; left: 72%; width: 4px; height: 9px; }
+
+/* ---------- Micro-interactions ---------- */
+.dive .btn { will-change: transform; }
+.dive-magnetic { transition: transform .25s var(--ease); }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 980px) {
+  .dive-usage-grid { grid-template-columns: repeat(2, 1fr); }
+  .dive-resurface-grid { grid-template-columns: 1fr; gap: 40px; text-align: center; }
+  .dive-resurface-visual { order: -1; }
+}
+
+/* Repli statique (mobile ET prefers-reduced-motion, quelle que soit la largeur) :
+   pas de pin GSAP, tout le contenu s'empile normalement et reste visible sans animation de scroll. */
+body.dive-static .dive-pin { height: auto; padding: 100px 24px; }
+body.dive-static .dive-pin-inner { position: static; }
+body.dive-static .dive-bg-bright { display: none; }
+body.dive-static .dive-bg-deep { opacity: .55; }
+body.dive-static .dive-vignette { display: none; }
+body.dive-static .dive-entry { display: none; }
+body.dive-static .dive-particles-near { display: none; }
+body.dive-static .dive-pin-product {
+  position: relative; left: auto; top: auto; transform: none;
+  width: 100%; max-width: 380px; margin: 0 auto 48px;
+}
+body.dive-static .dive-text-stack {
+  position: static; width: 100%; max-width: 480px; margin: 0 auto 48px;
+  display: flex; flex-direction: column; gap: 18px;
+}
+body.dive-static .dive-line { position: static; opacity: 1 !important; filter: blur(0) !important; }
+body.dive-static .dive-depth-meter { display: none; }
+body.dive-static .dive-closure { position: static; opacity: 1 !important; padding: 0; }
+body.dive-static .dive-closure-visual { width: 100%; max-width: 320px; margin: 0 auto; }
+body.dive-static .dive-closure-step { opacity: 1 !important; }
+body.dive-static .dive-closure-num { border-color: var(--cyan); background: rgba(0,212,255,0.15); }
+body.dive-static .dive-resurface-rays { display: none; }
+body.dive-static .dive-droplet { display: none; }
+body.dive-static #diveResurfacePrice { opacity: 1 !important; transform: none !important; }
+body.dive-static .dive-resurface-visual, body.dive-static #diveResurfaceInfo { opacity: 1 !important; transform: none !important; }
+
+@media (max-width: 760px) {
+  .dive-pin-product { width: min(64vw, 340px); }
+  .dive-text-stack { left: 6%; width: 88%; top: 22%; transform: none; }
+  .dive-depth-meter { right: 18px; gap: 26px; }
+  .dive-closure-steps { gap: 18px; }
+  .dive-closure-num { width: 46px; height: 46px; font-size: 16px; }
+  .dive-closure-visual { width: 70vw; max-width: 280px; }
+
+  body.dive-static .dive-pin-product { max-width: 340px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dive-surface-shimmer, .dive-rays::before, .dive-rays::after, .dive-pin-product-float, .dive-pin-product-float::after { animation: none; }
+}

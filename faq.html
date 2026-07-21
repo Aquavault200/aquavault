@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FAQ — Questions fréquentes | AQUAVAULT</title>
+<meta name="description" content="Toutes les réponses sur l'étanchéité, la livraison, les retours et le paiement AquaVault Pro.">
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/animations.css">
+<link rel="stylesheet" href="css/home.css">
+<style>
+  .faq-hero { padding: 150px 0 60px; background: var(--gradient-deep); color: var(--white); text-align: center; }
+  .faq-search { max-width: 560px; margin: 36px auto 0; position: relative; }
+  .faq-search input {
+    width: 100%; padding: 18px 24px 18px 52px; border-radius: var(--radius-full);
+    border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.08); color: var(--white); font-size: 15px;
+    backdrop-filter: blur(10px);
+  }
+  .faq-search input::placeholder { color: rgba(255,255,255,0.5); }
+  .faq-search svg { position: absolute; left: 20px; top: 50%; transform: translateY(-50%); width: 18px; height: 18px; color: rgba(255,255,255,0.6); }
+  .faq-categories { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 32px; }
+  .faq-cat-chip { padding: 10px 18px; border-radius: var(--radius-full); background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.18); font-size: 13px; font-weight: 600; color: var(--white); transition: background .3s var(--ease); }
+  .faq-cat-chip:hover { background: rgba(255,255,255,0.16); }
+  .faq-category { margin-bottom: 64px; }
+  .faq-category-head { display: flex; align-items: center; gap: 14px; margin-bottom: 12px; }
+  .faq-category-head .why-icon { margin-bottom: 0; width: 44px; height: 44px; }
+  .faq-no-results { text-align: center; padding: 60px 0; color: var(--gray-400); display: none; }
+  .faq-no-results.is-visible { display: block; }
+  .faq-contact-cta { background: var(--gray-50); border-radius: var(--radius-lg); padding: 56px; text-align: center; }
+</style>
+</head>
+<body class="page-fade">
+
+<!-- ===================== HEADER ===================== -->
+<header class="header is-solid" data-header-static>
+  <div class="wrap">
+    <a href="index.html" class="logo">
+      <svg viewBox="0 0 24 24"><use href="#icon-droplet"></use></svg>
+      AQUAVAULT
+    </a>
+    <nav class="nav-links">
+      <a href="index.html">Accueil</a>
+      <a href="product.html">Produit</a>
+      <a href="index.html#dive-pin">Étanchéité</a>
+      <a href="index.html#avis">Avis</a>
+      <a href="faq.html">FAQ</a>
+    </nav>
+    <div class="header-actions">
+      <button class="icon-btn"><svg viewBox="0 0 24 24"><use href="#icon-search"></use></svg></button>
+      <button class="icon-btn" id="shopify-buy-button-cart" title="Panier Shopify — emplacement à intégrer">
+        <svg viewBox="0 0 24 24"><use href="#icon-bag"></use></svg>
+      </button>
+      <button class="icon-btn mobile-toggle"><svg viewBox="0 0 24 24"><use href="#icon-menu"></use></svg></button>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-nav">
+  <button class="icon-btn mobile-nav-close"><svg viewBox="0 0 24 24"><use href="#icon-x"></use></svg></button>
+  <a href="index.html">Accueil</a>
+  <a href="product.html">Produit</a>
+  <a href="index.html#dive-pin">Étanchéité</a>
+  <a href="index.html#avis">Avis</a>
+  <a href="faq.html">FAQ</a>
+</div>
+
+<!-- ===================== FAQ HERO ===================== -->
+<section class="faq-hero">
+  <div class="wrap">
+    <span class="eyebrow" style="justify-content:center;">Centre d'aide</span>
+    <h1 class="display-1" style="font-size:clamp(36px,5vw,56px);">Comment pouvons-nous vous aider ?</h1>
+    <p class="lede center" style="color:rgba(255,255,255,0.7);">Livraison, étanchéité, retours, paiement — toutes les réponses en un seul endroit.</p>
+    <div class="faq-search">
+      <svg viewBox="0 0 24 24"><use href="#icon-search"></use></svg>
+      <input type="text" id="faqSearch" placeholder="Rechercher une question (ex. profondeur, livraison, garantie…)">
+    </div>
+    <div class="faq-categories">
+      <a href="#livraison-retours" class="faq-cat-chip">Livraison & Retours</a>
+      <a href="#commande" class="faq-cat-chip">Commande & Livraison</a>
+      <a href="#produit" class="faq-cat-chip">Produit & Étanchéité</a>
+      <a href="#retours" class="faq-cat-chip">Retours & Garantie</a>
+      <a href="#paiement" class="faq-cat-chip">Paiement & Sécurité</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== LIVRAISON & RETOURS ===================== -->
+<section class="section section--tight" id="livraison-retours">
+  <div class="wrap">
+    <div class="section-head" data-reveal>
+      <span class="eyebrow">Ce qu'il faut savoir</span>
+      <h2 class="display-2">Livraison & Retours</h2>
+      <p class="lede center">L'essentiel en un coup d'œil — le détail complet reste disponible dans la FAQ ci-dessous.</p>
+    </div>
+    <div class="grid grid-4" data-reveal-group>
+      <div class="card why-card">
+        <div class="why-icon"><svg viewBox="0 0 24 24"><use href="#icon-truck"></use></svg></div>
+        <h3>Délais de livraison</h3>
+        <p>Expédition sous 24h, livraison en 24-48h en France métropolitaine et 5 à 8 jours dans l'UE.</p>
+      </div>
+      <div class="card why-card">
+        <div class="why-icon"><svg viewBox="0 0 24 24"><use href="#icon-map-pin"></use></svg></div>
+        <h3>Zones desservies</h3>
+        <p>France métropolitaine, Union européenne, Suisse et Royaume-Uni.</p>
+      </div>
+      <div class="card why-card">
+        <div class="why-icon"><svg viewBox="0 0 24 24"><use href="#icon-refresh"></use></svg></div>
+        <h3>Retours gratuits</h3>
+        <p>30 jours pour changer d'avis, retour gratuit et remboursement intégral, sans justification.</p>
+      </div>
+      <div class="card why-card">
+        <div class="why-icon"><svg viewBox="0 0 24 24"><use href="#icon-award"></use></svg></div>
+        <h3>Garantie à vie</h3>
+        <p>Tout défaut d'étanchéité ou de fabrication est couvert à vie, remplacement sans complication.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FAQ CONTENT ===================== -->
+<section class="section">
+  <div class="wrap container-narrow">
+
+    <div class="faq-category" id="commande" data-faq-category>
+      <div class="faq-category-head">
+        <div class="why-icon"><svg viewBox="0 0 24 24"><use href="#icon-truck"></use></svg></div>
+        <h2 class="display-3">Commande & Livraison</h2>
+      </div>
+      <div data-accordion-group>
+        <div class="accordion-item" data-faq-item>
+          <button class="accordion-trigger" data-faq-question>Quels sont les délais de livraison ? <span class="plus"></span></button>
+          <div class="accordion-panel"><div class="accordion-panel-inner">Toute commande passée avant 15h est expédiée le jour même. Comptez ensuite 24 à 48h pour une livraison en France métropolitaine, et 5 à 8 jours pour le reste de l'Europe.</div></div>
+        </div>
+        <div class="accordion-item" data-faq-item>
+          <button class="accordion-trigger" data-faq-question>Livrez-vous en dehors de la France ? <span class="plus"></span></button>
+          <div class="accordion-panel"><div class="accordion-panel-inner">Oui, nous livrons dans toute l'Union européenne, en Suisse et au Royaume-Uni. Les frais et délais sont calculés automatiquement au moment du paiement.</div></div>
+        </div>
+        <div class="accordion-item" data-faq-item>
+          <button class="accordion-trigger" data-faq-question>Comment suivre ma commande ? <span class="plus"></span></button>
+          <div class="accordion-panel"><div class="accordion-panel-inner">Dès l'expédition, vous recevez un email avec un numéro de suivi valable auprès de notre transporteur, vous permettant de suivre votre colis en temps réel.</div></div>
+        </div>
+        <div class="accordion-item" data-faq-item>
+          <button class="accordion-trigger" data-faq-question>Puis-je modifier ou annuler ma commande ? <span class="plus"></span></button>
+          <div class="accordion-panel"><div class="accordion-panel-inner">Contactez-nous dans les 2 heures suivant votre achat : nous pouvons encore modifier l'adresse, la couleur ou annuler la commande avant son expédition.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-category" id="produit" data-faq-category>
+      <div class="faq-category-head">
+        <div class="why-icon"><svg viewBox="0 0 24 24"><use href="#icon-droplet"></use></svg></div>
+        <h2 class="display-3">Produit & Étanchéité</h2>
+      </div>
+      <div data-accordion-group>
+        <div class="accordion-item" data-faq-item>
+          <button class="accordion-trigger" data-faq-question>Jusqu'à quelle profondeur AquaVault Pro est-elle étanche ? <span class="plus"></span></button>
+          <div class="accordion-panel"><div class="accordion-panel-inner">Elle est certifiée IP68 et testée jusqu'à 30 mètres de profondeur. Chaque unité est immergée et contrôlée individuellement avant expédition.</div></div>
+        </div>
+        <div class="accordion-item" data-faq-item>
+          <button class="accordion-trigger" data-faq-question>Puis-je utiliser l'écran tactile à travers le sac ? <span class="plus"></span></button>
+          <div class="accordion-panel"><div class="accordion-panel-inner">Oui, le PVC premium est assez transparent et sensible pour permettre photos, vidéos et navigation sans jamais sortir votre téléphone du sac.</div></div>
+        </div>
+        <div class="accordion-item" data-faq-item>
+          <button class="accordion-trigger" data-faq-question>Quelle taille de téléphone est compatible ? <span class="plus"></span></button>
+          <div class="accordion-panel"><div class="accordion-panel-inner">AquaVault Pro accueille tous les smartphones jusqu'à 7 pouces, ainsi que cartes, clés et passeport (dimensions intérieures : 21,5 x 13 x 2,5 cm).</div></div>
+        </div>
+        <div class="accordion-item" data-faq-item>
+          <button class="accordion-trigger" data-faq-question>Comment la sangle s'ajuste-t-elle ? <span class="plus"></span></button>
+          <div class="accordion-panel"><div class="accordion-panel-inner">La sangle est réglable jusqu'à 120 cm et se porte à la ceinture ou en bandoulière. La boucle clipsable permet un ajustement rapide, sans outil.</div></div>
+        </div>
+        <div class="accordion-item" data-faq-item>
+          <button class="accordion-trigger" data-faq-question>Comment tester l'étanchéité moi-même avant utilisation ? <span class="plus"></span></button>
+          <div class="accordion-panel"><div class="accordion-panel-inner">Avant d'y placer vos affaires, fermez le sac (clipser, rouler, verrouiller) avec un mouchoir à l'intérieur et immergez-le 1 minute : le mouchoir doit rester parfaitement sec.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-category" id="retours" data-faq-category>
+      <div class="faq-category-head">
+        <div class="why-icon"><svg viewBox="0 0 24 24"><use href="#icon-refresh"></use></svg></div>
+        <h2 class="display-3">Retours & Garantie</h2>
+      </div>
+      <div data-accordion-group>
+        <div class="accordion-item" data-faq-item>
+          <button class="accordion-trigger" data-faq-question>Quelle est votre politique de retour ? <span class="plus"></span></button>
+          <div class="accordion-panel"><div class="accordion-panel-inner">Vous disposez de 30 jours après réception pour changer d'avis. Le retour est gratuit et le remboursement intégral, sans justification nécessaire.</div></div>
+        </div>
+        <div class="accordion-item" data-faq-item>
+          <button class="accordion-trigger" data-faq-question>Comment fonctionne la garantie à vie ? <span class="plus"></span></button>
+          <div class="accordion-panel"><div class="accordion-panel-inner">Tout défaut d'étanchéité ou de fabrication est couvert à vie. Nous remplaçons votre sac gratuitement, sans complication administrative.</div></div>
+        </div>
+        <div class="accordion-item" data-faq-item>
+          <button class="accordion-trigger" data-faq-question>Que faire si mon sac n'est pas étanche ? <span class="plus"></span></button>
+          <div class="accordion-panel"><div class="accordion-panel-inner">Contactez notre service client avec une photo du produit : nous vous envoyons un remplacement sous 24h, à nos frais.</div></div>
+        </div>
+        <div class="accordion-item" data-faq-item>
+          <button class="accordion-trigger" data-faq-question>Puis-je échanger mon produit après réception ? <span class="plus"></span></button>
+          <div class="accordion-panel"><div class="accordion-panel-inner">Oui, l'échange est gratuit dans les 30 jours suivant réception, tant que le produit n'a pas été utilisé en immersion.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-category" id="paiement" data-faq-category>
+      <div class="faq-category-head">
+        <div class="why-icon"><svg viewBox="0 0 24 24"><use href="#icon-lock"></use></svg></div>
+        <h2 class="display-3">Paiement & Sécurité</h2>
+      </div>
+      <div data-accordion-group>
+        <div class="accordion-item" data-faq-item>
+          <button class="accordion-trigger" data-faq-question>Quels moyens de paiement acceptez-vous ? <span class="plus"></span></button>
+          <div class="accordion-panel"><div class="accordion-panel-inner">Visa, Mastercard, PayPal et Apple Pay sont proposés sur la page de paiement sécurisée Shopify, affichée au moment de valider votre commande.</div></div>
+        </div>
+        <div class="accordion-item" data-faq-item>
+          <button class="accordion-trigger" data-faq-question>Mes données bancaires sont-elles sécurisées ? <span class="plus"></span></button>
+          <div class="accordion-panel"><div class="accordion-panel-inner">Oui : notre site ne collecte ni ne stocke jamais aucune donnée bancaire. Le paiement est saisi et traité intégralement par Shopify, certifié PCI-DSS.</div></div>
+        </div>
+        <div class="accordion-item" data-faq-item>
+          <button class="accordion-trigger" data-faq-question>Proposez-vous le paiement en plusieurs fois ? <span class="plus"></span></button>
+          <div class="accordion-panel"><div class="accordion-panel-inner">Selon les options activées sur la page de paiement Shopify au moment de la commande.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-no-results" id="faqNoResults">
+      <p>Aucune question ne correspond à votre recherche.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===================== CONTACT CTA ===================== -->
+<section class="section section--tight">
+  <div class="wrap">
+    <div class="faq-contact-cta" data-reveal="scale">
+      <span class="eyebrow" style="justify-content:center;">Toujours une question ?</span>
+      <h2 class="display-3">Notre équipe répond en moins de 4h</h2>
+      <p class="lede center mt-16" style="margin-bottom:32px;">7 jours sur 7, toute l'année.</p>
+      <a href="mailto:contact@aquavault.fr" class="btn btn-primary btn-lg"><svg viewBox="0 0 24 24"><use href="#icon-mail"></use></svg> Contacter le support</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FOOTER ===================== -->
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="index.html" class="logo"><svg viewBox="0 0 24 24"><use href="#icon-droplet"></use></svg> AQUAVAULT</a>
+        <p>Des accessoires étanches premium pensés pour vivre vos vacances sans jamais craindre pour vos objets de valeur.</p>
+        <div class="footer-socials">
+          <a href="#"><svg viewBox="0 0 24 24"><use href="#icon-instagram"></use></svg></a>
+          <a href="#"><svg viewBox="0 0 24 24"><use href="#icon-facebook"></use></svg></a>
+          <a href="#"><svg viewBox="0 0 24 24"><use href="#icon-tiktok"></use></svg></a>
+        </div>
+      </div>
+      <div>
+        <h4>Boutique</h4>
+        <ul>
+          <li><a href="product.html">AquaVault Pro</a></li>
+          <li><a href="product.html#avis-produit">Avis clients</a></li>
+          <li><a href="index.html#dive-pin">Test d'étanchéité</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Aide</h4>
+        <ul>
+          <li><a href="faq.html">FAQ</a></li>
+          <li><a href="faq.html#livraison-retours">Livraison & retours</a></li>
+          <li><a href="faq.html#commande">Suivre ma commande</a></li>
+          <li><a href="mailto:contact@aquavault.fr">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Restez informé</h4>
+        <p style="font-size:14px;margin-bottom:16px;">Offres exclusives et conseils vacances, une fois par mois.</p>
+        <form class="newsletter-form" data-newsletter-form>
+          <input type="email" placeholder="Votre email" required>
+          <button type="submit"><svg viewBox="0 0 24 24"><use href="#icon-arrow-right"></use></svg></button>
+        </form>
+      </div>
+    </div>
+    <div class="footer-legal-links">
+      <a href="mentions-legales.html">Mentions légales</a>
+      <a href="politique-confidentialite.html">Politique de confidentialité</a>
+      <a href="conditions-generales-vente.html">Conditions générales de vente</a>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 AquaVault. Le paiement et le traitement des commandes sont assurés par Shopify.</span>
+      <div class="payment-icons">
+        <span>VISA</span><span>MASTERCARD</span><span>PAYPAL</span><span>APPLE PAY</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="js/icons.js"></script>
+<script src="js/main.js"></script>
+<script>
+  (function () {
+    var input = document.getElementById('faqSearch');
+    var noResults = document.getElementById('faqNoResults');
+    if (!input) return;
+    input.addEventListener('input', function () {
+      var q = input.value.trim().toLowerCase();
+      var visibleCount = 0;
+      document.querySelectorAll('[data-faq-category]').forEach(function (cat) {
+        var catVisible = 0;
+        cat.querySelectorAll('[data-faq-item]').forEach(function (item) {
+          var text = item.querySelector('[data-faq-question]').textContent.toLowerCase();
+          var match = q === '' || text.indexOf(q) !== -1;
+          item.style.display = match ? '' : 'none';
+          if (match) catVisible++;
+        });
+        cat.style.display = catVisible > 0 ? '' : 'none';
+        visibleCount += catVisible;
+      });
+      noResults.classList.toggle('is-visible', visibleCount === 0);
+    });
+  })();
+</script>
+</body>
+</html>
