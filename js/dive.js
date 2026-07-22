@@ -47,12 +47,15 @@
       });
     }
 
-    if (prefersReduced || isMobile || !hasGsap) {
+    if (prefersReduced || !hasGsap) {
       document.body.classList.add('dive-static');
       return;
     }
 
     gsap.registerPlugin(ScrollTrigger);
+    /* Sur mobile, la barre d'adresse qui apparaît/disparaît déclenche des
+       recalculs de ScrollTrigger qui font sauter le pin — on les ignore. */
+    ScrollTrigger.config({ ignoreMobileResize: true });
 
     /* ---------- Références ---------- */
     var bgBright = document.querySelector('.dive-bg-bright');
