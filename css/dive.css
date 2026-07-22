@@ -44,8 +44,8 @@
   transition: transform .5s var(--ease);
 }
 .dive-product-surface img { width: 100%; display: block; }
-.dive-surface .scroll-hint { color: rgba(3, 32, 61, 0.55); }
-.dive-surface .scroll-hint .line { background: linear-gradient(180deg, rgba(3,32,61,0.6), transparent); }
+.dive-surface .scroll-hint { color: rgba(3, 32, 61, 0.85); }
+.dive-surface .scroll-hint .line { background: linear-gradient(180deg, rgba(3,32,61,0.9), transparent); }
 
 /* ---------- Scènes 2+3 : pin GSAP (entrée + immersion + fermeture) ---------- */
 .dive-pin {
