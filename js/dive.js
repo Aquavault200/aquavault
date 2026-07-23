@@ -97,16 +97,15 @@
     gsap.set(closureSweeps, { xPercent: -220 });
 
     /* ---------- Timeline principale : entrée → immersion → fermeture ----------
-       Le rythme cinématographique vient surtout de la distance de scroll (+=440%),
-       pas d'un lissage de scrub excessif : un scrub trop élevé se ressent comme de
-       la latence (l'écran répond en retard au geste de scroll). 0.4 reste fluide
-       sans donner d'impression de lag. */
+       Distance de scroll réduite (+=340%) et scrub resserré (0.25) pour que
+       l'animation suive le geste de scroll de plus près, sans donner
+       d'impression de lag. */
     var tl = gsap.timeline({
       scrollTrigger: {
         trigger: '#dive-pin',
         start: 'top top',
-        end: '+=440%',
-        scrub: 0.4,
+        end: '+=340%',
+        scrub: 0.25,
         pin: true,
         anticipatePin: 1
       }
