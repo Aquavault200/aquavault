@@ -13,7 +13,6 @@ aquavault/
 ├── index.html                       Page d'accueil
 ├── product.html                      Section produit + emplacement Buy Button
 ├── faq.html                           FAQ (recherche) + section Livraison
-├── mentions-legales.html              Mentions légales (modèle)
 ├── politique-confidentialite.html     Politique de confidentialité RGPD (modèle)
 ├── css/
 │   ├── style.css         Design system : couleurs, typographie, boutons, header, footer, accordéon
@@ -51,11 +50,11 @@ Si l'URL du produit ou de la boutique change un jour (nouveau nom de domaine, pr
 
 ## 4. Pages légales
 
-Les deux pages légales (`mentions-legales.html`, `politique-confidentialite.html`) sont des **modèles** rédigés pour une boutique headless adossée à Shopify : elles précisent explicitement que le paiement et les données bancaires sont intégralement gérés par Shopify, jamais par ce site.
+La page `politique-confidentialite.html` est un **modèle** rédigé pour une boutique headless adossée à Shopify : elle précise explicitement que le paiement et les données bancaires sont intégralement gérés par Shopify, jamais par ce site.
 
-Tous les champs à personnaliser sont surlignés en bleu, au format `[à compléter]` (nom de société, SIRET, adresse, email de contact...). **Faites relire ces documents par un professionnel du droit avant mise en ligne** — ce ne sont pas des textes juridiquement définitifs.
+Tous les champs à personnaliser sont surlignés en bleu, au format `[à compléter]` (nom de société, SIRET, adresse, email de contact...). **Faites relire ce document par un professionnel du droit avant mise en ligne** — ce n'est pas un texte juridiquement définitif.
 
-⚠️ Les conditions générales de vente (CGV) ne sont pas incluses sur ce site : elles sont gérées séparément. Pense à t'assurer qu'un lien vers tes CGV reste accessible avant paiement (obligation légale pour toute vente en ligne en France/UE), par exemple via une page légale Shopify ou un lien ajouté manuellement dans le footer.
+⚠️ Les **mentions légales** et les **conditions générales de vente (CGV)** ne sont pas incluses sur ce site : elles sont gérées séparément, sur un lien externe. Pense à t'assurer que ce lien reste accessible avant paiement (obligation légale pour toute vente en ligne en France/UE), par exemple via un lien ajouté manuellement dans le footer une fois prêt.
 
 ## 5. Lancer le site en local
 
