@@ -248,7 +248,7 @@
 }
 
 /* ---------- Scène 5 : retour à la surface ---------- */
-.dive-resurface { position: relative; overflow: hidden; background: var(--gradient-ocean-soft); padding: 140px 0; }
+.dive-resurface { position: relative; overflow: hidden; background: linear-gradient(180deg, #cdeeff 0%, #e4f6ff 50%, #cdeeff 100%); padding: 140px 0; }
 .dive-resurface-rays { position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: 0; opacity: 0; }
 .dive-resurface-rays::before, .dive-resurface-rays::after {
   content: ''; position: absolute; top: -20%; width: 160px; height: 160%;
