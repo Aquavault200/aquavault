@@ -196,7 +196,6 @@
     if (resurfaceVisual && resurfaceInfo && resurfacePrice) {
       gsap.set(resurfaceVisual, { opacity: 0, y: 60 });
       gsap.set(resurfaceInfo, { opacity: 0, y: 30 });
-      gsap.set(resurfacePrice, { opacity: 0, y: 20 });
       gsap.set(resurfaceRays, { opacity: 0 });
       gsap.set(droplets, { opacity: 0, y: -10 });
 
@@ -213,9 +212,9 @@
         gsap.set(resurfaceBubbles, { opacity: 0.55 });
       }
 
-      /* Rythme cohérent avec le reste du parcours : la pochette remonte et se
-         stabilise avant que quoi que ce soit d'autre n'apparaisse ; le bouton
-         d'achat n'arrive qu'en tout dernier. */
+      /* Le prix et le bouton d'achat restent visibles dès le départ (pas
+         d'apparition différée) — seuls le visuel et le texte d'accompagnement
+         sont animés à la remontée. */
       gsap.timeline({
         scrollTrigger: { trigger: '#dive-resurface', start: 'top 70%', toggleActions: 'play none none none' }
       })
@@ -223,8 +222,7 @@
         .to(resurfaceVisual, { opacity: 1, y: 0, duration: 1.3, ease: 'power2.out' }, '<')
         .to(droplets, { opacity: 1, y: 24, duration: 1.2, stagger: 0.15, ease: 'sine.out' }, '-=0.7')
         .to(resurfaceBubbles, { opacity: 0, duration: 1.6, ease: 'sine.in' }, '-=0.9')
-        .to(resurfaceInfo, { opacity: 1, y: 0, duration: 0.9, ease: 'power2.out' }, '-=0.7')
-        .fromTo(resurfacePrice, { opacity: 0, y: 20, scale: 0.98 }, { opacity: 1, y: 0, scale: 1, duration: 0.65, ease: 'power2.out' }, '+=0.2');
+        .to(resurfaceInfo, { opacity: 1, y: 0, duration: 0.9, ease: 'power2.out' }, '-=0.7');
     }
 
     /* ---------- Performance : recalcule les positions une fois que toutes les
