@@ -99,8 +99,20 @@
       : 'M2,' + (h * 0.5).toFixed(1) + ' Q' + (w * 0.5).toFixed(1) + ',' + c1y.toFixed(1) + ' ' + (w - 2).toFixed(1) + ',' + (h * (0.45 + Math.random() * 0.2)).toFixed(1);
     path.setAttribute('d', d);
     var tone = FIBER_TONES[Math.floor(Math.random() * FIBER_TONES.length)];
-    path.setAttribute('stroke', 'rgba(' + tone.join(',') + ',' + (0.4 + Math.random() * 0.35) + ')');
-    path.setAttribute('stroke-width', (0.9 + Math.random() * 1.6).toFixed(1));
+    var strokeW = (0.9 + Math.random() * 1.6).toFixed(1);
+
+    /* Ombre légèrement décalée sous le trait principal, pour une sensation
+       de fibre en volume plutôt qu'un simple trait plat. */
+    var shadow = path.cloneNode();
+    shadow.setAttribute('transform', 'translate(0.6,0.9)');
+    shadow.setAttribute('stroke', 'rgba(30,23,18,0.12)');
+    shadow.setAttribute('stroke-width', strokeW);
+    shadow.setAttribute('fill', 'none');
+    shadow.setAttribute('stroke-linecap', 'round');
+    span.appendChild(shadow);
+
+    path.setAttribute('stroke', 'rgba(' + tone.join(',') + ',' + (0.45 + Math.random() * 0.35) + ')');
+    path.setAttribute('stroke-width', strokeW);
     path.setAttribute('fill', 'none');
     path.setAttribute('stroke-linecap', 'round');
     span.appendChild(path);
