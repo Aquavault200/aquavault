@@ -26,9 +26,10 @@
     var isMobile = window.matchMedia('(max-width: 760px)').matches;
     var hasGsap = typeof window.gsap !== 'undefined' && typeof window.ScrollTrigger !== 'undefined';
 
-    /* Particules ambiantes à deux vitesses (décor, non liées au scroll) */
-    makeBubbles(document.getElementById('diveParticlesFar'), isMobile ? 6 : 11, false);
-    makeBubbles(document.getElementById('diveParticlesNear'), isMobile ? 2 : 4, true);
+    /* Particules ambiantes à deux vitesses (décor, non liées au scroll) —
+       TEST : quantité fortement augmentée pour un effet "noyé de bulles". */
+    makeBubbles(document.getElementById('diveParticlesFar'), isMobile ? 20 : 45, false);
+    makeBubbles(document.getElementById('diveParticlesNear'), isMobile ? 8 : 18, true);
 
     /* Boutons magnétiques — léger déplacement vers le curseur (desktop uniquement) */
     var canHover = window.matchMedia('(pointer: fine)').matches && !prefersReduced;
