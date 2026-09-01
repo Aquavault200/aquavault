@@ -160,6 +160,21 @@
     tl.to(brush, { scale: 1.6, left: '50%', top: '46%', rotate: 0, duration: 0.15, ease: 'power2.out' }, 0.82)
       .to(statement, { opacity: 1, duration: 0.2 }, 0.86)
       .add(function () { statement.classList.add('is-active'); }, 0.86);
+
+    /* Recalcule le pin une fois que toutes les images sont réellement
+       décodées : évite un mauvais calcul de largeur si ScrollTrigger se
+       met en place avant que la mise en page (polices, images) soit stable. */
+    var heroImages = document.querySelectorAll('#mHero img');
+    var imagePromises = Array.prototype.map.call(heroImages, function (img) {
+      if (img.complete) return Promise.resolve();
+      return new Promise(function (resolve) {
+        img.addEventListener('load', resolve, { once: true });
+        img.addEventListener('error', resolve, { once: true });
+      });
+    });
+    Promise.all(imagePromises).then(function () {
+      requestAnimationFrame(function () { ScrollTrigger.refresh(); });
+    });
   }
 
   if (document.readyState === 'complete') init();
