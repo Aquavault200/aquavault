@@ -114,67 +114,77 @@
     var statement = document.getElementById('mHeroStatement');
     if (!fibersWrap || !brush || !statement) return;
 
-    /* Génère les fibres à des positions pseudo-aléatoires, chacune avec un
-       "seuil" de nettoyage basé sur sa position diagonale (haut-gauche -> bas-droite),
-       pour correspondre au trajet de la brosse. */
-    var COUNT = 55;
-    var fibers = [];
-    for (var i = 0; i < COUNT; i++) {
-      var el = makeFiber();
-      var x = Math.random() * 96;
-      var y = Math.random() * 92;
-      el.classList.add('m-fiber');
-      el.style.left = x + '%';
-      el.style.top = y + '%';
-      el.style.transform = 'rotate(' + (Math.random() * 360) + 'deg)';
-      fibersWrap.appendChild(el);
-      var threshold = (x / 96) * 0.65 + (y / 92) * 0.25 + Math.random() * 0.08;
-      fibers.push({ el: el, threshold: Math.min(threshold, 0.85) });
-    }
+    /* La toute première mesure que ScrollTrigger fait d'un élément fixé peut
+       lire 0x0 si elle a lieu avant que la mise en page soit réellement
+       stable (police, images) — et un simple refresh() ne suffit pas à
+       effacer ce mauvais calcul une fois qu'il a été figé dans le style
+       inline. On retarde donc la création du pin de deux frames, pour être
+       certain qu'un cycle de rendu complet a eu lieu avant la première mesure. */
+    requestAnimationFrame(function () {
+      requestAnimationFrame(setupHero);
+    });
 
-    gsap.set(brush, { xPercent: -50, yPercent: -50, left: '8%', top: '14%', scale: 0.7, opacity: 0 });
-    gsap.set(statement, { opacity: 0 });
-
-    var tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: '#mHeroPin',
-        start: 'top top',
-        end: '+=280%',
-        scrub: 0.3,
-        pin: true,
-        anticipatePin: 1
+    function setupHero() {
+      /* Génère les fibres à des positions pseudo-aléatoires, chacune avec un
+         "seuil" de nettoyage basé sur sa position diagonale (haut-gauche -> bas-droite),
+         pour correspondre au trajet de la brosse. */
+      var COUNT = 55;
+      var fibers = [];
+      for (var i = 0; i < COUNT; i++) {
+        var el = makeFiber();
+        var x = Math.random() * 96;
+        var y = Math.random() * 92;
+        el.classList.add('m-fiber');
+        el.style.left = x + '%';
+        el.style.top = y + '%';
+        el.style.transform = 'rotate(' + (Math.random() * 360) + 'deg)';
+        fibersWrap.appendChild(el);
+        var threshold = (x / 96) * 0.65 + (y / 92) * 0.25 + Math.random() * 0.08;
+        fibers.push({ el: el, threshold: Math.min(threshold, 0.85) });
       }
-    });
 
-    tl.to(brush, { opacity: 1, scale: 1, duration: 0.08 }, 0)
-      .to(intro, { opacity: 0, duration: 0.1 }, 0.02)
-      .to(brush, {
-        left: '82%', top: '78%', scale: 1.15, rotate: 18,
-        duration: 0.85, ease: 'none'
-      }, 0.02);
+      gsap.set(brush, { xPercent: -50, yPercent: -50, left: '8%', top: '14%', scale: 0.7, opacity: 0 });
+      gsap.set(statement, { opacity: 0 });
 
-    fibers.forEach(function (f) {
-      tl.to(f.el, { opacity: 0, scale: 0.4, duration: 0.05 }, f.threshold);
-    });
-
-    tl.to(brush, { scale: 1.6, left: '50%', top: '46%', rotate: 0, duration: 0.15, ease: 'power2.out' }, 0.82)
-      .to(statement, { opacity: 1, duration: 0.2 }, 0.86)
-      .add(function () { statement.classList.add('is-active'); }, 0.86);
-
-    /* Recalcule le pin une fois que toutes les images sont réellement
-       décodées : évite un mauvais calcul de largeur si ScrollTrigger se
-       met en place avant que la mise en page (polices, images) soit stable. */
-    var heroImages = document.querySelectorAll('#mHero img');
-    var imagePromises = Array.prototype.map.call(heroImages, function (img) {
-      if (img.complete) return Promise.resolve();
-      return new Promise(function (resolve) {
-        img.addEventListener('load', resolve, { once: true });
-        img.addEventListener('error', resolve, { once: true });
+      var tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: '#mHeroPin',
+          start: 'top top',
+          end: '+=280%',
+          scrub: 0.3,
+          pin: true,
+          anticipatePin: 1
+        }
       });
-    });
-    Promise.all(imagePromises).then(function () {
-      requestAnimationFrame(function () { ScrollTrigger.refresh(); });
-    });
+
+      tl.to(brush, { opacity: 1, scale: 1, duration: 0.08 }, 0)
+        .to(intro, { opacity: 0, duration: 0.1 }, 0.02)
+        .to(brush, {
+          left: '82%', top: '78%', scale: 1.15, rotate: 18,
+          duration: 0.85, ease: 'none'
+        }, 0.02);
+
+      fibers.forEach(function (f) {
+        tl.to(f.el, { opacity: 0, scale: 0.4, duration: 0.05 }, f.threshold);
+      });
+
+      tl.to(brush, { scale: 1.6, left: '50%', top: '46%', rotate: 0, duration: 0.15, ease: 'power2.out' }, 0.82)
+        .to(statement, { opacity: 1, duration: 0.2 }, 0.86)
+        .add(function () { statement.classList.add('is-active'); }, 0.86);
+
+      /* Filet de sécurité supplémentaire une fois les images réellement décodées. */
+      var heroImages = document.querySelectorAll('#mHero img');
+      var imagePromises = Array.prototype.map.call(heroImages, function (img) {
+        if (img.complete) return Promise.resolve();
+        return new Promise(function (resolve) {
+          img.addEventListener('load', resolve, { once: true });
+          img.addEventListener('error', resolve, { once: true });
+        });
+      });
+      Promise.all(imagePromises).then(function () {
+        requestAnimationFrame(function () { ScrollTrigger.refresh(); });
+      });
+    }
   }
 
   if (document.readyState === 'complete') init();
