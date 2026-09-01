@@ -3,501 +3,198 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AQUAVAULT — Sac banane étanche premium pour téléphone & objets de valeur</title>
-<meta name="description" content="AquaVault Pro protège votre téléphone et vos objets de valeur, 100% étanche. Plage, piscine, bateau, kayak — partez l'esprit tranquille.">
+<title>MOULT — L'anti-peluches qui ne se jette jamais</title>
+<meta name="description" content="MOULT enlève poils d'animaux, peluches et bouloches en un seul geste. Manche en bois, tête métallique, aucun consommable à racheter.">
 <link rel="icon" href="data:,">
-<link rel="stylesheet" href="css/style.css">
-<link rel="stylesheet" href="css/animations.css">
-<link rel="stylesheet" href="css/home.css">
-<link rel="stylesheet" href="css/dive.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/moult.css">
 </head>
 <body class="page-fade">
 
-<!-- ===================== HEADER ===================== -->
-<header class="header is-solid" data-header-static>
-  <div class="wrap">
-    <a href="index.html" class="logo">
-      <svg viewBox="0 0 24 24"><use href="#icon-droplet"></use></svg>
-      AQUAVAULT
-    </a>
-    <nav class="nav-links">
-      <a href="index.html">Accueil</a>
+<header class="m-header" id="mHeader">
+  <div class="m-wrap m-header-inner">
+    <a href="index.html" class="m-logo">MOULT</a>
+    <nav class="m-nav">
       <a href="product.html">Produit</a>
-      <a href="index.html#dive-pin">Étanchéité</a>
-      <a href="index.html#avis">Avis</a>
+      <a href="#comment-ca-marche">Comment ça marche</a>
+      <a href="#materiaux">Matériaux</a>
       <a href="faq.html">FAQ</a>
     </nav>
-    <div class="header-actions">
-      <button class="icon-btn"><svg viewBox="0 0 24 24"><use href="#icon-search"></use></svg></button>
-      <a class="icon-btn" id="shopify-buy-button-cart" href="https://aquavault-8696.myshopify.com/cart" title="Voir mon panier">
-        <svg viewBox="0 0 24 24"><use href="#icon-bag"></use></svg>
-      </a>
-      <button class="icon-btn mobile-toggle"><svg viewBox="0 0 24 24"><use href="#icon-menu"></use></svg></button>
-    </div>
+    <a href="product.html" class="m-cta">Se procurer MOULT</a>
+    <button class="m-mobile-toggle" aria-label="Menu"><span></span><span></span><span></span></button>
   </div>
 </header>
 
-<!-- Menu mobile -->
-<div class="mobile-nav">
-  <button class="icon-btn mobile-nav-close"><svg viewBox="0 0 24 24"><use href="#icon-x"></use></svg></button>
-  <a href="index.html">Accueil</a>
+<div class="m-mobile-nav" id="mMobileNav">
+  <button class="m-mobile-nav-close" aria-label="Fermer">✕</button>
   <a href="product.html">Produit</a>
-  <a href="index.html#dive-pin">Étanchéité</a>
-  <a href="index.html#avis">Avis</a>
+  <a href="#comment-ca-marche">Comment ça marche</a>
+  <a href="#materiaux">Matériaux</a>
   <a href="faq.html">FAQ</a>
+  <a href="product.html" class="m-btn m-btn-primary">Se procurer MOULT</a>
 </div>
 
-<!-- ===================== EXPÉRIENCE D'IMMERSION ===================== -->
-<section class="dive" id="dive">
+<!-- ===================== HÉRO : CHAOS → PROPRE ===================== -->
+<section class="m-hero" id="mHero">
+  <div class="m-hero-pin" id="mHeroPin">
+    <div class="m-hero-fibers" id="mFibers"></div>
 
-  <!-- Scène 1 — Surface -->
-  <div class="dive-surface" id="dive-surface">
-    <div class="dive-surface-shimmer"></div>
-    <div class="dive-surface-content hero-sequence">
-      <span class="badge badge--light"><svg viewBox="0 0 24 24" style="width:14px;height:14px;"><use href="#icon-shield-check"></use></svg> Sac banane étanche AquaVault Pro</span>
-      <h1 class="display-1">Gardez l'essentiel près de vous.<br><span>Même sous l'eau.</span></h1>
+    <div class="m-hero-brush" id="mBrush">
+      <img src="assets/images/moult-studio-beforeafter.webp" alt="MOULT, brosse anti-peluches">
     </div>
-    <div class="dive-product-surface hero-sequence" data-tilt>
-      <img src="assets/images/dv-waist-front.jpg" alt="Sac banane étanche AquaVault Pro porté à la ceinture, face à l'océan">
+
+    <div class="m-hero-intro" id="mHeroIntro">
+      <span class="m-eyebrow">MOULT</span>
+      <h2>Rien ne reste derrière.</h2>
+      <div class="m-hero-scroll-hint"><span>Scroll</span><span class="line"></span></div>
     </div>
-    <a href="https://aquavault-8696.myshopify.com/products/aquavault-pro-sac-banane-etanche" class="btn btn-dark btn-lg hero-sequence">Découvrir AQUAVAULT <svg viewBox="0 0 24 24"><use href="#icon-arrow-right"></use></svg></a>
-    <div class="scroll-hint"><span>Scroll</span><span class="line"></span></div>
-  </div>
 
-  <!-- Scènes 2+3 — Immersion progressive & fermeture (pin GSAP) -->
-  <div class="dive-pin" id="dive-pin">
-    <div class="dive-pin-inner">
-      <div class="dive-bg-bright"></div>
-      <div class="dive-bg-deep"></div>
-      <div class="dive-vignette"></div>
-
-      <!-- Entrée dans l'eau : ligne de surface + ondulation, une seule fois au début du pin -->
-      <div class="dive-entry" id="diveEntry">
-        <svg class="dive-entry-wave" viewBox="0 0 1200 60" preserveAspectRatio="none" aria-hidden="true">
-          <path d="M0,30 C150,60 350,0 600,30 C850,60 1050,0 1200,30 L1200,0 L0,0 Z"></path>
-        </svg>
-        <span class="dive-entry-splash"></span>
-      </div>
-
-      <div class="dive-rays"></div>
-      <div class="dive-particles dive-particles-far" id="diveParticlesFar"></div>
-      <div class="dive-particles dive-particles-near" id="diveParticlesNear"></div>
-
-      <div class="dive-depth-meter">
-        <div class="dive-depth-line"><span class="dive-depth-line-fill" id="diveDepthFill"></span><span class="dive-depth-cursor" id="diveDepthCursor"></span></div>
-        <span class="dive-depth-mark"><span class="dive-depth-tick"></span>0 m</span>
-        <span class="dive-depth-mark"><span class="dive-depth-tick"></span>2 m</span>
-        <span class="dive-depth-mark"><span class="dive-depth-tick"></span>5 m</span>
-        <span class="dive-depth-mark"><span class="dive-depth-tick"></span>10 m</span>
-      </div>
-
-      <div class="dive-pin-product" id="divePinProduct">
-        <span class="dive-pin-product-glow"></span>
-        <div class="dive-pin-product-float" id="divePinProductFloat">
-          <img src="assets/images/dv-underwater.jpg" alt="AquaVault Pro immergé sous l'eau, téléphone et passeport visibles à l'intérieur">
-        </div>
-      </div>
-
-      <div class="dive-text-stack" id="diveTextStack">
-        <p class="dive-line">Votre téléphone reste protégé.</p>
-        <p class="dive-line">Vos clés restent avec vous.</p>
-        <p class="dive-line">Vos objets restent au sec.</p>
-      </div>
-
-      <div class="dive-closure" id="diveClosure">
-        <div class="dive-closure-visual" id="diveClosureVisual">
-          <img src="assets/images/dv-macro-wet.jpg" alt="Gros plan du système de fermeture AquaVault Pro">
-        </div>
-        <div class="dive-closure-steps">
-          <div class="dive-closure-step"><span class="dive-closure-num"><span class="dive-closure-sweep"></span>1</span><span>Clipser</span></div>
-          <div class="dive-closure-step"><span class="dive-closure-num"><span class="dive-closure-sweep"></span>2</span><span>Rouler</span></div>
-          <div class="dive-closure-step"><span class="dive-closure-num"><span class="dive-closure-sweep"></span>3</span><span>Verrouiller</span></div>
-        </div>
-        <h2 class="display-2">Trois niveaux de fermeture.<br>Une barrière contre l'eau.</h2>
-      </div>
+    <div class="m-hero-statement" id="mHeroStatement">
+      <span class="m-eyebrow">MOULT</span>
+      <h1 class="m-display-huge">ONE PASS.</h1>
+      <p>Poils. Peluches. Disparus.</p>
+      <a href="product.html" class="m-btn m-btn-primary">Se procurer MOULT <svg viewBox="0 0 24 24" style="width:16px;height:16px;"><use href="#icon-arrow-right"></use></svg></a>
     </div>
   </div>
-
-  <!-- Scène 4 — Sous l'eau, les usages -->
-  <div class="dive-usages">
-    <div class="wrap">
-      <div class="section-head">
-        <span class="eyebrow">Partout avec vous</span>
-        <h2 class="display-2">Un compagnon pour chaque sortie</h2>
-        <p class="lede">Piscine, plage, kayak ou snorkeling — AquaVault Pro reste à la ceinture, prêt à protéger l'essentiel.</p>
-      </div>
-      <div class="dive-usage-grid">
-        <div class="dive-usage-card">
-          <img src="assets/images/fp-beach-sitting.jpg" alt="AquaVault Pro à la plage">
-          <span class="dive-usage-label">Plage</span>
-        </div>
-        <div class="dive-usage-card">
-          <img src="assets/images/dv-underwater.jpg" alt="AquaVault Pro en piscine">
-          <span class="dive-usage-label">Piscine</span>
-        </div>
-        <div class="dive-usage-card">
-          <img src="assets/images/fp-kayak.jpg" alt="AquaVault Pro en kayak">
-          <span class="dive-usage-label">Kayak</span>
-        </div>
-        <div class="dive-usage-card">
-          <img src="assets/images/fp-shirtless.jpg" alt="AquaVault Pro en snorkeling">
-          <span class="dive-usage-label">Snorkeling</span>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Scène 5 — Retour à la surface -->
-  <div class="dive-resurface" id="dive-resurface">
-    <div class="dive-resurface-rays"></div>
-    <div class="wrap dive-resurface-grid">
-      <div class="dive-resurface-visual" id="diveResurfaceVisual">
-        <div class="photo-frame wide">
-          <img src="assets/images/fp-bikini.jpg" alt="AquaVault Pro porté à la ceinture, à la plage">
-          <span class="dive-droplet dd1"></span>
-          <span class="dive-droplet dd2"></span>
-          <span class="dive-droplet dd3"></span>
-        </div>
-      </div>
-      <div class="dive-resurface-content">
-        <div id="diveResurfaceInfo">
-          <span class="eyebrow">AQUAVAULT PRO</span>
-          <h2 class="display-2">Profitez de l'eau.<br>AQUAVAULT protège le reste.</h2>
-          <ul class="feature-list mt-24">
-            <li><svg viewBox="0 0 24 24"><use href="#icon-check"></use></svg> 100% étanche — protège de l'eau, du sable et de la poussière</li>
-            <li><svg viewBox="0 0 24 24"><use href="#icon-check"></use></svg> Sangle réglable jusqu'à 120 cm</li>
-            <li><svg viewBox="0 0 24 24"><use href="#icon-check"></use></svg> Écran tactile compatible</li>
-          </ul>
-        </div>
-        <div id="diveResurfacePrice">
-          <div class="product-price mt-24">
-            <span class="now">22,90 €</span>
-            <span class="old">29,90 €</span>
-            <span class="price-save">-23%</span>
-          </div>
-          <p class="product-price-note">TVA incluse · Livraison suivie</p>
-          <!-- Achat : redirection vers la fiche produit Shopify (panier + paiement gérés par Shopify) -->
-          <div class="cta-stack mt-32">
-            <a href="https://aquavault-8696.myshopify.com/products/aquavault-pro-sac-banane-etanche" class="btn btn-primary btn-lg btn-block" id="shopify-buy-button-home" data-shopify-buy-button>
-              <svg viewBox="0 0 24 24"><use href="#icon-bag"></use></svg> Acheter maintenant — 22,90 €
-            </a>
-          </div>
-          <a href="product.html" class="btn btn-outline mt-16">Voir la fiche produit complète <svg viewBox="0 0 24 24"><use href="#icon-arrow-right"></use></svg></a>
-        </div>
-      </div>
-    </div>
-  </div>
-
 </section>
 
-<!-- ===================== CARACTÉRISTIQUES ===================== -->
-<section class="section">
-  <div class="wrap">
-    <div class="feature-row reverse">
-      <div class="feature-visual" data-reveal="right">
-        <div class="photo-frame wide">
-          <img src="assets/images/dv-macro-wet.jpg" alt="Détail du PVC premium transparent AquaVault Pro, résistant aux gouttes">
-        </div>
-      </div>
-      <div data-reveal="left">
-        <span class="eyebrow">Écran tactile compatible</span>
-        <h3 class="display-3">Utilisez votre téléphone sans jamais l'exposer</h3>
-        <p class="lede">Le PVC premium ultra transparent laisse passer chaque tap. Répondez, photographiez, filmez sans jamais sortir votre téléphone du sac.</p>
-        <ul class="feature-list">
-          <li><svg viewBox="0 0 24 24"><use href="#icon-check"></use></svg> Transparence totale pour photo et vidéo</li>
-          <li><svg viewBox="0 0 24 24"><use href="#icon-check"></use></svg> Écran tactile compatible à travers le PVC</li>
-          <li><svg viewBox="0 0 24 24"><use href="#icon-check"></use></svg> Compatible tous smartphones jusqu'à 7"</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="feature-row">
-      <div class="feature-visual" data-reveal="left">
-        <div class="photo-frame wide">
-          <img src="assets/images/fp-hero-clean.jpg" alt="Sangle réglable jusqu'à 120cm du sac banane étanche AquaVault Pro">
-        </div>
-      </div>
-      <div data-reveal="right">
-        <span class="eyebrow">Confort toute la journée</span>
-        <h3 class="display-3">Une sangle réglable jusqu'à 120 cm</h3>
-        <p class="lede">Portez-le à la ceinture, en bandoulière ou fixé à votre sac — la sangle s'ajuste à toutes les morphologies pour un maintien confortable, même en mouvement.</p>
-        <ul class="feature-list">
-          <li><svg viewBox="0 0 24 24"><use href="#icon-check"></use></svg> Sangle réglable jusqu'à 120 cm</li>
-          <li><svg viewBox="0 0 24 24"><use href="#icon-check"></use></svg> Boucle clipsable ultra résistante</li>
-          <li><svg viewBox="0 0 24 24"><use href="#icon-check"></use></svg> Ultra léger : ne gêne jamais vos mouvements</li>
-        </ul>
+<!-- ===================== REVEAL PRODUIT ===================== -->
+<section class="m-section">
+  <div class="m-wrap">
+    <div class="m-product-reveal" data-mreveal>
+      <span class="m-eyebrow">Le produit</span>
+      <h2 class="m-display-1">Simple works.</h2>
+      <p class="m-lede" style="max-width:480px;">Un manche en bois massif. Une tête métallique à double rangée de dents. Aucune pile, aucune pièce détachable, aucune recharge à racheter.</p>
+      <div class="m-product-photo">
+        <img src="assets/images/moult-hero-action.webp" alt="MOULT en action, retire les peluches d'un tissu">
       </div>
     </div>
   </div>
 </section>
 
-<!-- ===================== POURQUOI NOUS ===================== -->
-<section class="section">
-  <div class="wrap">
-    <div class="section-head" data-reveal>
-      <span class="eyebrow">Pourquoi AquaVault</span>
-      <h2 class="display-2">Pourquoi nous ?</h2>
-      <p class="lede center">Parce qu'un sac qui protège vos souvenirs de vacances mérite d'être irréprochable.</p>
+<!-- ===================== THE GESTURE (avant/après) ===================== -->
+<section class="m-gesture" id="comment-ca-marche">
+  <div class="m-wrap">
+    <div class="m-gesture-head" data-mreveal>
+      <span class="m-eyebrow">Comment ça marche</span>
+      <h2 class="m-display-1">ONE.<br>PASS.</h2>
     </div>
-    <div class="grid why-grid" data-reveal-group>
-      <div class="card why-card">
-        <div class="why-icon"><svg viewBox="0 0 24 24"><use href="#icon-droplet"></use></svg></div>
-        <h3>PVC premium résistant</h3>
-        <p>Conçu pour résister à l'eau de mer, au chlore, au sable et au soleil, utilisation après utilisation.</p>
-      </div>
-      <div class="card why-card">
-        <div class="why-icon"><svg viewBox="0 0 24 24"><use href="#icon-zap"></use></svg></div>
-        <h3>Livraison suivie</h3>
-        <p>Commande expédiée rapidement, avec un numéro de suivi transmis par email jusqu'à la livraison.</p>
-      </div>
-      <div class="card why-card">
-        <div class="why-icon"><svg viewBox="0 0 24 24"><use href="#icon-lock"></use></svg></div>
-        <h3>Paiement 100% sécurisé</h3>
-        <p>Vos transactions sont chiffrées et protégées via Visa, Mastercard, PayPal et Apple Pay.</p>
-      </div>
-      <div class="card why-card">
-        <div class="why-icon"><svg viewBox="0 0 24 24"><use href="#icon-layers"></use></svg></div>
-        <h3>Confort toute la journée</h3>
-        <p>Sangle réglable jusqu'à 120 cm et ultra léger : un compagnon qui ne vous encombre jamais.</p>
-      </div>
-      <div class="card why-card">
-        <div class="why-icon"><svg viewBox="0 0 24 24"><use href="#icon-life-buoy"></use></svg></div>
-        <h3>Testée par de vrais aventuriers</h3>
-        <p>Chaque édition est éprouvée par des plongeurs, skippers et amateurs de kayak avant sa sortie.</p>
-      </div>
-      <div class="card why-card">
-        <div class="why-icon"><svg viewBox="0 0 24 24"><use href="#icon-mail"></use></svg></div>
-        <h3>Service client réactif</h3>
-        <p>Une question ? Notre équipe répond en moins de 4h, 7 jours sur 7, toute l'année.</p>
-      </div>
+    <div class="m-gesture-compare" data-mreveal>
+      <img class="m-gesture-before" src="assets/images/moult-macro-fuzz.webp" alt="Avant : tissu couvert de peluches">
+      <img class="m-gesture-after" src="assets/images/moult-teal-fabric.webp" alt="Après : tissu propre">
+      <div class="m-gesture-handle"></div>
+      <span class="m-gesture-label before">Avant</span>
+      <span class="m-gesture-label after">Après</span>
+    </div>
+    <p class="m-lede" style="text-align:center;max-width:480px;margin:32px auto 0;color:rgba(243,240,232,0.6);">Fais glisser pour comparer.</p>
+  </div>
+</section>
+
+<!-- ===================== SURFACES ===================== -->
+<section class="m-section" style="padding-bottom:0;">
+  <div class="m-wrap">
+    <div class="m-section-head" data-mreveal>
+      <span class="m-eyebrow">Sur toutes les matières</span>
+      <h2 class="m-display-2">Manteau, canapé, plaid — même résultat.</h2>
+    </div>
+  </div>
+  <div class="m-surfaces-grid" data-mreveal>
+    <div class="m-surface-card"><img src="assets/images/moult-macro-fuzz.webp" alt="MOULT sur tissu gris"><span class="m-surface-label">Plaid</span></div>
+    <div class="m-surface-card"><img src="assets/images/moult-teal-fabric.webp" alt="MOULT sur tissu vert"><span class="m-surface-label">Canapé</span></div>
+    <div class="m-surface-card"><img src="assets/images/moult-hero-action.webp" alt="MOULT sur lainage"><span class="m-surface-label">Lainage</span></div>
+  </div>
+</section>
+
+<!-- ===================== NO REFILLS ===================== -->
+<section class="m-section m-refills">
+  <div class="m-wrap">
+    <div data-mreveal>
+      <span class="m-eyebrow">Zéro déchet</span>
+      <h2 class="m-display-1">NO REFILLS.<br>NO WASTE.</h2>
+      <p class="m-lede">Pas de feuilles adhésives à racheter chaque mois. Un seul outil, des milliers de passages.</p>
+      <a href="product.html" class="m-btn m-btn-outline" style="margin-top:32px;">Voir le produit <svg viewBox="0 0 24 24" style="width:16px;height:16px;"><use href="#icon-arrow-right"></use></svg></a>
     </div>
   </div>
 </section>
 
-<!-- ===================== COMPARATIF ===================== -->
-<section class="section">
-  <div class="wrap">
-    <div class="section-head" data-reveal>
-      <span class="eyebrow">La différence AquaVault</span>
-      <h2 class="display-2">Pourquoi pas un sac banane classique ?</h2>
+<!-- ===================== MATÉRIAUX ===================== -->
+<section class="m-section" id="materiaux">
+  <div class="m-wrap">
+    <div class="m-section-head" data-mreveal>
+      <span class="m-eyebrow">Fabrication</span>
+      <h2 class="m-display-2">Pensé comme un objet, pas un gadget.</h2>
     </div>
-    <div class="table-scroll" data-reveal>
-      <table class="compare-table">
-        <thead>
-          <tr>
-            <th></th>
-            <th class="brand highlight">AquaVault Pro</th>
-            <th>Sac banane classique</th>
-            <th>Sans protection</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>100% étanche</td>
-            <td class="highlight yes"><svg viewBox="0 0 24 24"><use href="#icon-check"></use></svg></td>
-            <td class="no"><svg viewBox="0 0 24 24"><use href="#icon-x"></use></svg></td>
-            <td class="no"><svg viewBox="0 0 24 24"><use href="#icon-x"></use></svg></td>
-          </tr>
-          <tr>
-            <td>Écran tactile sensible</td>
-            <td class="highlight yes"><svg viewBox="0 0 24 24"><use href="#icon-check"></use></svg></td>
-            <td class="no"><svg viewBox="0 0 24 24"><use href="#icon-x"></use></svg></td>
-            <td>—</td>
-          </tr>
-          <tr>
-            <td>Sangle réglable 120cm</td>
-            <td class="highlight yes"><svg viewBox="0 0 24 24"><use href="#icon-check"></use></svg></td>
-            <td class="no"><svg viewBox="0 0 24 24"><use href="#icon-x"></use></svg></td>
-            <td class="no"><svg viewBox="0 0 24 24"><use href="#icon-x"></use></svg></td>
-          </tr>
-          <tr>
-            <td>PVC premium résistant</td>
-            <td class="highlight yes"><svg viewBox="0 0 24 24"><use href="#icon-check"></use></svg></td>
-            <td class="no"><svg viewBox="0 0 24 24"><use href="#icon-x"></use></svg></td>
-            <td>—</td>
-          </tr>
-          <tr>
-            <td>Prix</td>
-            <td class="highlight mono-num" style="font-weight:700;color:var(--ocean);">22,90 €</td>
-            <td>15-25 €</td>
-            <td>0 € (risque total)</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</section>
-
-<!-- ===================== AVIS CLIENTS ===================== -->
-<section class="section section--tight" id="avis">
-  <div class="wrap">
-    <div class="section-head" data-reveal>
-      <span class="eyebrow">Ils ont dit oui à AquaVault</span>
-      <h2 class="display-2">Plus de 2 300 vacanciers conquis</h2>
-    </div>
-
-    <div class="carousel" data-carousel data-reveal>
-      <div class="carousel-viewport">
-        <div class="carousel-track" data-carousel-track>
-          <div class="card testimonial-card">
-            <div class="stars"><svg viewBox="0 0 24 24"><use href="#icon-star"></use></svg><svg viewBox="0 0 24 24"><use href="#icon-star"></use></svg><svg viewBox="0 0 24 24"><use href="#icon-star"></use></svg><svg viewBox="0 0 24 24"><use href="#icon-star"></use></svg><svg viewBox="0 0 24 24"><use href="#icon-star"></use></svg></div>
-            <p>« Testée en apnée à 4 mètres sans aucun souci. L'écran reste parfaitement réactif, j'ai pu filmer toute la session. Bluffant. »</p>
-            <div class="testimonial-author">
-              <div class="avatar">LM</div>
-              <div><div class="name">Léa M. <svg class="verified" viewBox="0 0 24 24"><use href="#icon-shield-check"></use></svg></div><div class="loc">Achat vérifié · Biarritz</div></div>
-            </div>
-          </div>
-          <div class="card testimonial-card">
-            <div class="stars"><svg viewBox="0 0 24 24"><use href="#icon-star"></use></svg><svg viewBox="0 0 24 24"><use href="#icon-star"></use></svg><svg viewBox="0 0 24 24"><use href="#icon-star"></use></svg><svg viewBox="0 0 24 24"><use href="#icon-star"></use></svg><svg viewBox="0 0 24 24"><use href="#icon-star"></use></svg></div>
-            <p>« Elle m'a échappé des mains en kayak et elle a flotté juste à côté de moi. Sans ça j'aurais perdu mon téléphone et mes clés de voiture. »</p>
-            <div class="testimonial-author">
-              <div class="avatar">TR</div>
-              <div><div class="name">Thomas R. <svg class="verified" viewBox="0 0 24 24"><use href="#icon-shield-check"></use></svg></div><div class="loc">Achat vérifié · Annecy</div></div>
-            </div>
-          </div>
-          <div class="card testimonial-card">
-            <div class="stars"><svg viewBox="0 0 24 24"><use href="#icon-star"></use></svg><svg viewBox="0 0 24 24"><use href="#icon-star"></use></svg><svg viewBox="0 0 24 24"><use href="#icon-star"></use></svg><svg viewBox="0 0 24 24"><use href="#icon-star"></use></svg><svg viewBox="0 0 24 24"><use href="#icon-star"></use></svg></div>
-            <p>« Finition très soignée, on sent le produit premium. Le rapport qualité-prix n'a rien à voir avec les sacs à 12€ que j'ai eus avant. »</p>
-            <div class="testimonial-author">
-              <div class="avatar">SB</div>
-              <div><div class="name">Sarah B. <svg class="verified" viewBox="0 0 24 24"><use href="#icon-shield-check"></use></svg></div><div class="loc">Achat vérifié · Marseille</div></div>
-            </div>
-          </div>
-          <div class="card testimonial-card">
-            <div class="stars"><svg viewBox="0 0 24 24"><use href="#icon-star"></use></svg><svg viewBox="0 0 24 24"><use href="#icon-star"></use></svg><svg viewBox="0 0 24 24"><use href="#icon-star"></use></svg><svg viewBox="0 0 24 24"><use href="#icon-star"></use></svg><svg viewBox="0 0 24 24"><use href="#icon-star"></use></svg></div>
-            <p>« Livrée en 2 jours, exactement comme promis. Parfaite pour notre croisière, on a pu garder passeports et téléphones au sec pendant l'excursion snorkeling. »</p>
-            <div class="testimonial-author">
-              <div class="avatar">JD</div>
-              <div><div class="name">Julien D. <svg class="verified" viewBox="0 0 24 24"><use href="#icon-shield-check"></use></svg></div><div class="loc">Achat vérifié · La Rochelle</div></div>
-            </div>
-          </div>
+    <div class="m-materials" data-mreveal>
+      <div class="m-material-item">
+        <div class="m-material-swatch wood"></div>
+        <h3>BOIS.</h3>
+        <p>Prise en main naturelle, sans plastique froid dans la main.</p>
+      </div>
+      <div class="m-material-item">
+        <div class="m-material-swatch metal"></div>
+        <h3>MÉTAL.</h3>
+        <p>Tête à double rangée de dents, faite pour durer des années.</p>
+      </div>
+      <div class="m-material-item">
+        <div class="m-material-swatch noplastic">
+          <svg viewBox="0 0 24 24" style="width:40px;height:40px;color:var(--black);opacity:.5;"><use href="#icon-x"></use></svg>
         </div>
+        <h3>SANS RECHARGE.</h3>
+        <p>Jamais. Ni pile, ni feuille adhésive, ni pièce à remplacer.</p>
       </div>
-      <div class="carousel-controls">
-        <button class="icon-btn" data-carousel-prev><svg viewBox="0 0 24 24" style="transform:rotate(180deg);"><use href="#icon-arrow-right"></use></svg></button>
-        <div data-carousel-dots></div>
-        <button class="icon-btn" data-carousel-next><svg viewBox="0 0 24 24"><use href="#icon-arrow-right"></use></svg></button>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ===================== STATS BAND ===================== -->
-<section class="section--tight stats-band">
-  <div class="wrap">
-    <div class="grid stats-grid">
-      <div><div class="stat-num"><span data-counter="18400" data-suffix="+">0</span></div><div class="stat-lbl">Clients satisfaits</div></div>
-      <div><div class="stat-num"><span data-counter="4.8" data-decimals="1">0</span>/5</div><div class="stat-lbl">Note moyenne</div></div>
-      <div><div class="stat-num"><span data-counter="120" data-suffix="cm">0cm</span></div><div class="stat-lbl">Sangle réglable</div></div>
-      <div><div class="stat-num"><span data-counter="98" data-suffix="%">0%</span></div><div class="stat-lbl">Recommandent AquaVault</div></div>
-    </div>
-  </div>
-</section>
-
-<!-- ===================== FAQ PREVIEW ===================== -->
-<section class="section">
-  <div class="wrap container-narrow">
-    <div class="section-head" data-reveal>
-      <span class="eyebrow">Vous vous demandez encore ?</span>
-      <h2 class="display-2">Questions fréquentes</h2>
-    </div>
-    <div data-accordion-group data-reveal>
-      <div class="accordion-item">
-        <button class="accordion-trigger">AquaVault Pro est-elle vraiment étanche ? <span class="plus"></span></button>
-        <div class="accordion-panel"><div class="accordion-panel-inner">Oui, à 100% grâce à sa fermeture à trois niveaux (clipser, rouler, verrouiller) qui protège contre l'eau, le sable et la poussière. Chaque unité est vérifiée avant expédition.</div></div>
-      </div>
-      <div class="accordion-item">
-        <button class="accordion-trigger">Puis-je utiliser l'écran tactile à travers le sac ? <span class="plus"></span></button>
-        <div class="accordion-panel"><div class="accordion-panel-inner">Oui. Le PVC premium est assez transparent et sensible pour permettre photos, vidéos et navigation sans jamais sortir votre téléphone du sac.</div></div>
-      </div>
-      <div class="accordion-item">
-        <button class="accordion-trigger">Est-elle compatible avec mon smartphone ? <span class="plus"></span></button>
-        <div class="accordion-panel"><div class="accordion-panel-inner">AquaVault Pro est universelle et accueille tous les smartphones jusqu'à 7 pouces, ainsi que cartes, clés et passeport.</div></div>
-      </div>
-      <div class="accordion-item">
-        <button class="accordion-trigger">Comment entretenir mon sac AquaVault ? <span class="plus"></span></button>
-        <div class="accordion-panel"><div class="accordion-panel-inner">Rincez-le à l'eau claire après un usage en mer ou en piscine, séchez-le à l'air libre et évitez toute exposition prolongée à une source de chaleur directe.</div></div>
-      </div>
-    </div>
-    <div class="center mt-40">
-      <a href="faq.html" class="btn btn-outline">Voir toutes les questions <svg viewBox="0 0 24 24"><use href="#icon-arrow-right"></use></svg></a>
     </div>
   </div>
 </section>
 
 <!-- ===================== CTA FINALE ===================== -->
-<section class="section--tight">
-  <div class="final-cta" data-reveal="scale">
-    <span class="eyebrow" style="color:rgba(255,255,255,0.85);"><span style="background:var(--white);width:6px;height:6px;border-radius:50%;display:inline-block;"></span> Édition été — stock limité</span>
-    <h2 class="display-2 text-white">Prêt à partir l'esprit tranquille ?</h2>
-    <p class="lede text-white">Rejoignez les 18 000 vacanciers qui ne partent plus sans leur AquaVault Pro.</p>
-    <div class="final-cta-actions">
-      <a href="product.html" class="btn btn-light btn-lg">Commander AquaVault Pro — 22,90 € <svg viewBox="0 0 24 24"><use href="#icon-arrow-right"></use></svg></a>
-    </div>
-    <div class="final-cta-badges">
-      <div class="hero-trust-item"><svg viewBox="0 0 24 24" style="width:16px;height:16px;"><use href="#icon-droplet"></use></svg> 100% étanche</div>
-      <div class="hero-trust-item"><svg viewBox="0 0 24 24" style="width:16px;height:16px;"><use href="#icon-truck"></use></svg> Livraison suivie</div>
-      <div class="hero-trust-item"><svg viewBox="0 0 24 24" style="width:16px;height:16px;"><use href="#icon-layers"></use></svg> Sangle réglable 120cm</div>
-      <div class="hero-trust-item"><svg viewBox="0 0 24 24" style="width:16px;height:16px;"><use href="#icon-lock"></use></svg> Paiement sécurisé</div>
-    </div>
+<section class="m-final-cta" data-mreveal>
+  <div class="m-wrap">
+    <span class="m-eyebrow">MOULT</span>
+    <h2 class="m-display-1">Fait pour être utilisé.<br>Pas remplacé.</h2>
+    <p class="m-lede">Un outil. Des milliers de passages.</p>
+    <a href="product.html" class="m-btn m-btn-light">Se procurer MOULT <svg viewBox="0 0 24 24" style="width:16px;height:16px;"><use href="#icon-arrow-right"></use></svg></a>
   </div>
 </section>
 
 <!-- ===================== FOOTER ===================== -->
-<footer class="footer">
-  <div class="wrap">
-    <div class="footer-top">
-      <div class="footer-brand">
-        <a href="index.html" class="logo"><svg viewBox="0 0 24 24"><use href="#icon-droplet"></use></svg> AQUAVAULT</a>
-        <p>Des accessoires étanches premium pensés pour vivre vos vacances sans jamais craindre pour vos objets de valeur.</p>
-        <div class="footer-socials">
-          <a href="#"><svg viewBox="0 0 24 24"><use href="#icon-instagram"></use></svg></a>
-          <a href="#"><svg viewBox="0 0 24 24"><use href="#icon-facebook"></use></svg></a>
-          <a href="#"><svg viewBox="0 0 24 24"><use href="#icon-tiktok"></use></svg></a>
-        </div>
+<footer class="m-footer">
+  <div class="m-wrap">
+    <div class="m-footer-top">
+      <div class="m-footer-brand">
+        <a href="index.html" class="m-logo">MOULT</a>
+        <p style="margin-top:16px;">Un outil simple, fait pour durer — pensé pour retirer poils et peluches sans jamais rien racheter.</p>
       </div>
       <div>
         <h4>Boutique</h4>
         <ul>
-          <li><a href="product.html">AquaVault Pro</a></li>
-          <li><a href="index.html#avis">Avis clients</a></li>
-          <li><a href="index.html#dive-pin">Test d'étanchéité</a></li>
+          <li><a href="product.html">MOULT</a></li>
+          <li><a href="#comment-ca-marche">Comment ça marche</a></li>
+          <li><a href="#materiaux">Matériaux</a></li>
         </ul>
       </div>
       <div>
         <h4>Aide</h4>
         <ul>
           <li><a href="faq.html">FAQ</a></li>
-          <li><a href="faq.html#livraison">Livraison</a></li>
-          <li><a href="faq.html#commande">Suivre ma commande</a></li>
-          <li><a href="mailto:contact@aquavault.fr">Contact</a></li>
+          <li><a href="mailto:contact@moult.fr">Contact</a></li>
         </ul>
       </div>
-      <div>
-        <h4>Restez informé</h4>
-        <p style="font-size:14px;margin-bottom:16px;">Offres exclusives et conseils vacances, une fois par mois.</p>
-        <form class="newsletter-form" data-newsletter-form>
-          <input type="email" placeholder="Votre email" required>
-          <button type="submit"><svg viewBox="0 0 24 24"><use href="#icon-arrow-right"></use></svg></button>
-        </form>
-      </div>
     </div>
-    <div class="footer-legal-links">
-      <a href="politique-confidentialite.html">Politique de confidentialité</a>
-    </div>
-    <div class="footer-bottom">
-      <span>© 2026 AquaVault. Le paiement et le traitement des commandes sont assurés par Shopify.</span>
-      <div class="payment-icons">
-        <span>VISA</span><span>MASTERCARD</span><span>PAYPAL</span><span>APPLE PAY</span>
+    <div class="m-footer-bottom">
+      <span>© 2026 MOULT. Le paiement et le traitement des commandes sont assurés par Shopify.</span>
+      <div style="display:flex;gap:16px;">
+        <a href="#"><svg viewBox="0 0 24 24" style="width:18px;height:18px;"><use href="#icon-instagram"></use></svg></a>
+        <a href="#"><svg viewBox="0 0 24 24" style="width:18px;height:18px;"><use href="#icon-tiktok"></use></svg></a>
       </div>
     </div>
   </div>
 </footer>
 
 <script src="js/icons.js"></script>
-<script src="js/main.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-<script src="js/dive.js"></script>
+<script src="js/moult.js"></script>
 </body>
 </html>
