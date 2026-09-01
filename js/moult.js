@@ -100,6 +100,7 @@
   function init() {
     var isMobile = window.matchMedia('(max-width: 760px)').matches;
     var hasGsap = typeof window.gsap !== 'undefined' && typeof window.ScrollTrigger !== 'undefined';
+    console.log('[MOULT DEBUG]', { prefersReduced: prefersReduced, isMobile: isMobile, hasGsap: hasGsap, readyState: document.readyState });
 
     if (prefersReduced || isMobile || !hasGsap) {
       document.body.classList.add('m-static');
