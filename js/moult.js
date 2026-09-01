@@ -137,7 +137,7 @@
 
     var tl = gsap.timeline({
       scrollTrigger: {
-        trigger: '#mHero',
+        trigger: '#mHeroPin',
         start: 'top top',
         end: '+=280%',
         scrub: 0.3,
