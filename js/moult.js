@@ -86,8 +86,8 @@
   ];
   function makeFiber() {
     var span = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-    var w = 34 + Math.random() * 72;
-    var h = 12 + Math.random() * 24;
+    var w = 22 + Math.random() * 52;
+    var h = 8 + Math.random() * 16;
     span.setAttribute('width', w);
     span.setAttribute('height', h);
     span.setAttribute('viewBox', '0 0 ' + w + ' ' + h);
@@ -150,7 +150,7 @@
       /* Génère les fibres à des positions pseudo-aléatoires, chacune avec un
          "seuil" de nettoyage basé sur sa position diagonale (haut-gauche -> bas-droite),
          pour correspondre au trajet de la brosse. */
-      var COUNT = 55;
+      var COUNT = 220;
       var fibers = [];
       for (var i = 0; i < COUNT; i++) {
         var el = makeFiber();
