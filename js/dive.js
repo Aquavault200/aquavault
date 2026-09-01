@@ -11,7 +11,7 @@
     for (var i = 0; i < count; i++) {
       var b = document.createElement('span');
       b.className = 'bubble';
-      var size = nearLayer ? (10 + Math.random() * 14) : (3 + Math.random() * 7);
+      var size = nearLayer ? (18 + Math.random() * 26) : (6 + Math.random() * 12);
       b.style.width = size + 'px';
       b.style.height = size + 'px';
       b.style.left = Math.random() * 100 + '%';
@@ -28,8 +28,8 @@
 
     /* Particules ambiantes à deux vitesses (décor, non liées au scroll) —
        TEST : quantité fortement augmentée pour un effet "noyé de bulles". */
-    makeBubbles(document.getElementById('diveParticlesFar'), isMobile ? 20 : 45, false);
-    makeBubbles(document.getElementById('diveParticlesNear'), isMobile ? 8 : 18, true);
+    makeBubbles(document.getElementById('diveParticlesFar'), isMobile ? 35 : 80, false);
+    makeBubbles(document.getElementById('diveParticlesNear'), isMobile ? 15 : 32, true);
 
     /* Boutons magnétiques — léger déplacement vers le curseur (desktop uniquement) */
     var canHover = window.matchMedia('(pointer: fine)').matches && !prefersReduced;

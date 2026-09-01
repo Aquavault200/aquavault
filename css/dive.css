@@ -106,8 +106,8 @@
 .dive-particles { position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: 1; }
 .dive-particles-near { z-index: 3; }
 .dive-particles-near .bubble {
-  opacity: .45;
-  background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.55), rgba(255,255,255,0.05) 70%);
+  opacity: .75;
+  background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.8), rgba(255,255,255,0.1) 70%);
 }
 
 .dive-depth-meter {
