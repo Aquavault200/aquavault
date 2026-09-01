@@ -78,19 +78,29 @@
   });
 
   /* ---------- Séquence héro : chaos -> propre ---------- */
+  var FIBER_TONES = [
+    [30, 23, 18],    /* charbon */
+    [138, 116, 94],  /* taupe chaude */
+    [193, 80, 46],   /* terracotta */
+    [92, 78, 64]     /* brun-gris mat */
+  ];
   function makeFiber() {
     var span = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-    var w = 40 + Math.random() * 70;
-    var h = 14 + Math.random() * 20;
+    var w = 34 + Math.random() * 72;
+    var h = 12 + Math.random() * 24;
     span.setAttribute('width', w);
     span.setAttribute('height', h);
     span.setAttribute('viewBox', '0 0 ' + w + ' ' + h);
     var path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-    var midY = h * (0.3 + Math.random() * 0.4);
-    path.setAttribute('d', 'M0,' + (h / 2) + ' Q' + (w / 2) + ',' + midY + ' ' + w + ',' + (h / 2));
-    var tone = Math.random() > 0.5 ? '17,17,17' : '156,124,81';
-    path.setAttribute('stroke', 'rgba(' + tone + ',' + (0.35 + Math.random() * 0.3) + ')');
-    path.setAttribute('stroke-width', (0.8 + Math.random() * 1.4).toFixed(1));
+    var c1y = h * (0.05 + Math.random() * 0.3);
+    var c2y = h * (0.65 + Math.random() * 0.3);
+    var d = Math.random() > 0.55
+      ? 'M2,' + (h * 0.5).toFixed(1) + ' C' + (w * 0.32).toFixed(1) + ',' + c1y.toFixed(1) + ' ' + (w * 0.62).toFixed(1) + ',' + c2y.toFixed(1) + ' ' + (w - 2).toFixed(1) + ',' + (h * (0.35 + Math.random() * 0.3)).toFixed(1)
+      : 'M2,' + (h * 0.5).toFixed(1) + ' Q' + (w * 0.5).toFixed(1) + ',' + c1y.toFixed(1) + ' ' + (w - 2).toFixed(1) + ',' + (h * (0.45 + Math.random() * 0.2)).toFixed(1);
+    path.setAttribute('d', d);
+    var tone = FIBER_TONES[Math.floor(Math.random() * FIBER_TONES.length)];
+    path.setAttribute('stroke', 'rgba(' + tone.join(',') + ',' + (0.4 + Math.random() * 0.35) + ')');
+    path.setAttribute('stroke-width', (0.9 + Math.random() * 1.6).toFixed(1));
     path.setAttribute('fill', 'none');
     path.setAttribute('stroke-linecap', 'round');
     span.appendChild(path);
