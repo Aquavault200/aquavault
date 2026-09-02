@@ -277,26 +277,41 @@
       }
       redrawHairs();
 
-      /* Peint le passage de la brosse dans le masque, en interpolant depuis
-         la dernière position pour ne jamais laisser de trou si le scroll
-         avance vite entre deux mises à jour. */
-      var lastMaskPos = null;
-      function paintClean(x, y, radius) {
+      /* Trajet nettoyé mémorisé comme une trace (progression, position), pas
+         comme un masque qui ne s'efface jamais : en remontant le scroll, on
+         retire les points au-delà de la progression courante et on repeint
+         le masque en entier depuis le début du trajet — le poil réapparaît
+         exactement là où la brosse n'est plus encore passée. */
+      var trail = [];
+      function stampMaskCircle(mx, my, mr) {
+        maskCtx.beginPath(); maskCtx.arc(mx, my, mr, 0, Math.PI * 2); maskCtx.fill();
+      }
+      function stampMaskSegment(a, b) {
+        var steps = Math.max(1, Math.ceil(Math.hypot(b.x - a.x, b.y - a.y) / (b.r * 0.5)));
+        for (var s = 0; s <= steps; s++) {
+          var t = s / steps;
+          stampMaskCircle(a.x + (b.x - a.x) * t, a.y + (b.y - a.y) * t, b.r);
+        }
+      }
+      function rebuildMask() {
+        maskCtx.fillStyle = '#000';
+        maskCtx.fillRect(0, 0, maskW, maskH);
+        maskCtx.fillStyle = '#fff';
+        for (var i = 0; i < trail.length; i++) {
+          if (i === 0) stampMaskCircle(trail[i].x, trail[i].y, trail[i].r);
+          else stampMaskSegment(trail[i - 1], trail[i]);
+        }
+      }
+      function paintClean(x, y, radius, progress) {
         var mx = (x / vw) * maskW, my = (y / vh) * maskH;
         var mr = (radius / vw) * maskW;
-        maskCtx.fillStyle = '#fff';
-        if (lastMaskPos) {
-          var steps = Math.max(1, Math.ceil(Math.hypot(mx - lastMaskPos.x, my - lastMaskPos.y) / (mr * 0.5)));
-          for (var s = 0; s <= steps; s++) {
-            var t = s / steps;
-            var ix = lastMaskPos.x + (mx - lastMaskPos.x) * t;
-            var iy = lastMaskPos.y + (my - lastMaskPos.y) * t;
-            maskCtx.beginPath(); maskCtx.arc(ix, iy, mr, 0, Math.PI * 2); maskCtx.fill();
-          }
-        } else {
-          maskCtx.beginPath(); maskCtx.arc(mx, my, mr, 0, Math.PI * 2); maskCtx.fill();
-        }
-        lastMaskPos = { x: mx, y: my };
+        var point = { p: progress, x: mx, y: my, r: mr };
+        /* Remonte le scroll : on efface la queue de la trace au-delà d'ici. */
+        while (trail.length && trail[trail.length - 1].p > progress) trail.pop();
+        var last = trail[trail.length - 1];
+        if (!last || progress - last.p > 0.0015) trail.push(point);
+        else { last.x = mx; last.y = my; last.r = mr; }
+        rebuildMask();
       }
 
       /* ---------- Modèle 3D (Three.js) du produit ---------- */
@@ -329,7 +344,10 @@
            trop petit, l'essentiel du passage visuel de la brosse ne nettoie
            rien et les poils semblent ne jamais disparaître. */
         var cleanRadius = brush.offsetWidth * state.scale * 0.42;
-        paintClean(px, py, cleanRadius);
+        /* On ne fait évoluer la trace que pendant la chute réelle (avant que
+           la brosse ne quitte l'écran et que son état ne se fige) — au-delà,
+           rien à ajouter ni à retirer. */
+        if (progress > 0.01 && progress < 0.63) paintClean(px, py, cleanRadius, progress);
         redrawHairs(px, py, activePass);
       }
 
@@ -377,7 +395,11 @@
           opacity: 1, y: 0, ease: 'none',
           scrollTrigger: {
             trigger: nextSection,
-            start: 'top bottom',
+            /* Démarre bien avant que la section soit visible (encore
+               cachée derrière le héro pinné) : le fondu recouvre ainsi tout
+               l'effacement du tapis, sans le trou mort où l'écran reste
+               vide entre la fin du héro et le début de l'apparition. */
+            start: 'top bottom+=330',
             end: 'top 55%',
             scrub: 0.4
           }
