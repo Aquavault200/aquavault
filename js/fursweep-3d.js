@@ -118,7 +118,7 @@ window.FurSweep3D = (function () {
     var THREE = window.THREE;
     if (!THREE) return null;
 
-    var renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
+    var renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true, preserveDrawingBuffer: true });
     renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
     renderer.setClearColor(0x000000, 0);
 
