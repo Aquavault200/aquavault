@@ -313,6 +313,7 @@
         else { last.x = mx; last.y = my; last.r = mr; }
         rebuildMask();
       }
+      window.__fsDebug = { trail: trail, maskCanvas: maskCanvas, maskCtx: maskCtx, maskW: maskW, maskH: maskH, isCleaned: isCleaned };
 
       /* ---------- Modèle 3D (Three.js) du produit ---------- */
       var brushCanvas = document.getElementById('mBrushCanvas');
