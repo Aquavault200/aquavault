@@ -1,9 +1,10 @@
 /* ==========================================================================
    FURSWEEP — Modèle 3D du produit (Three.js), matériaux PBR, éclairage studio.
-   Géométrie construite à partir de primitives (pas de fichier de modèle
-   externe) : manche bois conique, virole métal, cadre en fil de fer (tubes
-   courbes), tête de nettoyage cylindrique. Textures bois/métal générées par
-   canvas procédural, pas de photo/texture externe.
+   Géométrie fidèle au produit réel : manche bois contourné (lathe, base
+   arrondie), collier métallique court, cadre en fil de fer trapézoïdal
+   (deux tiges droites), tête de nettoyage cylindrique longue à surface
+   striée/enroulée, ton laiton/bronze. Textures bois/métal/laiton générées
+   par canvas procédural, pas de photo/texture externe.
    ========================================================================== */
 window.FurSweep3D = (function () {
   'use strict';
@@ -12,7 +13,7 @@ window.FurSweep3D = (function () {
     var c = document.createElement('canvas');
     c.width = 128; c.height = 256;
     var g = c.getContext('2d');
-    g.fillStyle = '#dcb680';
+    g.fillStyle = '#e6cda0';
     g.fillRect(0, 0, 128, 256);
     /* Nœuds discrets, avant le grain, pour qu'ils se fassent recouvrir
        partiellement par les fibres plutôt que de flotter au-dessus. */
@@ -20,21 +21,21 @@ window.FurSweep3D = (function () {
       var nx = 20 + Math.random() * 88, ny = 30 + Math.random() * 196;
       var nr = 5 + Math.random() * 6;
       var ng = g.createRadialGradient(nx, ny, 0, nx, ny, nr);
-      ng.addColorStop(0, 'rgba(96,60,28,0.5)');
-      ng.addColorStop(0.6, 'rgba(110,70,34,0.28)');
-      ng.addColorStop(1, 'rgba(110,70,34,0)');
+      ng.addColorStop(0, 'rgba(150,108,58,0.42)');
+      ng.addColorStop(0.6, 'rgba(160,118,66,0.22)');
+      ng.addColorStop(1, 'rgba(160,118,66,0)');
       g.fillStyle = ng;
       g.beginPath(); g.ellipse(nx, ny, nr, nr * 1.4, 0, 0, Math.PI * 2); g.fill();
     }
     /* Légère variation de teinte sous-jacente avant les fibres, pour éviter
        un aplat trop uniforme. */
     for (var s = 0; s < 60; s++) {
-      g.fillStyle = 'rgba(' + (150 + Math.random() * 30 | 0) + ',' + (100 + Math.random() * 24 | 0) + ',' + (50 + Math.random() * 20 | 0) + ',0.05)';
+      g.fillStyle = 'rgba(' + (185 + Math.random() * 30 | 0) + ',' + (145 + Math.random() * 24 | 0) + ',' + (95 + Math.random() * 20 | 0) + ',0.05)';
       g.fillRect(Math.random() * 128, Math.random() * 256, 10 + Math.random() * 26, 4 + Math.random() * 10);
     }
     for (var i = 0; i < 70; i++) {
       var x = Math.random() * 128;
-      g.strokeStyle = 'rgba(120,78,38,' + (0.05 + Math.random() * 0.16).toFixed(2) + ')';
+      g.strokeStyle = 'rgba(150,108,60,' + (0.05 + Math.random() * 0.15).toFixed(2) + ')';
       g.lineWidth = 0.5 + Math.random() * 1.5;
       g.beginPath();
       g.moveTo(x, 0);
@@ -51,37 +52,31 @@ window.FurSweep3D = (function () {
     return tex;
   }
 
-  function makeMetalTexture(THREE, ridged) {
+  function makeSteelTexture(THREE) {
     var c = document.createElement('canvas');
     c.width = 96; c.height = 96;
     var g = c.getContext('2d');
     var grad = g.createLinearGradient(0, 0, 96, 96);
-    grad.addColorStop(0, '#c9ccce');
-    grad.addColorStop(0.45, '#a6acb1');
-    grad.addColorStop(1, '#767d84');
+    grad.addColorStop(0, '#d4d7d9');
+    grad.addColorStop(0.45, '#aeb4b9');
+    grad.addColorStop(1, '#82888e');
     g.fillStyle = grad;
     g.fillRect(0, 0, 96, 96);
-    /* Grain brossé fin et directionnel (anisotrope), plus réaliste qu'un
-       simple dégradé lisse — imite les micro-stries d'un métal satiné. */
+    /* Grain brossé fin et directionnel (anisotrope) — micro-stries d'un
+       acier satiné, pas un dégradé lisse. */
     for (var y3 = 0; y3 < 96; y3++) {
       var shade = (Math.random() - 0.5) * 14;
       g.strokeStyle = 'rgba(' + (shade > 0 ? '255,255,255,' + (shade / 60).toFixed(2) : '30,26,22,' + (-shade / 90).toFixed(2)) + ')';
       g.lineWidth = 1;
       g.beginPath(); g.moveTo(0, y3 + 0.5); g.lineTo(96, y3 + 0.5); g.stroke();
     }
-    if (ridged) {
-      g.strokeStyle = 'rgba(60,50,32,0.4)';
-      g.lineWidth = 1;
-      for (var y = 0; y < 96; y += 4) { g.beginPath(); g.moveTo(0, y); g.lineTo(96, y); g.stroke(); }
-    } else {
-      g.strokeStyle = 'rgba(255,255,255,0.22)';
-      for (var y2 = 0; y2 < 96; y2 += 7) { g.beginPath(); g.moveTo(0, y2); g.lineTo(96, y2 + 3); g.stroke(); }
-    }
-    /* Un léger reflet spéculaire diagonal, comme une source de studio
-       captée par la surface satinée. */
+    g.strokeStyle = 'rgba(255,255,255,0.22)';
+    for (var y2 = 0; y2 < 96; y2 += 7) { g.beginPath(); g.moveTo(0, y2); g.lineTo(96, y2 + 3); g.stroke(); }
+    /* Léger reflet spéculaire diagonal, comme une source de studio captée
+       par la surface satinée. */
     var sheen = g.createLinearGradient(0, 0, 96, 96);
     sheen.addColorStop(0.35, 'rgba(255,255,255,0)');
-    sheen.addColorStop(0.5, 'rgba(255,255,255,0.16)');
+    sheen.addColorStop(0.5, 'rgba(255,255,255,0.18)');
     sheen.addColorStop(0.65, 'rgba(255,255,255,0)');
     g.fillStyle = sheen;
     g.fillRect(0, 0, 96, 96);
@@ -90,79 +85,100 @@ window.FurSweep3D = (function () {
     return tex;
   }
 
+  function makeBrassTexture(THREE) {
+    var c = document.createElement('canvas');
+    c.width = 96; c.height = 96;
+    var g = c.getContext('2d');
+    var grad = g.createLinearGradient(0, 0, 96, 96);
+    grad.addColorStop(0, '#d3ab6c');
+    grad.addColorStop(0.45, '#b6874a');
+    grad.addColorStop(1, '#8a6532');
+    g.fillStyle = grad;
+    g.fillRect(0, 0, 96, 96);
+    /* Cannelures fines et légèrement obliques, pour suggérer un fil
+       métallique enroulé plutôt que des anneaux parfaitement droits. */
+    for (var y = 0; y < 96; y += 2.6) {
+      g.strokeStyle = 'rgba(50,32,12,0.4)';
+      g.lineWidth = 1;
+      g.beginPath(); g.moveTo(0, y); g.lineTo(96, y + 9); g.stroke();
+    }
+    for (var y2 = 1.3; y2 < 96; y2 += 2.6) {
+      g.strokeStyle = 'rgba(255,232,180,0.22)';
+      g.beginPath(); g.moveTo(0, y2); g.lineTo(96, y2 + 9); g.stroke();
+    }
+    var tex = new THREE.CanvasTexture(c);
+    tex.wrapS = tex.wrapT = THREE.RepeatWrapping;
+    tex.repeat.set(3, 1);
+    return tex;
+  }
+
+  /* Tige métallique droite entre deux points — pour le cadre trapézoïdal
+     (des tiges franches, pas une boucle courbe). */
+  function straightRod(THREE, p1, p2, radius, mat, segments) {
+    var dir = new THREE.Vector3().subVectors(p2, p1);
+    var len = dir.length();
+    var geo = new THREE.CylinderGeometry(radius, radius, len, segments || 10);
+    var mesh = new THREE.Mesh(geo, mat);
+    mesh.position.copy(p1).addScaledVector(dir, 0.5);
+    var up = new THREE.Vector3(0, 1, 0);
+    mesh.quaternion.setFromUnitVectors(up, dir.clone().normalize());
+    return mesh;
+  }
+
   function buildGroup(THREE) {
     var group = new THREE.Group();
 
-    var woodMat = new THREE.MeshStandardMaterial({ map: makeWoodTexture(THREE), roughness: 0.62, metalness: 0.04 });
-    var frameMat = new THREE.MeshStandardMaterial({ map: makeMetalTexture(THREE, false), roughness: 0.42, metalness: 0.8 });
-    var headMat = new THREE.MeshStandardMaterial({ map: makeMetalTexture(THREE, true), roughness: 0.48, metalness: 0.72, color: 0xbfa878 });
+    var woodMat = new THREE.MeshStandardMaterial({ map: makeWoodTexture(THREE), roughness: 0.58, metalness: 0.03 });
+    var steelMat = new THREE.MeshStandardMaterial({ map: makeSteelTexture(THREE), roughness: 0.38, metalness: 0.82 });
+    var brassMat = new THREE.MeshStandardMaterial({ map: makeBrassTexture(THREE), roughness: 0.36, metalness: 0.78 });
 
-    /* Manche : légèrement conique, base arrondie, pas un cylindre parfait. */
-    var handle = new THREE.Mesh(new THREE.CylinderGeometry(0.33, 0.43, 2.25, 24), woodMat);
-    handle.position.y = -1.52;
+    /* Manche : profil tourné (lathe) en une seule pièce continue, sans
+       jointures visibles — base arrondie, léger galbe ergonomique, resserré
+       vers le collier métallique. */
+    var profile = [
+      new THREE.Vector2(0.0, -2.78),
+      new THREE.Vector2(0.16, -2.75),
+      new THREE.Vector2(0.31, -2.63),
+      new THREE.Vector2(0.41, -2.4),
+      new THREE.Vector2(0.435, -2.05),
+      new THREE.Vector2(0.42, -1.55),
+      new THREE.Vector2(0.385, -1.0),
+      new THREE.Vector2(0.335, -0.5),
+      new THREE.Vector2(0.27, -0.14)
+    ];
+    var handle = new THREE.Mesh(new THREE.LatheGeometry(profile, 28), woodMat);
     group.add(handle);
-    var base = new THREE.Mesh(new THREE.SphereGeometry(0.43, 20, 14, 0, Math.PI * 2, 0, Math.PI / 2), woodMat);
-    base.rotation.x = Math.PI;
-    base.position.y = -2.63;
-    group.add(base);
-    var neckTaper = new THREE.Mesh(new THREE.CylinderGeometry(0.24, 0.33, 0.28, 24), woodMat);
-    neckTaper.position.y = -0.28;
-    group.add(neckTaper);
 
-    /* Virole métallique. */
-    var ferrule = new THREE.Mesh(new THREE.CylinderGeometry(0.28, 0.3, 0.4, 24), frameMat);
-    ferrule.position.y = -0.02;
+    /* Collier métallique court, brossé — jonction bois → cadre. */
+    var ferrule = new THREE.Mesh(new THREE.CylinderGeometry(0.235, 0.27, 0.34, 24), steelMat);
+    ferrule.position.y = 0.03;
     group.add(ferrule);
 
-    /* Cadre en fil de fer : deux tubes courbes de la virole vers les
-       extrémités de la tête de nettoyage. */
-    function wireTube(sign) {
-      var pts = [
-        new THREE.Vector3(sign * 0.18, 0.16, 0),
-        new THREE.Vector3(sign * 1.05, 1.05, 0.06),
-        new THREE.Vector3(sign * 1.32, 2.05, 0.06),
-        new THREE.Vector3(sign * 0.82, 2.78, 0)
-      ];
-      var curve = new THREE.CatmullRomCurve3(pts);
-      var geo = new THREE.TubeGeometry(curve, 26, 0.05, 8, false);
-      return new THREE.Mesh(geo, frameMat);
-    }
-    group.add(wireTube(-1));
-    group.add(wireTube(1));
+    /* Cadre en fil de fer : structure trapézoïdale franche — deux tiges
+       droites du collier vers les extrémités de la tête, pas une boucle
+       arrondie. */
+    var connTop = new THREE.Vector3(0, 0.2, 0);
+    var headL = new THREE.Vector3(-0.92, 2.86, 0);
+    var headR = new THREE.Vector3(0.92, 2.86, 0);
+    group.add(straightRod(THREE, new THREE.Vector3(-0.1, 0.16, 0), headL, 0.045, steelMat));
+    group.add(straightRod(THREE, new THREE.Vector3(0.1, 0.16, 0), headR, 0.045, steelMat));
+    /* Petit sommet arrondi au niveau du collier, pour fermer proprement le
+       trapèze plutôt que deux tiges qui se croisent à vif. */
+    var apexCap = new THREE.Mesh(new THREE.SphereGeometry(0.09, 12, 10), steelMat);
+    apexCap.position.copy(connTop);
+    group.add(apexCap);
 
-    /* Tête de nettoyage : barre métallique texturée (crantée), montée entre
-       les deux extrémités du cadre. */
-    var head = new THREE.Mesh(new THREE.CylinderGeometry(0.115, 0.115, 1.72, 18), headMat);
-    head.rotation.z = Math.PI / 2;
-    head.position.y = 2.82;
+    /* Tête de nettoyage : long cylindre métallique à surface striée /
+       enroulée, ton laiton — pas de dents, la texture réelle est un
+       cannelage fin façon fil enroulé. */
+    var head = straightRod(THREE, headL, headR, 0.135, brassMat, 20);
     group.add(head);
-    var headCapL = new THREE.Mesh(new THREE.SphereGeometry(0.115, 12, 10), frameMat);
-    headCapL.position.set(-0.86, 2.82, 0);
+    var headCapL = new THREE.Mesh(new THREE.SphereGeometry(0.135, 14, 10), steelMat);
+    headCapL.position.copy(headL);
     group.add(headCapL);
     var headCapR = headCapL.clone();
-    headCapR.position.set(0.86, 2.82, 0);
+    headCapR.position.copy(headR);
     group.add(headCapR);
-
-    /* Double rangée de dents métalliques, fines et pointues, suspendues sous
-       la barre — c'est la caractéristique du produit ("tête à double
-       rangée de dents") et elle manquait entièrement au modèle jusqu'ici. */
-    var teethMat = new THREE.MeshStandardMaterial({ map: makeMetalTexture(THREE, false), roughness: 0.3, metalness: 0.85 });
-    var toothGeo = new THREE.ConeGeometry(0.02, 1, 7);
-    var headBottom = 2.82 - 0.115;
-    var rowsZ = [-0.05, 0.05];
-    var teethPerRow = 15;
-    for (var r = 0; r < rowsZ.length; r++) {
-      for (var ti = 0; ti < teethPerRow; ti++) {
-        var tx = -0.78 + (1.56 * ti / (teethPerRow - 1));
-        var tLen = 0.19 + Math.random() * 0.05;
-        var tooth = new THREE.Mesh(toothGeo, teethMat);
-        tooth.scale.set(1, tLen, 1);
-        tooth.rotation.x = Math.PI;
-        tooth.rotation.y = (Math.random() - 0.5) * 0.12;
-        tooth.position.set(tx, headBottom - tLen / 2, rowsZ[r]);
-        group.add(tooth);
-      }
-    }
 
     group.scale.set(0.6, 0.6, 0.6);
     return group;
