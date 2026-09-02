@@ -119,7 +119,7 @@ body.m-has-cursor a, body.m-has-cursor button { cursor: none; }
 
 .m-hero-carpet {
   position: absolute; inset: 0; z-index: 1;
-  background-image: url('assets/images/fursweep-carpet-bg.jpg');
+  background-image: url('/assets/images/fursweep-carpet-bg.jpg');
   background-size: cover; background-position: center;
 }
 .m-hero-carpet::after {

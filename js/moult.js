@@ -127,7 +127,7 @@
       var maskW = 220, maskH = 130;
       var maskCanvas = document.createElement('canvas');
       maskCanvas.width = maskW; maskCanvas.height = maskH;
-      var maskCtx = maskCanvas.getContext('2d');
+      var maskCtx = maskCanvas.getContext('2d', { willReadFrequently: true });
       maskCtx.fillStyle = '#000';
       maskCtx.fillRect(0, 0, maskW, maskH);
 
