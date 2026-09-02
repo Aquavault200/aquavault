@@ -398,12 +398,19 @@
          pin créé, la position réelle est correcte : la transition est un
          vrai fondu scrubbed, lié au scroll, pas une coupure nette. */
       var nextSection = document.getElementById('mProductReveal');
-      if (nextSection) {
-        gsap.set(nextSection, { opacity: 0, y: 90 });
-        gsap.to(nextSection, {
+      /* On anime/déclenche sur le contenu réellement visible (le bloc texte
+         + image), pas sur la section englobante : celle-ci a ~160px de
+         padding + l'eyebrow au-dessus avant le premier pixel utile, donc
+         un déclencheur basé sur la section se retrouvait "complet" (opacity
+         proche de 1) alors que tout le contenu était encore sous le bas de
+         l'écran — un vrai trou vide, pas juste une impression. */
+      var nextContent = nextSection ? nextSection.querySelector('.m-product-reveal') : null;
+      if (nextSection && nextContent) {
+        gsap.set(nextContent, { opacity: 0, y: 60 });
+        gsap.to(nextContent, {
           opacity: 1, y: 0, ease: 'none',
           scrollTrigger: {
-            trigger: nextSection,
+            trigger: nextContent,
             /* Démarre bien avant que la section soit visible (encore
                cachée derrière le héro pinné) : le fondu recouvre ainsi tout
                l'effacement du tapis, sans le trou mort où l'écran reste
