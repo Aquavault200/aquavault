@@ -111,8 +111,8 @@ window.FurSweep3D = (function () {
 
     /* Centre le groupe verticalement sur son propre milieu (plutôt qu'un
        décalage arbitraire) pour être sûr qu'il tienne entier dans le cadre. */
-    group.position.y = -0.1;
-    group.scale.set(0.72, 0.72, 0.72);
+    group.position.y = -0.3;
+    group.scale.set(0.6, 0.6, 0.6);
     return group;
   }
 
@@ -128,8 +128,8 @@ window.FurSweep3D = (function () {
     /* Champ de vision resserré + recul de caméra : marge confortable pour
        que le manche et la tête tiennent entiers dans le cadre, même avec
        la légère inclinaison de caméra ajoutée pendant le scroll. */
-    var camera = new THREE.PerspectiveCamera(24, 1, 0.1, 30);
-    camera.position.set(0, 0.1, 10.5);
+    var camera = new THREE.PerspectiveCamera(18, 1, 0.1, 30);
+    camera.position.set(0, 0.1, 14);
 
     /* Éclairage studio doux, assourdi pour rester raccord avec la palette
        chaude et mate du site plutôt qu'un rendu trop propre/éclatant. */
