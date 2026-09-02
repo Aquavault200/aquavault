@@ -313,7 +313,6 @@
         else { last.x = mx; last.y = my; last.r = mr; }
         rebuildMask();
       }
-      window.__fsDebug = { trail: trail, maskCanvas: maskCanvas, maskCtx: maskCtx, maskW: maskW, maskH: maskH, isCleaned: isCleaned };
 
       /* ---------- Modèle 3D (Three.js) du produit ---------- */
       var brushCanvas = document.getElementById('mBrushCanvas');
@@ -338,7 +337,16 @@
         /* Point de contact réel : la tête métallique, vers le haut du dessin. */
         var px = (state.x / 100) * vw;
         var py = (state.y / 100) * vh - (brush.offsetHeight * state.scale * 0.3);
-        var progress = tl.scrollTrigger ? tl.scrollTrigger.progress : 0;
+        /* Important : tl.progress() (position de lecture de la timeline,
+           celle qui pilote réellement state.x/y) — PAS
+           tl.scrollTrigger.progress (la cible brute du scroll, qui saute
+           instantanément à sa valeur finale dès que le scroll s'arrête,
+           avant que le rattrapage du scrub n'ait fini d'animer state.x/y).
+           Utiliser cette dernière ici désynchronise la trace de la position
+           réelle de la brosse : chaque appel pendant le rattrapage se voit
+           taguer la même progression finale alors que px/py bougent encore,
+           donc chaque point écrase le précédent au lieu de tracer le trajet. */
+        var progress = tl.progress();
         var activePass = progress > 0.04 && progress < 0.6;
         /* Le rayon nettoyé doit suivre la largeur réelle affichée de la
            brosse (désormais quasi plein écran) — sinon, avec un rayon fixe
