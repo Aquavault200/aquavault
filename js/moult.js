@@ -356,26 +356,28 @@
         .to(statement, { opacity: 0, duration: 0.08 }, 0.86)
         .to(carpet, { opacity: 0, duration: 0.16 }, 0.82)
         .to(canvas, { opacity: 0, duration: 0.16 }, 0.82);
-    }
 
-    /* ---------- Transition héro → section suivante ----------
-       Le héro pinné se termine hors-écran (dans l'espace réservé par
-       ScrollTrigger) : lier son entrée à ce même timeline ne produirait
-       donc rien de visible. Ici, une transition scrubbed dédiée, liée à la
-       position réelle de la section au fil du scroll — un vrai fondu qui
-       monte avec le scroll, pas une coupure nette tapis → page. */
-    var nextSection = document.getElementById('mProductReveal');
-    if (nextSection) {
-      gsap.set(nextSection, { opacity: 0, y: 90 });
-      gsap.to(nextSection, {
-        opacity: 1, y: 0, ease: 'none',
-        scrollTrigger: {
-          trigger: nextSection,
-          start: 'top bottom',
-          end: 'top 55%',
-          scrub: 0.4
-        }
-      });
+      /* ---------- Transition héro → section suivante ----------
+         Créée ici (après le pin) et non plus tôt dans init() : le pin insère
+         un pin-spacer qui repousse toute la suite du document. Mesurer la
+         position de la section suivante avant que ce spacer existe donne des
+         valeurs start/end obsolètes, décalées d'autant que le pin ajoute de
+         hauteur — même piège que la mesure 0×0 du pin lui-même. Une fois le
+         pin créé, la position réelle est correcte : la transition est un
+         vrai fondu scrubbed, lié au scroll, pas une coupure nette. */
+      var nextSection = document.getElementById('mProductReveal');
+      if (nextSection) {
+        gsap.set(nextSection, { opacity: 0, y: 90 });
+        gsap.to(nextSection, {
+          opacity: 1, y: 0, ease: 'none',
+          scrollTrigger: {
+            trigger: nextSection,
+            start: 'top bottom',
+            end: 'top 55%',
+            scrub: 0.4
+          }
+        });
+      }
     }
   }
 
