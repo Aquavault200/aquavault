@@ -78,12 +78,16 @@
   });
 
   /* ---------- Séquence héro : le tapis couvert de poils, nettoyé en deux passes ---------- */
+  /* Tapis clair (gris-beige) : la palette est volontairement assombrie et
+     resserrée pour que chaque poil reste net et lisible dessus — plus de
+     tons proches du blanc qui s'y noient. */
   var HAIR_COLORS = [
-    'rgba(15,11,8,A)',     /* poil foncé */
-    'rgba(15,11,8,A)',     /* poil foncé (pondéré : le plus contrasté sur ce tapis clair) */
-    'rgba(74,56,38,A)',    /* poil brun moyen */
-    'rgba(120,98,76,A)',   /* poil brun clair */
-    'rgba(241,235,222,A)'  /* poil clair/blond, cerné d'ombre pour rester visible */
+    'rgba(12,9,6,A)',      /* quasi noir */
+    'rgba(12,9,6,A)',
+    'rgba(46,34,22,A)',    /* brun très foncé */
+    'rgba(46,34,22,A)',
+    'rgba(94,74,52,A)',    /* brun moyen */
+    'rgba(128,112,92,A)'   /* gris-brun, le plus clair de la gamme */
   ];
 
   function init() {
@@ -170,8 +174,10 @@
             r: r * (0.55 + Math.random() * 0.5)
           });
         }
-        var tone = Math.random() > 0.35 ? '232,226,214' : '58,48,38';
-        hairs.push({ type: 'tuft', x: x, y: y, blobs: blobs, tone: tone, alpha: 0.4 + Math.random() * 0.22 });
+        /* Même sur ce tapis clair, les touffes restent nettement plus foncées
+           que le fond pour qu'on les distingue sans effort. */
+        var tone = Math.random() > 0.6 ? '140,124,104' : '42,32,22';
+        hairs.push({ type: 'tuft', x: x, y: y, blobs: blobs, tone: tone, alpha: 0.55 + Math.random() * 0.25 });
         var escapes = 2 + Math.floor(Math.random() * 4);
         for (var e = 0; e < escapes; e++) {
           var eang = Math.random() * Math.PI * 2;
@@ -203,7 +209,7 @@
         var mx = (h.x + x2) / 2 - Math.sin(h.ang) * h.curve;
         var my = (h.y + y2) / 2 + Math.cos(h.ang) * h.curve;
         if (h.shadow) {
-          ctx.strokeStyle = 'rgba(10,7,4,0.26)';
+          ctx.strokeStyle = 'rgba(10,7,4,0.4)';
           ctx.lineWidth = h.w + 1;
           ctx.lineCap = 'round';
           ctx.beginPath();

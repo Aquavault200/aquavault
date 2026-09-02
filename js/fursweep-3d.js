@@ -38,9 +38,9 @@ window.FurSweep3D = (function () {
     c.width = 64; c.height = 64;
     var g = c.getContext('2d');
     var grad = g.createLinearGradient(0, 0, 64, 64);
-    grad.addColorStop(0, '#f0f3f5');
-    grad.addColorStop(0.45, '#cdd3d8');
-    grad.addColorStop(1, '#989fa6');
+    grad.addColorStop(0, '#c9ccce');
+    grad.addColorStop(0.45, '#a6acb1');
+    grad.addColorStop(1, '#767d84');
     g.fillStyle = grad;
     g.fillRect(0, 0, 64, 64);
     if (ridged) {
@@ -60,8 +60,8 @@ window.FurSweep3D = (function () {
     var group = new THREE.Group();
 
     var woodMat = new THREE.MeshStandardMaterial({ map: makeWoodTexture(THREE), roughness: 0.62, metalness: 0.04 });
-    var frameMat = new THREE.MeshStandardMaterial({ map: makeMetalTexture(THREE, false), roughness: 0.3, metalness: 0.85 });
-    var headMat = new THREE.MeshStandardMaterial({ map: makeMetalTexture(THREE, true), roughness: 0.38, metalness: 0.78, color: 0xdcca9c });
+    var frameMat = new THREE.MeshStandardMaterial({ map: makeMetalTexture(THREE, false), roughness: 0.42, metalness: 0.8 });
+    var headMat = new THREE.MeshStandardMaterial({ map: makeMetalTexture(THREE, true), roughness: 0.48, metalness: 0.72, color: 0xbfa878 });
 
     /* Manche : légèrement conique, base arrondie, pas un cylindre parfait. */
     var handle = new THREE.Mesh(new THREE.CylinderGeometry(0.33, 0.43, 2.25, 24), woodMat);
@@ -109,8 +109,10 @@ window.FurSweep3D = (function () {
     headCapR.position.set(0.86, 2.82, 0);
     group.add(headCapR);
 
-    group.position.y = 0.3;
-    group.scale.set(0.78, 0.78, 0.78);
+    /* Centre le groupe verticalement sur son propre milieu (plutôt qu'un
+       décalage arbitraire) pour être sûr qu'il tienne entier dans le cadre. */
+    group.position.y = -0.1;
+    group.scale.set(0.72, 0.72, 0.72);
     return group;
   }
 
@@ -123,18 +125,22 @@ window.FurSweep3D = (function () {
     renderer.setClearColor(0x000000, 0);
 
     var scene = new THREE.Scene();
-    var camera = new THREE.PerspectiveCamera(30, 1, 0.1, 30);
-    camera.position.set(0, 0.3, 8.4);
+    /* Champ de vision resserré + recul de caméra : marge confortable pour
+       que le manche et la tête tiennent entiers dans le cadre, même avec
+       la légère inclinaison de caméra ajoutée pendant le scroll. */
+    var camera = new THREE.PerspectiveCamera(24, 1, 0.1, 30);
+    camera.position.set(0, 0.1, 10.5);
 
-    /* Éclairage studio doux : ambiance chaude, une clé, un léger contre-jour. */
-    scene.add(new THREE.AmbientLight(0xfff2e0, 0.6));
-    var key = new THREE.DirectionalLight(0xfff7ec, 1.2);
+    /* Éclairage studio doux, assourdi pour rester raccord avec la palette
+       chaude et mate du site plutôt qu'un rendu trop propre/éclatant. */
+    scene.add(new THREE.AmbientLight(0xe8d8bf, 0.42));
+    var key = new THREE.DirectionalLight(0xf3dfc0, 0.75);
     key.position.set(3.2, 5, 4.5);
     scene.add(key);
-    var fill = new THREE.DirectionalLight(0xdfe9f5, 0.38);
+    var fill = new THREE.DirectionalLight(0xc9b89e, 0.22);
     fill.position.set(-4, 0.8, 2.4);
     scene.add(fill);
-    var rim = new THREE.DirectionalLight(0xffffff, 0.55);
+    var rim = new THREE.DirectionalLight(0xe9c9a2, 0.3);
     rim.position.set(-2.2, -1.2, -4);
     scene.add(rim);
 
