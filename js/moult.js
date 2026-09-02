@@ -324,7 +324,12 @@
         var py = (state.y / 100) * vh - (brush.offsetHeight * state.scale * 0.3);
         var progress = tl.scrollTrigger ? tl.scrollTrigger.progress : 0;
         var activePass = progress > 0.04 && progress < 0.6;
-        paintClean(px, py, vw * 0.2);
+        /* Le rayon nettoyé doit suivre la largeur réelle affichée de la
+           brosse (désormais quasi plein écran) — sinon, avec un rayon fixe
+           trop petit, l'essentiel du passage visuel de la brosse ne nettoie
+           rien et les poils semblent ne jamais disparaître. */
+        var cleanRadius = brush.offsetWidth * state.scale * 0.42;
+        paintClean(px, py, cleanRadius);
         redrawHairs(px, py, activePass);
       }
 

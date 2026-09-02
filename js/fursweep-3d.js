@@ -14,10 +14,28 @@ window.FurSweep3D = (function () {
     var g = c.getContext('2d');
     g.fillStyle = '#dcb680';
     g.fillRect(0, 0, 128, 256);
-    for (var i = 0; i < 46; i++) {
+    /* Nœuds discrets, avant le grain, pour qu'ils se fassent recouvrir
+       partiellement par les fibres plutôt que de flotter au-dessus. */
+    for (var n = 0; n < 3; n++) {
+      var nx = 20 + Math.random() * 88, ny = 30 + Math.random() * 196;
+      var nr = 5 + Math.random() * 6;
+      var ng = g.createRadialGradient(nx, ny, 0, nx, ny, nr);
+      ng.addColorStop(0, 'rgba(96,60,28,0.5)');
+      ng.addColorStop(0.6, 'rgba(110,70,34,0.28)');
+      ng.addColorStop(1, 'rgba(110,70,34,0)');
+      g.fillStyle = ng;
+      g.beginPath(); g.ellipse(nx, ny, nr, nr * 1.4, 0, 0, Math.PI * 2); g.fill();
+    }
+    /* Légère variation de teinte sous-jacente avant les fibres, pour éviter
+       un aplat trop uniforme. */
+    for (var s = 0; s < 60; s++) {
+      g.fillStyle = 'rgba(' + (150 + Math.random() * 30 | 0) + ',' + (100 + Math.random() * 24 | 0) + ',' + (50 + Math.random() * 20 | 0) + ',0.05)';
+      g.fillRect(Math.random() * 128, Math.random() * 256, 10 + Math.random() * 26, 4 + Math.random() * 10);
+    }
+    for (var i = 0; i < 70; i++) {
       var x = Math.random() * 128;
-      g.strokeStyle = 'rgba(120,78,38,' + (0.06 + Math.random() * 0.14).toFixed(2) + ')';
-      g.lineWidth = 0.6 + Math.random() * 1.6;
+      g.strokeStyle = 'rgba(120,78,38,' + (0.05 + Math.random() * 0.16).toFixed(2) + ')';
+      g.lineWidth = 0.5 + Math.random() * 1.5;
       g.beginPath();
       g.moveTo(x, 0);
       g.bezierCurveTo(
@@ -35,22 +53,38 @@ window.FurSweep3D = (function () {
 
   function makeMetalTexture(THREE, ridged) {
     var c = document.createElement('canvas');
-    c.width = 64; c.height = 64;
+    c.width = 96; c.height = 96;
     var g = c.getContext('2d');
-    var grad = g.createLinearGradient(0, 0, 64, 64);
+    var grad = g.createLinearGradient(0, 0, 96, 96);
     grad.addColorStop(0, '#c9ccce');
     grad.addColorStop(0.45, '#a6acb1');
     grad.addColorStop(1, '#767d84');
     g.fillStyle = grad;
-    g.fillRect(0, 0, 64, 64);
-    if (ridged) {
-      g.strokeStyle = 'rgba(70,60,40,0.35)';
+    g.fillRect(0, 0, 96, 96);
+    /* Grain brossé fin et directionnel (anisotrope), plus réaliste qu'un
+       simple dégradé lisse — imite les micro-stries d'un métal satiné. */
+    for (var y3 = 0; y3 < 96; y3++) {
+      var shade = (Math.random() - 0.5) * 14;
+      g.strokeStyle = 'rgba(' + (shade > 0 ? '255,255,255,' + (shade / 60).toFixed(2) : '30,26,22,' + (-shade / 90).toFixed(2)) + ')';
       g.lineWidth = 1;
-      for (var y = 0; y < 64; y += 3) { g.beginPath(); g.moveTo(0, y); g.lineTo(64, y); g.stroke(); }
-    } else {
-      g.strokeStyle = 'rgba(255,255,255,0.25)';
-      for (var y2 = 0; y2 < 64; y2 += 5) { g.beginPath(); g.moveTo(0, y2); g.lineTo(64, y2 + 2); g.stroke(); }
+      g.beginPath(); g.moveTo(0, y3 + 0.5); g.lineTo(96, y3 + 0.5); g.stroke();
     }
+    if (ridged) {
+      g.strokeStyle = 'rgba(60,50,32,0.4)';
+      g.lineWidth = 1;
+      for (var y = 0; y < 96; y += 4) { g.beginPath(); g.moveTo(0, y); g.lineTo(96, y); g.stroke(); }
+    } else {
+      g.strokeStyle = 'rgba(255,255,255,0.22)';
+      for (var y2 = 0; y2 < 96; y2 += 7) { g.beginPath(); g.moveTo(0, y2); g.lineTo(96, y2 + 3); g.stroke(); }
+    }
+    /* Un léger reflet spéculaire diagonal, comme une source de studio
+       captée par la surface satinée. */
+    var sheen = g.createLinearGradient(0, 0, 96, 96);
+    sheen.addColorStop(0.35, 'rgba(255,255,255,0)');
+    sheen.addColorStop(0.5, 'rgba(255,255,255,0.16)');
+    sheen.addColorStop(0.65, 'rgba(255,255,255,0)');
+    g.fillStyle = sheen;
+    g.fillRect(0, 0, 96, 96);
     var tex = new THREE.CanvasTexture(c);
     tex.wrapS = tex.wrapT = THREE.RepeatWrapping;
     return tex;
@@ -108,6 +142,27 @@ window.FurSweep3D = (function () {
     var headCapR = headCapL.clone();
     headCapR.position.set(0.86, 2.82, 0);
     group.add(headCapR);
+
+    /* Double rangée de dents métalliques, fines et pointues, suspendues sous
+       la barre — c'est la caractéristique du produit ("tête à double
+       rangée de dents") et elle manquait entièrement au modèle jusqu'ici. */
+    var teethMat = new THREE.MeshStandardMaterial({ map: makeMetalTexture(THREE, false), roughness: 0.3, metalness: 0.85 });
+    var toothGeo = new THREE.ConeGeometry(0.02, 1, 7);
+    var headBottom = 2.82 - 0.115;
+    var rowsZ = [-0.05, 0.05];
+    var teethPerRow = 15;
+    for (var r = 0; r < rowsZ.length; r++) {
+      for (var ti = 0; ti < teethPerRow; ti++) {
+        var tx = -0.78 + (1.56 * ti / (teethPerRow - 1));
+        var tLen = 0.19 + Math.random() * 0.05;
+        var tooth = new THREE.Mesh(toothGeo, teethMat);
+        tooth.scale.set(1, tLen, 1);
+        tooth.rotation.x = Math.PI;
+        tooth.rotation.y = (Math.random() - 0.5) * 0.12;
+        tooth.position.set(tx, headBottom - tLen / 2, rowsZ[r]);
+        group.add(tooth);
+      }
+    }
 
     group.scale.set(0.6, 0.6, 0.6);
     return group;
