@@ -109,9 +109,6 @@ window.FurSweep3D = (function () {
     headCapR.position.set(0.86, 2.82, 0);
     group.add(headCapR);
 
-    /* Centre le groupe verticalement sur son propre milieu (plutôt qu'un
-       décalage arbitraire) pour être sûr qu'il tienne entier dans le cadre. */
-    group.position.y = -0.3;
     group.scale.set(0.6, 0.6, 0.6);
     return group;
   }
@@ -125,11 +122,7 @@ window.FurSweep3D = (function () {
     renderer.setClearColor(0x000000, 0);
 
     var scene = new THREE.Scene();
-    /* Champ de vision resserré + recul de caméra : marge confortable pour
-       que le manche et la tête tiennent entiers dans le cadre, même avec
-       la légère inclinaison de caméra ajoutée pendant le scroll. */
-    var camera = new THREE.PerspectiveCamera(18, 1, 0.1, 30);
-    camera.position.set(0, 0.1, 14);
+    var camera = new THREE.PerspectiveCamera(22, 1, 0.1, 40);
 
     /* Éclairage studio doux, assourdi pour rester raccord avec la palette
        chaude et mate du site plutôt qu'un rendu trop propre/éclatant. */
@@ -146,6 +139,18 @@ window.FurSweep3D = (function () {
 
     var group = buildGroup(THREE);
     scene.add(group);
+
+    /* Cadrage robuste à toute rotation : on centre le groupe sur sa propre
+       sphère englobante (invariante par rotation, contrairement à une boîte
+       axis-aligned) puis on place la caméra à la distance minimale garantissant
+       qu'elle tienne dans le champ de vision, avec une marge de sécurité. */
+    var box = new THREE.Box3().setFromObject(group);
+    var sphere = box.getBoundingSphere(new THREE.Sphere());
+    group.position.sub(sphere.center);
+    var fovRad = camera.fov * Math.PI / 180;
+    var safetyMargin = 1.4;
+    var camDist = (sphere.radius * safetyMargin) / Math.sin(fovRad / 2);
+    camera.position.set(0, 0, camDist);
 
     function resize() {
       var w = canvas.clientWidth, h = canvas.clientHeight;
@@ -166,8 +171,9 @@ window.FurSweep3D = (function () {
       group.rotation.y = tilt * 0.6;
       group.rotation.x = 0.1 + tilt * 0.18;
       camera.position.x = tilt * 0.9;
-      camera.position.y = 0.3 + tilt * 0.2;
-      camera.lookAt(0, 0.2, 0);
+      camera.position.y = tilt * 0.2;
+      camera.position.z = camDist;
+      camera.lookAt(0, 0, 0);
       renderer.render(scene, camera);
     }
 
