@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MOULT — L'anti-peluches qui ne se jette jamais</title>
-<meta name="description" content="MOULT enlève poils d'animaux, peluches et bouloches en un seul geste. Manche en bois, tête métallique, aucun consommable à racheter.">
+<title>FURSWEEP — L'anti-peluches qui ne se jette jamais</title>
+<meta name="description" content="FURSWEEP enlève poils d'animaux, peluches et bouloches en un seul geste. Manche en bois, tête métallique, aucun consommable à racheter.">
 <link rel="icon" href="data:,">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,14 +15,14 @@
 
 <header class="m-header" id="mHeader">
   <div class="m-wrap m-header-inner">
-    <a href="index.html" class="m-logo">MOULT</a>
+    <a href="index.html" class="m-logo">FURSWEEP</a>
     <nav class="m-nav">
       <a href="product.html">Produit</a>
       <a href="#comment-ca-marche">Comment ça marche</a>
       <a href="#materiaux">Matériaux</a>
       <a href="faq.html">FAQ</a>
     </nav>
-    <a href="product.html" class="m-cta">Se procurer MOULT</a>
+    <a href="product.html" class="m-cta">Se procurer FURSWEEP</a>
     <button class="m-mobile-toggle" aria-label="Menu"><span></span><span></span><span></span></button>
   </div>
 </header>
@@ -33,16 +33,17 @@
   <a href="#comment-ca-marche">Comment ça marche</a>
   <a href="#materiaux">Matériaux</a>
   <a href="faq.html">FAQ</a>
-  <a href="product.html" class="m-btn m-btn-primary">Se procurer MOULT</a>
+  <a href="product.html" class="m-btn m-btn-primary">Se procurer FURSWEEP</a>
 </div>
 
-<!-- ===================== HÉRO : CHAOS → PROPRE ===================== -->
+<!-- ===================== HÉRO : LE TAPIS ===================== -->
 <section class="m-hero" id="mHero">
   <div class="m-hero-pin" id="mHeroPin">
-    <div class="m-hero-fibers" id="mFibers"></div>
+    <div class="m-hero-carpet" id="mCarpet"></div>
+    <canvas id="mHairCanvas" class="m-hair-canvas" aria-hidden="true"></canvas>
 
     <div class="m-hero-brush" id="mBrush">
-      <svg viewBox="0 0 180 240" class="m-brush-illustration" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="MOULT, brosse anti-peluches">
+      <svg viewBox="0 0 180 240" class="m-brush-illustration" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="FURSWEEP, brosse anti-peluches">
         <defs>
           <linearGradient id="mWoodGrad" x1="0" y1="0" x2="1" y2="0.2">
             <stop offset="0%" stop-color="#F3DBB4"/>
@@ -73,17 +74,11 @@
       </svg>
     </div>
 
-    <div class="m-hero-intro" id="mHeroIntro">
-      <span class="m-eyebrow">MOULT</span>
-      <h2>Rien ne reste derrière.</h2>
-      <div class="m-hero-scroll-hint"><span>Scroll</span><span class="line"></span></div>
-    </div>
-
     <div class="m-hero-statement" id="mHeroStatement">
-      <span class="m-eyebrow">MOULT</span>
+      <span class="m-eyebrow">FURSWEEP</span>
       <h1 class="m-display-huge">ONE PASS.</h1>
-      <p>Poils. Peluches. Disparus.</p>
-      <a href="product.html" class="m-btn m-btn-primary">Se procurer MOULT <svg viewBox="0 0 24 24" style="width:16px;height:16px;"><use href="#icon-arrow-right"></use></svg></a>
+      <p>Rien ne reste derrière.</p>
+      <a href="product.html" class="m-btn m-btn-primary">Se procurer FURSWEEP <svg viewBox="0 0 24 24" style="width:16px;height:16px;"><use href="#icon-arrow-right"></use></svg></a>
     </div>
   </div>
 </section>
@@ -96,7 +91,7 @@
       <h2 class="m-display-1">Simple works.</h2>
       <p class="m-lede" style="max-width:480px;">Un manche en bois massif. Une tête métallique à double rangée de dents. Aucune pile, aucune pièce détachable, aucune recharge à racheter.</p>
       <div class="m-product-photo">
-        <img src="assets/images/moult-hero-action.webp" alt="MOULT en action, retire les peluches d'un tissu">
+        <img src="assets/images/moult-hero-action.webp" alt="FURSWEEP en action, retire les peluches d'un tissu">
       </div>
     </div>
   </div>
@@ -129,9 +124,9 @@
     </div>
   </div>
   <div class="m-surfaces-grid" data-mreveal>
-    <div class="m-surface-card"><img src="assets/images/moult-macro-fuzz.webp" alt="MOULT sur tissu gris"><span class="m-surface-label">Plaid</span></div>
-    <div class="m-surface-card"><img src="assets/images/moult-teal-fabric.webp" alt="MOULT sur tissu vert"><span class="m-surface-label">Canapé</span></div>
-    <div class="m-surface-card"><img src="assets/images/moult-hero-action.webp" alt="MOULT sur lainage"><span class="m-surface-label">Lainage</span></div>
+    <div class="m-surface-card"><img src="assets/images/moult-macro-fuzz.webp" alt="FURSWEEP sur tissu gris"><span class="m-surface-label">Plaid</span></div>
+    <div class="m-surface-card"><img src="assets/images/moult-teal-fabric.webp" alt="FURSWEEP sur tissu vert"><span class="m-surface-label">Canapé</span></div>
+    <div class="m-surface-card"><img src="assets/images/moult-hero-action.webp" alt="FURSWEEP sur lainage"><span class="m-surface-label">Lainage</span></div>
   </div>
 </section>
 
@@ -179,10 +174,10 @@
 <!-- ===================== CTA FINALE ===================== -->
 <section class="m-final-cta" data-mreveal>
   <div class="m-wrap">
-    <span class="m-eyebrow">MOULT</span>
+    <span class="m-eyebrow">FURSWEEP</span>
     <h2 class="m-display-1">Fait pour être utilisé.<br>Pas remplacé.</h2>
     <p class="m-lede">Un outil. Des milliers de passages.</p>
-    <a href="product.html" class="m-btn m-btn-light">Se procurer MOULT <svg viewBox="0 0 24 24" style="width:16px;height:16px;"><use href="#icon-arrow-right"></use></svg></a>
+    <a href="product.html" class="m-btn m-btn-light">Se procurer FURSWEEP <svg viewBox="0 0 24 24" style="width:16px;height:16px;"><use href="#icon-arrow-right"></use></svg></a>
   </div>
 </section>
 
@@ -191,13 +186,13 @@
   <div class="m-wrap">
     <div class="m-footer-top">
       <div class="m-footer-brand">
-        <a href="index.html" class="m-logo">MOULT</a>
+        <a href="index.html" class="m-logo">FURSWEEP</a>
         <p style="margin-top:16px;">Un outil simple, fait pour durer — pensé pour retirer poils et peluches sans jamais rien racheter.</p>
       </div>
       <div>
         <h4>Boutique</h4>
         <ul>
-          <li><a href="product.html">MOULT</a></li>
+          <li><a href="product.html">FURSWEEP</a></li>
           <li><a href="#comment-ca-marche">Comment ça marche</a></li>
           <li><a href="#materiaux">Matériaux</a></li>
         </ul>
@@ -211,7 +206,7 @@
       </div>
     </div>
     <div class="m-footer-bottom">
-      <span>© 2026 MOULT. Le paiement et le traitement des commandes sont assurés par Shopify.</span>
+      <span>© 2026 FURSWEEP. Le paiement et le traitement des commandes sont assurés par Shopify.</span>
       <div style="display:flex;gap:16px;">
         <a href="#"><svg viewBox="0 0 24 24" style="width:18px;height:18px;"><use href="#icon-instagram"></use></svg></a>
         <a href="#"><svg viewBox="0 0 24 24" style="width:18px;height:18px;"><use href="#icon-tiktok"></use></svg></a>

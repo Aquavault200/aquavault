@@ -1,5 +1,5 @@
 /* ==========================================================================
-   MOULT — Système de design (minimalisme industriel / luxe éditorial)
+   FURSWEEP — Système de design (minimalisme industriel / luxe éditorial)
    ========================================================================== */
 
 :root {
@@ -116,27 +116,22 @@ body.m-has-cursor a, body.m-has-cursor button { cursor: none; }
    ========================================================================== */
 .m-hero { position: relative; background: var(--ivory); }
 .m-hero-pin { position: relative; height: 100vh; overflow: hidden; }
-.m-hero-fibers { position: absolute; inset: 0; pointer-events: none; z-index: 2; }
-.m-fiber {
-  position: absolute; pointer-events: none;
-  opacity: 0.55;
-}
-.m-fiber svg { display: block; overflow: visible; }
 
-.m-hero-intro {
-  position: absolute; inset: 0; z-index: 3;
-  display: flex; flex-direction: column; align-items: center; justify-content: center;
-  text-align: center; padding: 0 24px;
+.m-hero-carpet {
+  position: absolute; inset: 0; z-index: 1;
+  background-image: url('assets/images/fursweep-carpet-bg.jpg');
+  background-size: cover; background-position: center;
 }
-.m-hero-intro h2 { font-size: clamp(28px, 4vw, 52px); font-weight: 700; letter-spacing: -0.02em; max-width: 720px; }
-.m-hero-scroll-hint { margin-top: 40px; font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(17,17,17,0.5); display: flex; flex-direction: column; align-items: center; gap: 10px; }
-.m-hero-scroll-hint .line { width: 1px; height: 34px; background: linear-gradient(180deg, rgba(17,17,17,0.6), transparent); animation: mFloat 2.4s ease-in-out infinite; }
-@keyframes mFloat { 0%,100% { transform: translateY(0); } 50% { transform: translateY(10px); } }
+.m-hero-carpet::after {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(120% 100% at 50% 40%, transparent 45%, rgba(20,14,8,0.28) 100%);
+}
+.m-hair-canvas { position: absolute; inset: 0; z-index: 2; width: 100%; height: 100%; }
 
 .m-hero-brush {
   position: absolute; z-index: 4;
-  width: 150px; height: 200px;
-  filter: drop-shadow(0 26px 34px rgba(30,23,18,0.28));
+  width: 230px; height: 300px;
+  filter: drop-shadow(0 30px 40px rgba(10,7,4,0.4));
   will-change: transform;
 }
 .m-brush-illustration { width: 100%; height: 100%; display: block; }
@@ -147,8 +142,9 @@ body.m-has-cursor a, body.m-has-cursor button { cursor: none; }
   text-align: center; opacity: 0; pointer-events: none;
 }
 .m-hero-statement.is-active { pointer-events: auto; }
-.m-hero-statement .m-display-huge { margin-bottom: 18px; }
-.m-hero-statement p { font-size: 17px; color: rgba(17,17,17,0.6); margin-bottom: 36px; }
+.m-hero-statement .m-eyebrow { color: var(--wood); }
+.m-hero-statement .m-display-huge { margin-bottom: 18px; color: var(--ivory); text-shadow: 0 4px 30px rgba(0,0,0,0.35); }
+.m-hero-statement p { font-size: 17px; color: rgba(251,241,230,0.8); margin-bottom: 36px; }
 
 /* ==========================================================================
    Sections génériques
@@ -238,16 +234,15 @@ body.m-has-cursor a, body.m-has-cursor button { cursor: none; }
   .m-surfaces-grid { grid-template-columns: repeat(2, 1fr); }
   .m-materials { grid-template-columns: 1fr; gap: 40px; }
   .m-footer-top { grid-template-columns: 1fr; gap: 32px; }
-  .m-hero-brush { width: 100px; height: 134px; }
+  .m-hero-brush { width: 140px; height: 182px; }
 }
 @media (max-width: 620px) {
   .m-surfaces-grid { grid-template-columns: 1fr; }
   .m-wrap { padding: 0 22px; }
 }
 
-/* ---------- Repli statique (mobile / reduced motion) ---------- */
-body.m-static .m-hero-pin { height: auto; padding: 140px 24px 100px; }
-body.m-static .m-hero-fibers { display: none; }
+/* ---------- Repli statique (prefers-reduced-motion) ---------- */
+body.m-static .m-hero-pin { height: auto; padding: 140px 24px 100px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+body.m-static .m-hair-canvas { display: none; }
 body.m-static .m-hero-brush { position: static; margin: 0 auto 32px; }
 body.m-static .m-hero-statement { position: static; opacity: 1 !important; }
-body.m-static .m-hero-intro { display: none; }

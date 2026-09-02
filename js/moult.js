@@ -1,5 +1,5 @@
 /* ==========================================================================
-   MOULT — Séquence de nettoyage au scroll (chaos → propre) + interactions
+   FURSWEEP — Séquence de nettoyage au scroll (chaos → propre) + interactions
    Repli statique sur mobile et prefers-reduced-motion.
    ========================================================================== */
 (function () {
@@ -77,47 +77,13 @@
     window.addEventListener('pointerup', function () { dragging = false; });
   });
 
-  /* ---------- Séquence héro : chaos -> propre ---------- */
-  var FIBER_TONES = [
-    [30, 23, 18],    /* charbon */
-    [138, 116, 94],  /* taupe chaude */
-    [193, 80, 46],   /* terracotta */
-    [92, 78, 64]     /* brun-gris mat */
+  /* ---------- Séquence héro : le tapis couvert de poils, nettoyé en deux passes ---------- */
+  var HAIR_COLORS = [
+    'rgba(24,18,13,A)',    /* poil foncé */
+    'rgba(120,98,76,A)',   /* poil brun clair */
+    'rgba(214,198,176,A)', /* poil clair/blond */
+    'rgba(70,58,46,A)'     /* poil brun moyen */
   ];
-  function makeFiber() {
-    var span = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-    var w = 22 + Math.random() * 52;
-    var h = 8 + Math.random() * 16;
-    span.setAttribute('width', w);
-    span.setAttribute('height', h);
-    span.setAttribute('viewBox', '0 0 ' + w + ' ' + h);
-    var path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-    var c1y = h * (0.05 + Math.random() * 0.3);
-    var c2y = h * (0.65 + Math.random() * 0.3);
-    var d = Math.random() > 0.55
-      ? 'M2,' + (h * 0.5).toFixed(1) + ' C' + (w * 0.32).toFixed(1) + ',' + c1y.toFixed(1) + ' ' + (w * 0.62).toFixed(1) + ',' + c2y.toFixed(1) + ' ' + (w - 2).toFixed(1) + ',' + (h * (0.35 + Math.random() * 0.3)).toFixed(1)
-      : 'M2,' + (h * 0.5).toFixed(1) + ' Q' + (w * 0.5).toFixed(1) + ',' + c1y.toFixed(1) + ' ' + (w - 2).toFixed(1) + ',' + (h * (0.45 + Math.random() * 0.2)).toFixed(1);
-    path.setAttribute('d', d);
-    var tone = FIBER_TONES[Math.floor(Math.random() * FIBER_TONES.length)];
-    var strokeW = (0.9 + Math.random() * 1.6).toFixed(1);
-
-    /* Ombre légèrement décalée sous le trait principal, pour une sensation
-       de fibre en volume plutôt qu'un simple trait plat. */
-    var shadow = path.cloneNode();
-    shadow.setAttribute('transform', 'translate(0.6,0.9)');
-    shadow.setAttribute('stroke', 'rgba(30,23,18,0.12)');
-    shadow.setAttribute('stroke-width', strokeW);
-    shadow.setAttribute('fill', 'none');
-    shadow.setAttribute('stroke-linecap', 'round');
-    span.appendChild(shadow);
-
-    path.setAttribute('stroke', 'rgba(' + tone.join(',') + ',' + (0.45 + Math.random() * 0.35) + ')');
-    path.setAttribute('stroke-width', strokeW);
-    path.setAttribute('fill', 'none');
-    path.setAttribute('stroke-linecap', 'round');
-    span.appendChild(path);
-    return span;
-  }
 
   function init() {
     var hasGsap = typeof window.gsap !== 'undefined' && typeof window.ScrollTrigger !== 'undefined';
@@ -130,11 +96,11 @@
     gsap.registerPlugin(ScrollTrigger);
     ScrollTrigger.config({ ignoreMobileResize: true });
 
-    var fibersWrap = document.getElementById('mFibers');
+    var canvas = document.getElementById('mHairCanvas');
     var brush = document.getElementById('mBrush');
-    var intro = document.getElementById('mHeroIntro');
     var statement = document.getElementById('mHeroStatement');
-    if (!fibersWrap || !brush || !statement) return;
+    var carpet = document.getElementById('mCarpet');
+    if (!canvas || !brush || !statement) return;
 
     /* La toute première mesure que ScrollTrigger fait d'un élément fixé peut
        lire 0x0 si elle a lieu avant que la mise en page soit réellement
@@ -147,65 +113,147 @@
     });
 
     function setupHero() {
-      /* Génère les fibres à des positions pseudo-aléatoires, chacune avec un
-         "seuil" de nettoyage basé sur sa position diagonale (haut-gauche -> bas-droite),
-         pour correspondre au trajet de la brosse. */
-      var COUNT = 220;
-      var fibers = [];
-      for (var i = 0; i < COUNT; i++) {
-        var el = makeFiber();
-        var x = Math.random() * 96;
-        var y = Math.random() * 92;
-        el.classList.add('m-fiber');
-        el.style.left = x + '%';
-        el.style.top = y + '%';
-        el.style.transform = 'rotate(' + (Math.random() * 360) + 'deg)';
-        fibersWrap.appendChild(el);
-        var threshold = (x / 96) * 0.65 + (y / 92) * 0.25 + Math.random() * 0.08;
-        fibers.push({ el: el, threshold: Math.min(threshold, 0.85) });
+      var vw = window.innerWidth, vh = window.innerHeight;
+      var ctx = canvas.getContext('2d');
+      var DPR = Math.min(window.devicePixelRatio || 1, 2);
+      canvas.width = vw * DPR;
+      canvas.height = vh * DPR;
+      canvas.style.width = vw + 'px';
+      canvas.style.height = vh + 'px';
+      ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+
+      /* Masque de nettoyage : canvas basse résolution jamais effacé pendant
+         la séquence — une zone une fois "passée" par la brosse reste propre. */
+      var maskW = 220, maskH = 130;
+      var maskCanvas = document.createElement('canvas');
+      maskCanvas.width = maskW; maskCanvas.height = maskH;
+      var maskCtx = maskCanvas.getContext('2d');
+      maskCtx.fillStyle = '#000';
+      maskCtx.fillRect(0, 0, maskW, maskH);
+
+      /* Des centaines de poils : longueurs, courbures, épaisseurs et teintes
+         variées, mélangés à quelques petits amas, pour un vrai effet "tapis
+         envahi" plutôt que quelques traits décoratifs. */
+      var hairs = [];
+      function addHair(x, y) {
+        var len = 9 + Math.random() * Math.random() * 42;
+        var ang = Math.random() * Math.PI * 2;
+        var color = HAIR_COLORS[Math.floor(Math.random() * HAIR_COLORS.length)];
+        var alpha = (0.5 + Math.random() * 0.42).toFixed(2);
+        hairs.push({
+          x: x, y: y, len: len, ang: ang,
+          curve: (Math.random() - 0.5) * 20,
+          color: color.replace('A', alpha),
+          w: 0.7 + Math.random() * 1.2
+        });
+      }
+      var HAIR_COUNT = 380;
+      for (var i = 0; i < HAIR_COUNT; i++) addHair(Math.random() * vw, Math.random() * vh);
+      var CLUSTERS = 26;
+      for (var c = 0; c < CLUSTERS; c++) {
+        var ccx = Math.random() * vw, ccy = Math.random() * vh;
+        var size = 4 + Math.floor(Math.random() * 5);
+        for (var k = 0; k < size; k++) {
+          addHair(ccx + (Math.random() - 0.5) * 34, ccy + (Math.random() - 0.5) * 34);
+        }
       }
 
-      gsap.set(brush, { xPercent: -50, yPercent: -50, left: '8%', top: '14%', scale: 0.7, opacity: 0 });
+      function drawHair(h) {
+        var x2 = h.x + Math.cos(h.ang) * h.len;
+        var y2 = h.y + Math.sin(h.ang) * h.len;
+        var mx = (h.x + x2) / 2 - Math.sin(h.ang) * h.curve;
+        var my = (h.y + y2) / 2 + Math.cos(h.ang) * h.curve;
+        ctx.strokeStyle = h.color;
+        ctx.lineWidth = h.w;
+        ctx.lineCap = 'round';
+        ctx.beginPath();
+        ctx.moveTo(h.x, h.y);
+        ctx.quadraticCurveTo(mx, my, x2, y2);
+        ctx.stroke();
+      }
+
+      var maskData = null;
+      function isCleaned(x, y) {
+        if (!maskData) return false;
+        var mx = (x / vw) * maskW | 0;
+        var my = (y / vh) * maskH | 0;
+        if (mx < 0 || my < 0 || mx >= maskW || my >= maskH) return false;
+        return maskData[(my * maskW + mx) * 4] > 40;
+      }
+      function redrawHairs() {
+        maskData = maskCtx.getImageData(0, 0, maskW, maskH).data;
+        ctx.clearRect(0, 0, vw, vh);
+        for (var j = 0; j < hairs.length; j++) {
+          if (!isCleaned(hairs[j].x, hairs[j].y)) drawHair(hairs[j]);
+        }
+      }
+      redrawHairs();
+
+      /* Peint le passage de la brosse dans le masque, en interpolant depuis
+         la dernière position pour ne jamais laisser de trou si le scroll
+         avance vite entre deux mises à jour. */
+      var lastMaskPos = null;
+      function paintClean(x, y, radius) {
+        var mx = (x / vw) * maskW, my = (y / vh) * maskH;
+        var mr = (radius / vw) * maskW;
+        maskCtx.fillStyle = '#fff';
+        if (lastMaskPos) {
+          var steps = Math.max(1, Math.ceil(Math.hypot(mx - lastMaskPos.x, my - lastMaskPos.y) / (mr * 0.5)));
+          for (var s = 0; s <= steps; s++) {
+            var t = s / steps;
+            var ix = lastMaskPos.x + (mx - lastMaskPos.x) * t;
+            var iy = lastMaskPos.y + (my - lastMaskPos.y) * t;
+            maskCtx.beginPath(); maskCtx.arc(ix, iy, mr, 0, Math.PI * 2); maskCtx.fill();
+          }
+        } else {
+          maskCtx.beginPath(); maskCtx.arc(mx, my, mr, 0, Math.PI * 2); maskCtx.fill();
+        }
+        lastMaskPos = { x: mx, y: my };
+      }
+
+      /* ---------- Trajet physique de la brosse (deux passes) ---------- */
+      gsap.set(brush, { opacity: 0 });
       gsap.set(statement, { opacity: 0 });
+
+      var state = { x: -12, y: 22, rot: -22, scale: 0.9 };
+      function applyBrush() {
+        brush.style.left = state.x + '%';
+        brush.style.top = state.y + '%';
+        brush.style.transform = 'translate(-50%,-68%) rotate(' + state.rot.toFixed(1) + 'deg) scale(' + state.scale.toFixed(2) + ')';
+        /* Point de contact réel : la tête métallique, vers le haut du dessin. */
+        var px = (state.x / 100) * vw;
+        var py = (state.y / 100) * vh - (brush.offsetHeight * state.scale * 0.28);
+        paintClean(px, py, vw * 0.115);
+        redrawHairs();
+      }
 
       var tl = gsap.timeline({
         scrollTrigger: {
           trigger: '#mHeroPin',
           start: 'top top',
-          end: '+=280%',
-          scrub: 0.3,
+          end: '+=340%',
+          scrub: 0.35,
           pin: true,
           anticipatePin: 1
-        }
+        },
+        onUpdate: applyBrush
       });
 
-      tl.to(brush, { opacity: 1, scale: 1, duration: 0.08 }, 0)
-        .to(intro, { opacity: 0, duration: 0.1 }, 0.02)
-        .to(brush, {
-          left: '82%', top: '78%', scale: 1.15, rotate: 18,
-          duration: 0.85, ease: 'none'
-        }, 0.02);
-
-      fibers.forEach(function (f) {
-        tl.to(f.el, { opacity: 0, scale: 0.4, duration: 0.05 }, f.threshold);
-      });
-
-      tl.to(brush, { scale: 1.6, left: '50%', top: '46%', rotate: 0, duration: 0.15, ease: 'power2.out' }, 0.82)
-        .to(statement, { opacity: 1, duration: 0.2 }, 0.86)
-        .add(function () { statement.classList.add('is-active'); }, 0.86);
-
-      /* Filet de sécurité supplémentaire une fois les images réellement décodées. */
-      var heroImages = document.querySelectorAll('#mHero img');
-      var imagePromises = Array.prototype.map.call(heroImages, function (img) {
-        if (img.complete) return Promise.resolve();
-        return new Promise(function (resolve) {
-          img.addEventListener('load', resolve, { once: true });
-          img.addEventListener('error', resolve, { once: true });
-        });
-      });
-      Promise.all(imagePromises).then(function () {
-        requestAnimationFrame(function () { ScrollTrigger.refresh(); });
-      });
+      tl.to(brush, { opacity: 1, duration: 0.03 }, 0)
+        .to(state, { x: 10, y: 20, rot: -8, scale: 1, duration: 0.05 }, 0.02)
+        /* Passe 1 : diagonale haut-gauche vers centre-bas-droite. */
+        .to(state, { x: 76, y: 64, rot: 24, scale: 1.05, duration: 0.36, ease: 'none' }, 0.07)
+        /* Repositionnement bref, la brosse se relève et se replace. */
+        .to(state, { x: 94, y: 16, rot: -32, scale: 0.92, duration: 0.09, ease: 'power1.inOut' }, 0.43)
+        /* Passe 2 : diagonale haut-droite vers bas-gauche, couvre le reste. */
+        .to(state, { x: 4, y: 90, rot: -12, scale: 1.12, duration: 0.37, ease: 'none' }, 0.53)
+        /* La brosse se stabilise, repos élégant au centre. */
+        .to(state, { x: 50, y: 60, rot: 5, scale: 1.35, duration: 0.13, ease: 'power2.out' }, 0.91)
+        .to(statement, { opacity: 1, duration: 0.14 }, 0.93)
+        .add(function () { statement.classList.add('is-active'); }, 0.93)
+        /* Le tapis s'efface pour laisser place au reste du site, en continu. */
+        .to(carpet, { opacity: 0, duration: 0.09 }, 0.94)
+        .to(canvas, { opacity: 0, duration: 0.09 }, 0.94);
     }
   }
 
