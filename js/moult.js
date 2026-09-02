@@ -303,11 +303,12 @@
       var brushCanvas = document.getElementById('mBrushCanvas');
       var fs3d = (window.FurSweep3D && brushCanvas) ? window.FurSweep3D.init(brushCanvas) : null;
 
-      /* ---------- Trajet physique de la brosse (deux passes) ---------- */
+      /* ---------- Trajet physique de la brosse : une seule chute verticale,
+         de haut en bas, taille quasi plein écran. ---------- */
       gsap.set(brush, { opacity: 0 });
       gsap.set(statement, { opacity: 0 });
 
-      var state = { x: -12, y: 22, rot: -22, scale: 0.9 };
+      var state = { x: 50, y: -18, rot: -5, scale: 0.86 };
       function applyBrush() {
         brush.style.left = state.x + '%';
         brush.style.top = state.y + '%';
@@ -322,8 +323,8 @@
         var px = (state.x / 100) * vw;
         var py = (state.y / 100) * vh - (brush.offsetHeight * state.scale * 0.3);
         var progress = tl.scrollTrigger ? tl.scrollTrigger.progress : 0;
-        var activePass = (progress > 0.06 && progress < 0.42) || (progress > 0.52 && progress < 0.9);
-        paintClean(px, py, vw * 0.115);
+        var activePass = progress > 0.04 && progress < 0.6;
+        paintClean(px, py, vw * 0.2);
         redrawHairs(px, py, activePass);
       }
 
@@ -331,29 +332,50 @@
         scrollTrigger: {
           trigger: '#mHeroPin',
           start: 'top top',
-          end: '+=340%',
-          scrub: 0.35,
+          end: '+=160%',
+          scrub: 0.3,
           pin: true,
           anticipatePin: 1
         },
         onUpdate: applyBrush
       });
 
-      tl.to(brush, { opacity: 1, duration: 0.03 }, 0)
-        .to(state, { x: 10, y: 20, rot: -8, scale: 1, duration: 0.05 }, 0.02)
-        /* Passe 1 : diagonale haut-gauche vers centre-bas-droite. */
-        .to(state, { x: 76, y: 64, rot: 24, scale: 1.05, duration: 0.36, ease: 'none' }, 0.07)
-        /* Repositionnement bref, la brosse se relève et se replace. */
-        .to(state, { x: 94, y: 16, rot: -32, scale: 0.92, duration: 0.09, ease: 'power1.inOut' }, 0.43)
-        /* Passe 2 : diagonale haut-droite vers bas-gauche, couvre le reste. */
-        .to(state, { x: 4, y: 90, rot: -12, scale: 1.12, duration: 0.37, ease: 'none' }, 0.53)
-        /* La brosse se stabilise, repos élégant au centre. */
-        .to(state, { x: 50, y: 60, rot: 5, scale: 1.35, duration: 0.13, ease: 'power2.out' }, 0.91)
-        .to(statement, { opacity: 1, duration: 0.14 }, 0.93)
-        .add(function () { statement.classList.add('is-active'); }, 0.93)
-        /* Le tapis s'efface pour laisser place au reste du site, en continu. */
-        .to(carpet, { opacity: 0, duration: 0.09 }, 0.94)
-        .to(canvas, { opacity: 0, duration: 0.09 }, 0.94);
+      tl.to(brush, { opacity: 1, duration: 0.04 }, 0)
+        /* Chute verticale unique, légère oscillation latérale pour un mouvement
+           naturel plutôt qu'une ligne droite mécanique — mais toujours,
+           essentiellement, de haut en bas. */
+        .to(state, { x: 45, y: 32, rot: 4, scale: 1.0, duration: 0.2, ease: 'power1.in' }, 0.04)
+        .to(state, { x: 56, y: 64, rot: -3, scale: 1.08, duration: 0.22, ease: 'none' }, 0.24)
+        .to(state, { x: 50, y: 100, rot: 2, scale: 1.16, duration: 0.16, ease: 'power2.in' }, 0.46)
+        /* La brosse quitte l'écran par le bas, sort de scène. */
+        .to(brush, { opacity: 0, duration: 0.08 }, 0.62)
+        .to(statement, { opacity: 1, duration: 0.1 }, 0.66)
+        .add(function () { statement.classList.add('is-active'); }, 0.66)
+        /* Vraie transition : le héro s'efface pendant que la section suivante
+           monte et apparaît en fondu, au lieu d'une coupure franche. */
+        .to(statement, { opacity: 0, duration: 0.08 }, 0.86)
+        .to(carpet, { opacity: 0, duration: 0.16 }, 0.82)
+        .to(canvas, { opacity: 0, duration: 0.16 }, 0.82);
+    }
+
+    /* ---------- Transition héro → section suivante ----------
+       Le héro pinné se termine hors-écran (dans l'espace réservé par
+       ScrollTrigger) : lier son entrée à ce même timeline ne produirait
+       donc rien de visible. Ici, une transition scrubbed dédiée, liée à la
+       position réelle de la section au fil du scroll — un vrai fondu qui
+       monte avec le scroll, pas une coupure nette tapis → page. */
+    var nextSection = document.getElementById('mProductReveal');
+    if (nextSection) {
+      gsap.set(nextSection, { opacity: 0, y: 90 });
+      gsap.to(nextSection, {
+        opacity: 1, y: 0, ease: 'none',
+        scrollTrigger: {
+          trigger: nextSection,
+          start: 'top bottom',
+          end: 'top 55%',
+          scrub: 0.4
+        }
+      });
     }
   }
 

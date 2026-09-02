@@ -130,7 +130,7 @@ body.m-has-cursor a, body.m-has-cursor button { cursor: none; }
 
 .m-hero-brush {
   position: absolute; z-index: 4;
-  width: 300px; height: 380px;
+  width: min(52vw, 640px); height: min(86vh, 1000px);
   filter: drop-shadow(0 34px 44px rgba(10,7,4,0.42));
   will-change: transform;
 }
@@ -234,7 +234,7 @@ body.m-has-cursor a, body.m-has-cursor button { cursor: none; }
   .m-surfaces-grid { grid-template-columns: repeat(2, 1fr); }
   .m-materials { grid-template-columns: 1fr; gap: 40px; }
   .m-footer-top { grid-template-columns: 1fr; gap: 32px; }
-  .m-hero-brush { width: 190px; height: 240px; }
+  .m-hero-brush { width: min(72vw, 380px); height: 64vh; }
 }
 @media (max-width: 620px) {
   .m-surfaces-grid { grid-template-columns: 1fr; }
