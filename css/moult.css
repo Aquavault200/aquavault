@@ -5,12 +5,20 @@
 :root {
   --ivory: #FBF1E6;
   --ivory-dim: #F3E1C9;
-  --black: #1E1712;
+  --black: #131009;
   --wood: #EC8F55;
   --wood-dark: #C1502E;
   --silver: #B9BEC4;
   --silver-light: #E4E6E8;
   --line: rgba(30,23,18,0.12);
+  /* Couleur d'appel vive — chartreuse électrique. Choisie pour trancher fort
+     avec les tons bois/laiton du produit (contraste complémentaire) plutôt
+     que de rester dans la même famille chaude/discrète qu'avant. Deux
+     variantes : --pop (fonds pleins, boutons, sur noir) et --pop-deep (texte
+     sur fond clair ivoire, où le chartreuse pur serait trop peu lisible). */
+  --pop: #D6FF3F;
+  --pop-deep: #6E8A18;
+  --glow: 0 0 32px rgba(214,255,63,0.35);
   --radius: 3px;
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
   --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
@@ -38,7 +46,7 @@ img { max-width: 100%; display: block; }
 a { color: inherit; text-decoration: none; }
 .m-wrap { max-width: 1360px; margin: 0 auto; padding: 0 40px; }
 
-::selection { background: var(--black); color: var(--ivory); }
+::selection { background: var(--pop); color: var(--black); }
 
 /* ---------- Typographie éditoriale, très grande ---------- */
 .m-display-huge {
@@ -51,7 +59,7 @@ a { color: inherit; text-decoration: none; }
 .m-display-1 { font-size: clamp(40px, 5.5vw, 76px); font-weight: 700; letter-spacing: -0.03em; line-height: 1.02; margin: 0; }
 .m-display-2 { font-size: clamp(30px, 3.6vw, 48px); font-weight: 700; letter-spacing: -0.02em; line-height: 1.06; margin: 0; }
 .m-lede { font-size: clamp(16px, 1.4vw, 19px); line-height: 1.6; color: rgba(17,17,17,0.62); font-weight: 400; }
-.m-eyebrow { font-size: 12px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--wood-dark); display: inline-block; margin-bottom: 18px; }
+.m-eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--pop-deep); display: inline-block; margin-bottom: 18px; }
 
 /* ---------- Boutons ---------- */
 .m-btn {
@@ -64,11 +72,12 @@ a { color: inherit; text-decoration: none; }
   border: 1px solid transparent;
   white-space: nowrap;
 }
-.m-btn-primary { background: var(--wood-dark); color: var(--ivory); }
-.m-btn-primary:hover { background: var(--black); }
+.m-btn-primary { background: var(--pop); color: var(--black); box-shadow: var(--glow); }
+.m-btn-primary:hover { background: var(--black); color: var(--pop); box-shadow: 0 0 0 rgba(0,0,0,0); }
 .m-btn-outline { border-color: var(--black); color: var(--black); }
-.m-btn-outline:hover { background: var(--black); color: var(--ivory); }
-.m-btn-light { background: var(--wood-dark); color: var(--ivory); }
+.m-btn-outline:hover { background: var(--black); color: var(--pop); }
+.m-btn-light { background: var(--pop); color: var(--black); box-shadow: var(--glow); }
+.m-btn-light:hover { background: var(--black); color: var(--pop); }
 
 /* ---------- Header ---------- */
 .m-header {
@@ -84,8 +93,8 @@ a { color: inherit; text-decoration: none; }
 .m-nav { display: flex; align-items: center; gap: 40px; }
 .m-nav a { font-size: 13px; font-weight: 600; letter-spacing: 0.02em; opacity: 0.7; transition: opacity .3s var(--ease); }
 .m-nav a:hover { opacity: 1; }
-.m-cta { display: inline-flex; padding: 12px 22px; background: var(--wood-dark); color: var(--ivory); font-size: 13px; font-weight: 600; border-radius: var(--radius); transition: background .4s var(--ease); }
-.m-cta:hover { background: var(--black); }
+.m-cta { display: inline-flex; padding: 12px 22px; background: var(--pop); color: var(--black); font-size: 13px; font-weight: 700; border-radius: var(--radius); transition: background .4s var(--ease), color .4s var(--ease), box-shadow .4s var(--ease); box-shadow: 0 0 18px rgba(214,255,63,0.3); }
+.m-cta:hover { background: var(--black); color: var(--pop); }
 .m-mobile-toggle { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 6px; }
 .m-mobile-toggle span { width: 22px; height: 2px; background: var(--black); }
 
@@ -107,7 +116,7 @@ a { color: inherit; text-decoration: none; }
   mix-blend-mode: difference;
   will-change: transform;
 }
-.m-cursor.is-cta { width: 54px; height: 54px; background: var(--wood); }
+.m-cursor.is-cta { width: 54px; height: 54px; background: var(--pop); }
 body.m-has-cursor { cursor: none; }
 body.m-has-cursor a, body.m-has-cursor button { cursor: none; }
 
@@ -142,7 +151,7 @@ body.m-has-cursor a, body.m-has-cursor button { cursor: none; }
   text-align: center; opacity: 0; pointer-events: none;
 }
 .m-hero-statement.is-active { pointer-events: auto; }
-.m-hero-statement .m-eyebrow { color: var(--wood); }
+.m-hero-statement .m-eyebrow { color: var(--pop); text-shadow: 0 0 20px rgba(214,255,63,0.5); }
 .m-hero-statement .m-display-huge { margin-bottom: 18px; color: var(--ivory); text-shadow: 0 4px 30px rgba(0,0,0,0.35); }
 .m-hero-statement p { font-size: 17px; color: rgba(251,241,230,0.8); margin-bottom: 36px; }
 
@@ -161,7 +170,7 @@ body.m-has-cursor a, body.m-has-cursor button { cursor: none; }
 
 /* ---------- The Gesture (before/after) ---------- */
 .m-gesture { background: var(--black); color: var(--ivory); padding: 160px 0; }
-.m-gesture .m-eyebrow { color: var(--wood); }
+.m-gesture .m-eyebrow { color: var(--pop); }
 .m-gesture-head { text-align: center; margin-bottom: 64px; }
 .m-gesture-compare {
   position: relative; max-width: 900px; margin: 0 auto; border-radius: var(--radius); overflow: hidden;
@@ -210,7 +219,7 @@ body.m-has-cursor a, body.m-has-cursor button { cursor: none; }
 
 /* ---------- Final CTA ---------- */
 .m-final-cta { background: var(--black); color: var(--ivory); text-align: center; padding: 140px 0; }
-.m-final-cta .m-eyebrow { color: var(--wood); }
+.m-final-cta .m-eyebrow { color: var(--pop); }
 .m-final-cta .m-lede { color: rgba(243,240,232,0.65); max-width: 480px; margin: 20px auto 40px; }
 
 /* ---------- Footer ---------- */
