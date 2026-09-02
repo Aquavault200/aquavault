@@ -114,6 +114,13 @@
 
     function setupHero() {
       var vw = window.innerWidth, vh = window.innerHeight;
+      /* Si la fenêtre n'est pas encore mesurable (0x0, par ex. un onglet pas
+         encore affiché), on retente un peu plus tard plutôt que de figer un
+         canvas cassé pour toute la session. */
+      if (!vw || !vh) {
+        setTimeout(function () { requestAnimationFrame(setupHero); }, 150);
+        return;
+      }
       var ctx = canvas.getContext('2d');
       var DPR = Math.min(window.devicePixelRatio || 1, 2);
       canvas.width = vw * DPR;
