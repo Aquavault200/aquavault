@@ -79,10 +79,11 @@
 
   /* ---------- Séquence héro : le tapis couvert de poils, nettoyé en deux passes ---------- */
   var HAIR_COLORS = [
-    'rgba(24,18,13,A)',    /* poil foncé */
+    'rgba(15,11,8,A)',     /* poil foncé */
+    'rgba(15,11,8,A)',     /* poil foncé (pondéré : le plus contrasté sur ce tapis clair) */
+    'rgba(74,56,38,A)',    /* poil brun moyen */
     'rgba(120,98,76,A)',   /* poil brun clair */
-    'rgba(214,198,176,A)', /* poil clair/blond */
-    'rgba(70,58,46,A)'     /* poil brun moyen */
+    'rgba(241,235,222,A)'  /* poil clair/blond, cerné d'ombre pour rester visible */
   ];
 
   function init() {
@@ -143,23 +144,23 @@
          envahi" plutôt que quelques traits décoratifs. */
       var hairs = [];
       function addHair(x, y) {
-        var len = 9 + Math.random() * Math.random() * 42;
+        var len = 11 + Math.random() * Math.random() * 52;
         var ang = Math.random() * Math.PI * 2;
         var color = HAIR_COLORS[Math.floor(Math.random() * HAIR_COLORS.length)];
-        var alpha = (0.5 + Math.random() * 0.42).toFixed(2);
+        var alpha = (0.62 + Math.random() * 0.35).toFixed(2);
         hairs.push({
           x: x, y: y, len: len, ang: ang,
-          curve: (Math.random() - 0.5) * 20,
+          curve: (Math.random() - 0.5) * 22,
           color: color.replace('A', alpha),
-          w: 0.7 + Math.random() * 1.2
+          w: 1.1 + Math.random() * 1.7
         });
       }
-      var HAIR_COUNT = 380;
+      var HAIR_COUNT = 620;
       for (var i = 0; i < HAIR_COUNT; i++) addHair(Math.random() * vw, Math.random() * vh);
-      var CLUSTERS = 26;
+      var CLUSTERS = 40;
       for (var c = 0; c < CLUSTERS; c++) {
         var ccx = Math.random() * vw, ccy = Math.random() * vh;
-        var size = 4 + Math.floor(Math.random() * 5);
+        var size = 5 + Math.floor(Math.random() * 6);
         for (var k = 0; k < size; k++) {
           addHair(ccx + (Math.random() - 0.5) * 34, ccy + (Math.random() - 0.5) * 34);
         }
@@ -170,6 +171,16 @@
         var y2 = h.y + Math.sin(h.ang) * h.len;
         var mx = (h.x + x2) / 2 - Math.sin(h.ang) * h.curve;
         var my = (h.y + y2) / 2 + Math.cos(h.ang) * h.curve;
+        /* Ombre légère sous le poil pour qu'il se détache bien de la texture
+           déjà chargée du tapis, quelle que soit sa propre couleur. */
+        ctx.strokeStyle = 'rgba(10,7,4,0.30)';
+        ctx.lineWidth = h.w + 1;
+        ctx.lineCap = 'round';
+        ctx.beginPath();
+        ctx.moveTo(h.x + 0.7, h.y + 0.9);
+        ctx.quadraticCurveTo(mx + 0.7, my + 0.9, x2 + 0.7, y2 + 0.9);
+        ctx.stroke();
+
         ctx.strokeStyle = h.color;
         ctx.lineWidth = h.w;
         ctx.lineCap = 'round';
