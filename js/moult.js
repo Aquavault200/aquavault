@@ -347,7 +347,7 @@
            taguer la même progression finale alors que px/py bougent encore,
            donc chaque point écrase le précédent au lieu de tracer le trajet. */
         var progress = tl.progress();
-        var activePass = progress > 0.04 && progress < 0.6;
+        var activePass = progress > 0.03 && progress < 0.44;
         /* Le rayon nettoyé doit suivre la largeur réelle affichée de la
            brosse (désormais quasi plein écran) — sinon, avec un rayon fixe
            trop petit, l'essentiel du passage visuel de la brosse ne nettoie
@@ -356,7 +356,7 @@
         /* On ne fait évoluer la trace que pendant la chute réelle (avant que
            la brosse ne quitte l'écran et que son état ne se fige) — au-delà,
            rien à ajouter ni à retirer. */
-        if (progress > 0.01 && progress < 0.63) paintClean(px, py, cleanRadius, progress);
+        if (progress > 0.01 && progress < 0.45) paintClean(px, py, cleanRadius, progress);
         redrawHairs(px, py, activePass);
       }
 
@@ -364,7 +364,12 @@
         scrollTrigger: {
           trigger: '#mHeroPin',
           start: 'top top',
-          end: '+=160%',
+          /* La chute (0→~45%) garde exactement la même durée en pixels
+             qu'avant — seul le palier final s'allonge, pour laisser au
+             client le temps de voir et cliquer "Se procurer" plutôt que de
+             l'avoir sous les yeux une fraction de seconde avant que tout
+             s'efface. */
+          end: '+=220%',
           scrub: 0.3,
           pin: true,
           anticipatePin: 1
@@ -372,22 +377,25 @@
         onUpdate: applyBrush
       });
 
-      tl.to(brush, { opacity: 1, duration: 0.04 }, 0)
+      tl.to(brush, { opacity: 1, duration: 0.03 }, 0)
         /* Chute verticale unique, légère oscillation latérale pour un mouvement
            naturel plutôt qu'une ligne droite mécanique — mais toujours,
            essentiellement, de haut en bas. */
-        .to(state, { x: 45, y: 32, rot: 4, scale: 1.0, duration: 0.2, ease: 'power1.in' }, 0.04)
-        .to(state, { x: 56, y: 64, rot: -3, scale: 1.08, duration: 0.22, ease: 'none' }, 0.24)
-        .to(state, { x: 50, y: 100, rot: 2, scale: 1.16, duration: 0.16, ease: 'power2.in' }, 0.46)
+        .to(state, { x: 45, y: 32, rot: 4, scale: 1.0, duration: 0.145, ease: 'power1.in' }, 0.03)
+        .to(state, { x: 56, y: 64, rot: -3, scale: 1.08, duration: 0.16, ease: 'none' }, 0.175)
+        .to(state, { x: 50, y: 100, rot: 2, scale: 1.16, duration: 0.115, ease: 'power2.in' }, 0.335)
         /* La brosse quitte l'écran par le bas, sort de scène. */
-        .to(brush, { opacity: 0, duration: 0.08 }, 0.62)
-        .to(statement, { opacity: 1, duration: 0.1 }, 0.66)
-        .add(function () { statement.classList.add('is-active'); }, 0.66)
+        .to(brush, { opacity: 0, duration: 0.03 }, 0.45)
+        .to(statement, { opacity: 1, duration: 0.07 }, 0.48)
+        .add(function () { statement.classList.add('is-active'); }, 0.48)
+        /* Palier : le bouton "Se procurer" reste pleinement visible et
+           cliquable sur une longue portion de scroll (~0.55 à 0.88, soit
+           plus de 70% de la hauteur d'écran) au lieu d'un aperçu éclair. */
+        .to(statement, { opacity: 0, duration: 0.05 }, 0.9)
         /* Vraie transition : le héro s'efface pendant que la section suivante
            monte et apparaît en fondu, au lieu d'une coupure franche. */
-        .to(statement, { opacity: 0, duration: 0.08 }, 0.86)
-        .to(carpet, { opacity: 0, duration: 0.16 }, 0.82)
-        .to(canvas, { opacity: 0, duration: 0.16 }, 0.82);
+        .to(carpet, { opacity: 0, duration: 0.11 }, 0.88)
+        .to(canvas, { opacity: 0, duration: 0.11 }, 0.88);
 
       /* ---------- Transition héro → section suivante ----------
          Créée ici (après le pin) et non plus tôt dans init() : le pin insère
