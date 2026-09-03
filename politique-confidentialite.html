@@ -3,120 +3,95 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Politique de confidentialité | AQUAVAULT</title>
-<meta name="description" content="Politique de confidentialité et protection des données personnelles du site AQUAVAULT.">
+<title>Politique de confidentialité | FURSWEEP</title>
+<meta name="description" content="Politique de confidentialité et protection des données personnelles du site FURSWEEP.">
 <link rel="icon" href="data:,">
-<link rel="stylesheet" href="css/style.css">
-<link rel="stylesheet" href="css/animations.css">
-<link rel="stylesheet" href="css/legal.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/fursweep.css">
 </head>
 <body class="page-fade">
 
-<!-- ===================== HEADER ===================== -->
-<header class="header is-solid" data-header-static>
-  <div class="wrap">
-    <a href="index.html" class="logo">
-      <svg viewBox="0 0 24 24"><use href="#icon-droplet"></use></svg>
-      AQUAVAULT
-    </a>
-    <nav class="nav-links">
-      <a href="index.html">Accueil</a>
+<header class="m-header" id="mHeader">
+  <div class="m-wrap m-header-inner">
+    <a href="index.html" class="m-logo">FURSWEEP</a>
+    <nav class="m-nav">
       <a href="product.html">Produit</a>
-      <a href="index.html#dive-pin">Étanchéité</a>
-      <a href="index.html#avis">Avis</a>
-      <a href="faq.html">FAQ</a>
+      <a href="index.html#comment-ca-marche">Comment ça marche</a>
+      <a href="index.html#materiaux">À propos</a>
     </nav>
-    <div class="header-actions">
-      <button class="icon-btn"><svg viewBox="0 0 24 24"><use href="#icon-search"></use></svg></button>
-      <a class="icon-btn" id="shopify-buy-button-cart" href="https://aquavault-8696.myshopify.com/cart" title="Voir mon panier">
-        <svg viewBox="0 0 24 24"><use href="#icon-bag"></use></svg>
-      </a>
-      <button class="icon-btn mobile-toggle"><svg viewBox="0 0 24 24"><use href="#icon-menu"></use></svg></button>
-    </div>
+    <a href="product.html" class="m-cta">OBTENIR FURSWEEP</a>
+    <button class="m-mobile-toggle" aria-label="Menu"><span></span><span></span><span></span></button>
   </div>
 </header>
 
-<div class="mobile-nav">
-  <button class="icon-btn mobile-nav-close"><svg viewBox="0 0 24 24"><use href="#icon-x"></use></svg></button>
-  <a href="index.html">Accueil</a>
+<div class="m-mobile-nav" id="mMobileNav">
+  <button class="m-mobile-nav-close" aria-label="Fermer">✕</button>
   <a href="product.html">Produit</a>
-  <a href="index.html#dive-pin">Étanchéité</a>
-  <a href="index.html#avis">Avis</a>
+  <a href="index.html#comment-ca-marche">Comment ça marche</a>
+  <a href="index.html#materiaux">À propos</a>
   <a href="faq.html">FAQ</a>
+  <a href="product.html" class="m-btn m-btn-primary">OBTENIR FURSWEEP</a>
 </div>
 
-<!-- ===================== HERO ===================== -->
-<section class="legal-hero">
-  <div class="wrap container-narrow">
-    <span class="eyebrow">RGPD</span>
-    <h1>Politique de confidentialité</h1>
-    <p class="legal-updated">Dernière mise à jour : 21 juillet 2026</p>
-
-    <div class="legal-disclaimer">
-      <svg viewBox="0 0 24 24"><use href="#icon-shield-check"></use></svg>
-      <div>Modèle générique à adapter aux traitements réellement mis en œuvre et à faire valider par un professionnel du droit avant mise en ligne. Les champs <span class="legal-placeholder">[à compléter]</span> doivent être renseignés.</div>
-    </div>
-
-    <nav class="legal-toc">
-      <a href="#responsable">Responsable du traitement</a>
-      <a href="#donnees-collectees">Données collectées</a>
-      <a href="#finalites">Finalités & base légale</a>
-      <a href="#destinataires">Destinataires</a>
-      <a href="#conservation">Conservation</a>
-      <a href="#cookies">Cookies</a>
-      <a href="#droits">Vos droits</a>
-      <a href="#securite">Sécurité</a>
-      <a href="#contact">Contact</a>
-    </nav>
+<!-- ===================== HÉRO ===================== -->
+<section class="m-section m-section--tight" style="padding-top:160px; text-align:center;">
+  <div class="m-wrap">
+    <span class="m-eyebrow">RGPD</span>
+    <h1 class="m-display-1">Politique de confidentialité</h1>
+    <p class="m-lede" style="max-width:520px; margin:16px auto 0;">Dernière mise à jour : 21 juillet 2026</p>
+    <p class="m-lede" style="max-width:640px; margin:20px auto 0; font-size:13px; padding:14px 18px; border:1px solid var(--line); border-radius:var(--radius);">
+      Modèle générique à adapter aux traitements réellement mis en œuvre et à faire valider par un professionnel du droit avant mise en ligne. Les champs <strong style="color:var(--pop);">[à compléter]</strong> doivent être renseignés.
+    </p>
   </div>
 </section>
 
 <!-- ===================== CONTENU ===================== -->
-<section class="legal-content">
-  <div class="wrap container-narrow">
+<section class="m-section m-section--tight">
+  <div class="m-wrap" style="max-width:720px;">
 
-    <div class="legal-section" id="responsable">
-      <h2>1. Responsable du traitement</h2>
-      <p>Le responsable du traitement des données personnelles collectées via ce site est <span class="legal-placeholder">[Nom de la société]</span>, <span class="legal-placeholder">[adresse postale]</span>, joignable à <span class="legal-placeholder">[email de contact]</span>.</p>
+    <div style="margin-bottom:48px;">
+      <h2 class="m-display-2" style="font-size:24px;">1. Responsable du traitement</h2>
+      <p class="m-lede">Le responsable du traitement des données personnelles collectées via ce site est <strong>[Nom de la société]</strong>, <strong>[adresse postale]</strong>, joignable à <strong>[email de contact]</strong>.</p>
     </div>
 
-    <div class="legal-section" id="donnees-collectees">
-      <h2>2. Données collectées</h2>
-      <p>Le site étant conçu en architecture headless, il collecte directement très peu de données. Nous distinguons deux cas :</p>
-      <ul>
-        <li><strong>Sur ce site :</strong> l'adresse email fournie volontairement via le formulaire d'inscription à la newsletter, ainsi que des données de navigation techniques (pages consultées, type d'appareil) à des fins de mesure d'audience.</li>
-        <li><strong>Lors d'une commande :</strong> l'ensemble des données nécessaires à la commande (identité, adresse de livraison et de facturation, email, téléphone, données de paiement) est saisi directement sur l'interface Shopify Buy Button et traité par <strong>Shopify Inc.</strong>, agissant en tant que sous-traitant / responsable conjoint selon les opérations. Ce site n'a jamais accès aux données bancaires et ne les stocke à aucun moment.</li>
+    <div style="margin-bottom:48px;">
+      <h2 class="m-display-2" style="font-size:24px;">2. Données collectées</h2>
+      <p class="m-lede">Le site étant conçu en architecture headless, il collecte directement très peu de données. Nous distinguons deux cas :</p>
+      <ul class="m-lede" style="padding-left:20px;">
+        <li style="margin-bottom:10px;"><strong>Sur ce site :</strong> l'adresse email fournie volontairement via un formulaire éventuel, ainsi que des données de navigation techniques (pages consultées, type d'appareil) à des fins de mesure d'audience.</li>
+        <li><strong>Lors d'une commande :</strong> l'ensemble des données nécessaires à la commande (identité, adresse de livraison et de facturation, email, téléphone, données de paiement) est saisi directement sur l'interface Shopify et traité par <strong>Shopify Inc.</strong>, agissant en tant que sous-traitant / responsable conjoint selon les opérations. Ce site n'a jamais accès aux données bancaires et ne les stocke à aucun moment.</li>
       </ul>
     </div>
 
-    <div class="legal-section" id="finalites">
-      <h2>3. Finalités et base légale</h2>
-      <ul>
-        <li>Gestion de la newsletter (base légale : consentement de l'utilisateur)</li>
-        <li>Traitement et suivi des commandes, gestion du service client (base légale : exécution du contrat, via Shopify)</li>
+    <div style="margin-bottom:48px;">
+      <h2 class="m-display-2" style="font-size:24px;">3. Finalités et base légale</h2>
+      <ul class="m-lede" style="padding-left:20px;">
+        <li style="margin-bottom:6px;">Traitement et suivi des commandes, gestion du service client (base légale : exécution du contrat, via Shopify)</li>
         <li>Mesure d'audience et amélioration du site (base légale : intérêt légitime)</li>
       </ul>
     </div>
 
-    <div class="legal-section" id="destinataires">
-      <h2>4. Destinataires des données</h2>
-      <p>Les données collectées via ce site sont destinées à <span class="legal-placeholder">[Nom de la société]</span>. Les données liées à une commande sont transmises à et traitées par <strong>Shopify Inc.</strong> ainsi que ses prestataires de paiement (ex. Shopify Payments, PayPal) et de livraison, dans la stricte mesure nécessaire à l'exécution de la commande.</p>
+    <div style="margin-bottom:48px;">
+      <h2 class="m-display-2" style="font-size:24px;">4. Destinataires des données</h2>
+      <p class="m-lede">Les données collectées via ce site sont destinées à <strong>[Nom de la société]</strong>. Les données liées à une commande sont transmises à et traitées par <strong>Shopify Inc.</strong> ainsi que ses prestataires de paiement (ex. Shopify Payments, PayPal) et de livraison, dans la stricte mesure nécessaire à l'exécution de la commande.</p>
     </div>
 
-    <div class="legal-section" id="conservation">
-      <h2>5. Durée de conservation</h2>
-      <p>Les adresses email collectées pour la newsletter sont conservées jusqu'à désinscription. Les données de commande sont conservées par Shopify conformément à ses propres politiques et aux obligations légales de conservation (comptables, fiscales).</p>
+    <div style="margin-bottom:48px;">
+      <h2 class="m-display-2" style="font-size:24px;">5. Durée de conservation</h2>
+      <p class="m-lede">Les données de commande sont conservées par Shopify conformément à ses propres politiques et aux obligations légales de conservation (comptables, fiscales).</p>
     </div>
 
-    <div class="legal-section" id="cookies">
-      <h2>6. Cookies et traceurs</h2>
-      <p>Ce site utilise des cookies strictement nécessaires à son fonctionnement. L'intégration du Buy Button Shopify peut déposer des cookies propres à la gestion du panier et de la session d'achat. Aucun cookie publicitaire tiers n'est déposé sans consentement préalable, conformément à la réglementation applicable.</p>
+    <div style="margin-bottom:48px;">
+      <h2 class="m-display-2" style="font-size:24px;">6. Cookies et traceurs</h2>
+      <p class="m-lede">Ce site utilise des cookies strictement nécessaires à son fonctionnement. L'intégration Shopify peut déposer des cookies propres à la gestion du panier et de la session d'achat. Aucun cookie publicitaire tiers n'est déposé sans consentement préalable, conformément à la réglementation applicable.</p>
     </div>
 
-    <div class="legal-section" id="droits">
-      <h2>7. Vos droits</h2>
-      <p>Conformément au Règlement Général sur la Protection des Données (RGPD) et à la loi Informatique et Libertés, vous disposez des droits suivants sur vos données personnelles :</p>
-      <ul>
+    <div style="margin-bottom:48px;">
+      <h2 class="m-display-2" style="font-size:24px;">7. Vos droits</h2>
+      <p class="m-lede">Conformément au Règlement Général sur la Protection des Données (RGPD) et à la loi Informatique et Libertés, vous disposez des droits suivants sur vos données personnelles :</p>
+      <ul class="m-lede" style="padding-left:20px;">
         <li>Droit d'accès et de rectification</li>
         <li>Droit d'effacement (« droit à l'oubli »)</li>
         <li>Droit à la limitation du traitement</li>
@@ -124,74 +99,66 @@
         <li>Droit d'opposition</li>
         <li>Droit de retirer votre consentement à tout moment</li>
       </ul>
-      <p>Pour exercer ces droits concernant les données collectées sur ce site, contactez-nous à <span class="legal-placeholder">[email de contact]</span>. Pour les données liées à une commande, vous pouvez également contacter directement Shopify ou consulter sa politique de confidentialité. Vous disposez enfin du droit d'introduire une réclamation auprès de la CNIL (ou de l'autorité de contrôle compétente).</p>
+      <p class="m-lede">Pour exercer ces droits concernant les données collectées sur ce site, contactez-nous à <strong>[email de contact]</strong>. Pour les données liées à une commande, vous pouvez également contacter directement Shopify ou consulter sa politique de confidentialité. Vous disposez enfin du droit d'introduire une réclamation auprès de la CNIL (ou de l'autorité de contrôle compétente).</p>
     </div>
 
-    <div class="legal-section" id="securite">
-      <h2>8. Sécurité</h2>
-      <p>Nous mettons en œuvre les mesures techniques et organisationnelles raisonnables pour protéger les données que nous collectons. Les données de paiement, quant à elles, ne transitent jamais par notre infrastructure : elles sont traitées exclusivement par Shopify, certifié PCI-DSS niveau 1.</p>
+    <div style="margin-bottom:48px;">
+      <h2 class="m-display-2" style="font-size:24px;">8. Sécurité</h2>
+      <p class="m-lede">Nous mettons en œuvre les mesures techniques et organisationnelles raisonnables pour protéger les données que nous collectons. Les données de paiement, quant à elles, ne transitent jamais par notre infrastructure : elles sont traitées exclusivement par Shopify, certifié PCI-DSS niveau 1.</p>
     </div>
 
-    <div class="legal-section" id="contact">
-      <h2>9. Contact</h2>
-      <p>Pour toute question relative à cette politique de confidentialité, vous pouvez nous contacter à l'adresse <span class="legal-placeholder">[email de contact]</span>.</p>
+    <div>
+      <h2 class="m-display-2" style="font-size:24px;">9. Contact</h2>
+      <p class="m-lede">Pour toute question relative à cette politique de confidentialité, vous pouvez nous contacter à l'adresse <a href="mailto:contact@fursweep.fr" style="color:var(--pop); font-weight:600;">contact@fursweep.fr</a>.</p>
     </div>
 
   </div>
 </section>
 
 <!-- ===================== FOOTER ===================== -->
-<footer class="footer">
-  <div class="wrap">
-    <div class="footer-top">
-      <div class="footer-brand">
-        <a href="index.html" class="logo"><svg viewBox="0 0 24 24"><use href="#icon-droplet"></use></svg> AQUAVAULT</a>
-        <p>Des accessoires étanches premium pensés pour vivre vos vacances sans jamais craindre pour vos objets de valeur.</p>
-        <div class="footer-socials">
-          <a href="#"><svg viewBox="0 0 24 24"><use href="#icon-instagram"></use></svg></a>
-          <a href="#"><svg viewBox="0 0 24 24"><use href="#icon-facebook"></use></svg></a>
-          <a href="#"><svg viewBox="0 0 24 24"><use href="#icon-tiktok"></use></svg></a>
-        </div>
+<footer class="m-footer">
+  <div class="m-wrap">
+    <div class="m-footer-top">
+      <div class="m-footer-brand">
+        <a href="index.html" class="m-logo">FURSWEEP</a>
+        <p style="margin-top:16px;">Un outil simple, fait pour durer — pensé pour retirer poils et peluches sans jamais rien racheter.</p>
       </div>
       <div>
         <h4>Boutique</h4>
         <ul>
-          <li><a href="product.html">AquaVault Pro</a></li>
-          <li><a href="product.html#avis-produit">Avis clients</a></li>
-          <li><a href="index.html#dive-pin">Test d'étanchéité</a></li>
+          <li><a href="product.html">FURSWEEP</a></li>
+          <li><a href="index.html#comment-ca-marche">Comment ça marche</a></li>
+          <li><a href="index.html#materiaux">Matériaux</a></li>
         </ul>
       </div>
       <div>
         <h4>Aide</h4>
         <ul>
           <li><a href="faq.html">FAQ</a></li>
-          <li><a href="faq.html#livraison">Livraison</a></li>
-          <li><a href="faq.html#commande">Suivre ma commande</a></li>
-          <li><a href="mailto:contact@aquavault.fr">Contact</a></li>
+          <li><a href="mailto:contact@fursweep.fr">Contact</a></li>
         </ul>
       </div>
-      <div>
-        <h4>Restez informé</h4>
-        <p style="font-size:14px;margin-bottom:16px;">Offres exclusives et conseils vacances, une fois par mois.</p>
-        <form class="newsletter-form" data-newsletter-form>
-          <input type="email" placeholder="Votre email" required>
-          <button type="submit"><svg viewBox="0 0 24 24"><use href="#icon-arrow-right"></use></svg></button>
-        </form>
-      </div>
     </div>
-    <div class="footer-legal-links">
-      <a href="politique-confidentialite.html">Politique de confidentialité</a>
-    </div>
-    <div class="footer-bottom">
-      <span>© 2026 AquaVault. Le paiement et le traitement des commandes sont assurés par Shopify.</span>
-      <div class="payment-icons">
-        <span>VISA</span><span>MASTERCARD</span><span>PAYPAL</span><span>APPLE PAY</span>
+    <div class="m-footer-bottom">
+      <span>© 2026 FURSWEEP. Le paiement et le traitement des commandes sont assurés par Shopify.</span>
+      <div style="display:flex;gap:16px;">
+        <a href="#"><svg viewBox="0 0 24 24" style="width:18px;height:18px;"><use href="#icon-instagram"></use></svg></a>
+        <a href="#"><svg viewBox="0 0 24 24" style="width:18px;height:18px;"><use href="#icon-tiktok"></use></svg></a>
       </div>
     </div>
   </div>
 </footer>
 
 <script src="js/icons.js"></script>
-<script src="js/main.js"></script>
+<script>
+  var header = document.getElementById('mHeader');
+  document.addEventListener('scroll', function () { header.classList.toggle('is-solid', window.scrollY > 40); }, { passive: true });
+  var mobileToggle = document.querySelector('.m-mobile-toggle');
+  var mobileNav = document.getElementById('mMobileNav');
+  var mobileClose = document.querySelector('.m-mobile-nav-close');
+  if (mobileToggle && mobileNav) mobileToggle.addEventListener('click', function () { mobileNav.classList.add('is-open'); });
+  if (mobileClose && mobileNav) mobileClose.addEventListener('click', function () { mobileNav.classList.remove('is-open'); });
+  document.querySelectorAll('.m-mobile-nav a').forEach(function (a) { a.addEventListener('click', function () { mobileNav.classList.remove('is-open'); }); });
+</script>
 </body>
 </html>
