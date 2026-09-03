@@ -232,6 +232,17 @@ body.m-has-cursor a, body.m-has-cursor button { cursor: none; }
 }
 .m-editorial-text p { font-size: 15px; line-height: 1.6; color: rgba(251,241,230,0.5); max-width: 320px; margin: 0; }
 
+/* ---------- Bande de détails macro (grain du bois, métal, tête) ---------- */
+.m-detail-strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+.m-detail-photo { position: relative; aspect-ratio: 1; overflow: hidden; }
+.m-detail-photo img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.4s var(--ease); }
+.m-detail-photo:hover img { transform: scale(1.06); }
+.m-detail-photo span {
+  position: absolute; left: 16px; bottom: 14px; z-index: 2;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ivory);
+}
+.m-detail-photo::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 60%, rgba(0,0,0,0.6) 100%); }
+
 /* ---------- No refills ---------- */
 .m-refills { text-align: center; }
 .m-refills .m-display-1 { margin-bottom: 8px; }
