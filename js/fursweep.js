@@ -77,7 +77,10 @@
     });
   }
 
-  /* ---------- Comparateur avant/après (glisser) ---------- */
+  /* ---------- Comparateur avant/après ----------
+     Se glisse tout seul (aller-retour doux) pour montrer l'effet sans que
+     le client ait à agir — dès qu'il touche/clique, la démo s'arrête
+     définitivement et il garde la main. */
   document.querySelectorAll('.m-gesture-compare').forEach(function (compare) {
     var after = compare.querySelector('.m-gesture-after');
     var handle = compare.querySelector('.m-gesture-handle');
@@ -90,8 +93,35 @@
       var r = compare.getBoundingClientRect();
       setPos(((clientX - r.left) / r.width) * 100);
     }
+
+    var autoplay = !prefersReduced;
+    var raf = null;
+    function loop(ts) {
+      if (!autoplay) return;
+      var pct = 50 + Math.sin(ts / 1700) * 32;
+      setPos(pct);
+      raf = requestAnimationFrame(loop);
+    }
+    function stopAutoplay() {
+      if (!autoplay) return;
+      autoplay = false;
+      if (raf) cancelAnimationFrame(raf);
+    }
+    if (autoplay && 'IntersectionObserver' in window) {
+      var ioAuto = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (!autoplay) return;
+          if (entry.isIntersecting && !raf) raf = requestAnimationFrame(loop);
+          else if (!entry.isIntersecting && raf) { cancelAnimationFrame(raf); raf = null; }
+        });
+      }, { threshold: 0.35 });
+      ioAuto.observe(compare);
+    } else {
+      setPos(50);
+    }
+
     var dragging = false;
-    compare.addEventListener('pointerdown', function (e) { dragging = true; fromClientX(e.clientX); });
+    compare.addEventListener('pointerdown', function (e) { stopAutoplay(); dragging = true; fromClientX(e.clientX); });
     window.addEventListener('pointermove', function (e) { if (dragging) fromClientX(e.clientX); });
     window.addEventListener('pointerup', function () { dragging = false; });
   });

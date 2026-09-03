@@ -240,7 +240,7 @@ body.m-has-cursor a, body.m-has-cursor button { cursor: none; }
 /* ---------- Materials ---------- */
 .m-materials { display: grid; grid-template-columns: repeat(3, 1fr); gap: 56px; }
 .m-material-item { text-align: left; }
-.m-material-swatch { width: 100%; aspect-ratio: 1; border-radius: var(--radius); margin-bottom: 24px; }
+.m-material-swatch { width: 64px; height: 64px; border-radius: var(--radius); margin-bottom: 20px; }
 .m-material-swatch.wood { background: linear-gradient(135deg, #d9bd91, #a5824f); }
 .m-material-swatch.metal { background: linear-gradient(135deg, #e8eaec, #9aa0a6); }
 .m-material-swatch.noplastic { background: var(--card); border: 1px solid var(--line); display: flex; align-items: center; justify-content: center; }
