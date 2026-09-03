@@ -289,22 +289,27 @@ body.m-has-cursor a, body.m-has-cursor button { cursor: none; }
 .m-gallery-thumb.is-active { border-color: var(--pop); }
 .m-gallery-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
-.m-star-rating { display: flex; align-items: center; gap: 10px; margin: 14px 0 22px; }
-.m-star-rating .stars { display: flex; gap: 2px; color: var(--pop); }
-.m-star-rating .stars svg { width: 16px; height: 16px; fill: currentColor; }
-.m-star-rating span { font-size: 13px; color: rgba(251,241,230,0.55); }
+.m-star-rating { display: flex; align-items: center; gap: 12px; margin: 16px 0 22px; }
+.m-star-rating .stars { display: flex; gap: 3px; color: var(--pop); }
+.m-star-rating .stars svg { width: 20px; height: 20px; fill: currentColor; }
+.m-star-rating span { font-size: 16px; font-weight: 700; color: var(--ivory); }
 
 .m-product-price { display: flex; align-items: baseline; gap: 12px; margin: 18px 0 28px; }
 .m-product-price strong { font-size: 34px; font-weight: 800; }
 .m-product-price del { font-size: 18px; color: rgba(251,241,230,0.4); }
 .m-product-price .m-price-badge { font-size: 12px; font-weight: 700; color: var(--pop); background: rgba(214,255,63,0.12); padding: 4px 10px; border-radius: var(--radius); }
 
-.m-stock-line { display: flex; align-items: center; gap: 9px; font-size: 13px; font-weight: 600; color: rgba(251,241,230,0.8); margin: -8px 0 26px; }
-.m-stock-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--pop); flex: none; box-shadow: 0 0 0 0 rgba(214,255,63,0.5); animation: m-pulse 2s infinite; }
+.m-stock-line {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-size: 15px; font-weight: 700; color: var(--black);
+  background: var(--pop); padding: 10px 18px; border-radius: 30px;
+  margin: -4px 0 26px;
+}
+.m-stock-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--black); flex: none; box-shadow: 0 0 0 0 rgba(19,16,9,0.5); animation: m-pulse 2s infinite; }
 @keyframes m-pulse {
-  0% { box-shadow: 0 0 0 0 rgba(214,255,63,0.45); }
-  70% { box-shadow: 0 0 0 6px rgba(214,255,63,0); }
-  100% { box-shadow: 0 0 0 0 rgba(214,255,63,0); }
+  0% { box-shadow: 0 0 0 0 rgba(19,16,9,0.35); }
+  70% { box-shadow: 0 0 0 8px rgba(19,16,9,0); }
+  100% { box-shadow: 0 0 0 0 rgba(19,16,9,0); }
 }
 
 .m-trust-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 32px 0; padding: 20px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
