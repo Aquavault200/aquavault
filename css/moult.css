@@ -232,6 +232,70 @@ body.m-has-cursor a, body.m-has-cursor button { cursor: none; }
 .m-footer-brand p { font-size: 14px; color: rgba(17,17,17,0.55); max-width: 320px; line-height: 1.6; }
 .m-footer-bottom { display: flex; align-items: center; justify-content: space-between; padding-top: 28px; border-top: 1px solid var(--line); font-size: 12px; color: rgba(17,17,17,0.45); flex-wrap: wrap; gap: 12px; }
 
+/* ==========================================================================
+   Page produit
+   ========================================================================== */
+.m-breadcrumb { font-size: 13px; color: rgba(17,17,17,0.5); margin: 130px 0 32px; }
+.m-breadcrumb a { opacity: 0.8; transition: opacity .3s var(--ease); }
+.m-breadcrumb a:hover { opacity: 1; }
+.m-breadcrumb span { margin: 0 8px; opacity: 0.4; }
+
+.m-product-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 72px; align-items: start; padding-bottom: 120px; }
+.m-gallery-main { border-radius: var(--radius); overflow: hidden; aspect-ratio: 1; background: var(--ivory-dim); }
+.m-gallery-main img { width: 100%; height: 100%; object-fit: cover; }
+.m-gallery-thumbs { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-top: 12px; }
+.m-gallery-thumb { border-radius: var(--radius); overflow: hidden; aspect-ratio: 1; border: 2px solid transparent; cursor: pointer; padding: 0; background: var(--ivory-dim); transition: border-color .3s var(--ease); }
+.m-gallery-thumb.is-active { border-color: var(--pop); }
+.m-gallery-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+.m-star-rating { display: flex; align-items: center; gap: 10px; margin: 14px 0 22px; }
+.m-star-rating .stars { display: flex; gap: 2px; color: var(--pop-deep); }
+.m-star-rating .stars svg { width: 16px; height: 16px; fill: currentColor; }
+.m-star-rating span { font-size: 13px; color: rgba(17,17,17,0.55); }
+
+.m-product-price { display: flex; align-items: baseline; gap: 12px; margin: 18px 0 28px; }
+.m-product-price strong { font-size: 34px; font-weight: 800; }
+.m-product-price del { font-size: 18px; color: rgba(17,17,17,0.4); }
+.m-product-price .m-price-badge { font-size: 12px; font-weight: 700; color: var(--pop-deep); background: rgba(110,138,24,0.1); padding: 4px 10px; border-radius: var(--radius); }
+
+.m-trust-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 32px 0; padding: 20px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.m-trust-item { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 8px; font-size: 12px; font-weight: 600; color: rgba(17,17,17,0.65); }
+.m-trust-item svg { width: 22px; height: 22px; color: var(--pop-deep); }
+
+.m-specs { list-style: none; margin: 32px 0 0; padding: 0; display: flex; flex-direction: column; gap: 0; }
+.m-specs li { display: flex; justify-content: space-between; padding: 14px 0; border-bottom: 1px solid var(--line); font-size: 14px; }
+.m-specs li span:first-child { color: rgba(17,17,17,0.5); }
+.m-specs li span:last-child { font-weight: 600; }
+
+/* ---------- Accordéon (FAQ) ---------- */
+.m-accordion-item { border-bottom: 1px solid var(--line); }
+.m-accordion-trigger {
+  width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 20px;
+  padding: 22px 4px; background: none; border: none; text-align: left; cursor: pointer;
+  font-size: 16px; font-weight: 600; color: var(--black); font-family: var(--font);
+}
+.m-accordion-trigger .m-plus { position: relative; width: 18px; height: 18px; flex: none; }
+.m-accordion-trigger .m-plus::before, .m-accordion-trigger .m-plus::after {
+  content: ''; position: absolute; background: var(--black); border-radius: 2px; transition: transform .3s var(--ease), opacity .3s var(--ease);
+}
+.m-accordion-trigger .m-plus::before { top: 50%; left: 0; width: 100%; height: 2px; margin-top: -1px; }
+.m-accordion-trigger .m-plus::after { left: 50%; top: 0; height: 100%; width: 2px; margin-left: -1px; }
+.m-accordion-item.is-open .m-accordion-trigger .m-plus::after { transform: rotate(90deg); opacity: 0; }
+.m-accordion-panel { max-height: 0; overflow: hidden; transition: max-height .4s var(--ease); }
+.m-accordion-item.is-open .m-accordion-panel { max-height: 400px; }
+.m-accordion-panel p { padding: 0 4px 22px; font-size: 15px; line-height: 1.65; color: rgba(17,17,17,0.62); max-width: 640px; }
+
+/* ---------- Avis clients ---------- */
+.m-reviews-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+.m-review-card { background: var(--ivory); border: 1px solid var(--line); border-radius: var(--radius); padding: 28px; }
+.m-review-card .stars { display: flex; gap: 2px; color: var(--pop-deep); margin-bottom: 14px; }
+.m-review-card .stars svg { width: 14px; height: 14px; fill: currentColor; }
+.m-review-card p { font-size: 14px; line-height: 1.65; color: rgba(17,17,17,0.75); margin: 0 0 18px; }
+.m-review-author { display: flex; align-items: center; gap: 10px; font-size: 13px; }
+.m-review-avatar { width: 32px; height: 32px; border-radius: 50%; background: var(--pop); color: var(--black); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 12px; flex: none; }
+.m-review-author strong { font-weight: 700; }
+.m-review-author span { display: block; opacity: 0.5; font-size: 12px; }
+
 /* ---------- Reveal on scroll ---------- */
 [data-mreveal] { opacity: 0; transform: translateY(20px); transition: opacity .6s var(--ease), transform .6s var(--ease); }
 [data-mreveal].is-visible { opacity: 1; transform: translateY(0); }
@@ -244,6 +308,9 @@ body.m-has-cursor a, body.m-has-cursor button { cursor: none; }
   .m-materials { grid-template-columns: 1fr; gap: 40px; }
   .m-footer-top { grid-template-columns: 1fr; gap: 32px; }
   .m-hero-brush { width: min(72vw, 380px); height: 64vh; }
+  .m-product-grid { grid-template-columns: 1fr; gap: 40px; }
+  .m-reviews-grid { grid-template-columns: 1fr; }
+  .m-trust-row { grid-template-columns: 1fr; }
 }
 @media (max-width: 620px) {
   .m-surfaces-grid { grid-template-columns: 1fr; }

@@ -3,293 +3,203 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FAQ — Questions fréquentes | AQUAVAULT</title>
-<meta name="description" content="Toutes les réponses sur l'étanchéité, la livraison et le paiement AquaVault Pro.">
+<title>FAQ — Questions fréquentes | FURSWEEP</title>
+<meta name="description" content="Toutes les réponses sur FURSWEEP : utilisation, entretien, livraison et paiement.">
 <link rel="icon" href="data:,">
-<link rel="stylesheet" href="css/style.css">
-<link rel="stylesheet" href="css/animations.css">
-<link rel="stylesheet" href="css/home.css">
-<style>
-  .faq-hero { padding: 150px 0 60px; background: var(--gradient-deep); color: var(--white); text-align: center; }
-  .faq-search { max-width: 560px; margin: 36px auto 0; position: relative; }
-  .faq-search input {
-    width: 100%; padding: 18px 24px 18px 52px; border-radius: var(--radius-full);
-    border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.08); color: var(--white); font-size: 15px;
-    backdrop-filter: blur(10px);
-  }
-  .faq-search input::placeholder { color: rgba(255,255,255,0.5); }
-  .faq-search svg { position: absolute; left: 20px; top: 50%; transform: translateY(-50%); width: 18px; height: 18px; color: rgba(255,255,255,0.6); }
-  .faq-categories { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 32px; }
-  .faq-cat-chip { padding: 10px 18px; border-radius: var(--radius-full); background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.18); font-size: 13px; font-weight: 600; color: var(--white); transition: background .3s var(--ease); }
-  .faq-cat-chip:hover { background: rgba(255,255,255,0.16); }
-  .faq-category { margin-bottom: 64px; }
-  .faq-category-head { display: flex; align-items: center; gap: 14px; margin-bottom: 12px; }
-  .faq-category-head .why-icon { margin-bottom: 0; width: 44px; height: 44px; }
-  .faq-no-results { text-align: center; padding: 60px 0; color: var(--gray-400); display: none; }
-  .faq-no-results.is-visible { display: block; }
-  .faq-contact-cta { background: var(--gray-50); border-radius: var(--radius-lg); padding: 56px; text-align: center; }
-</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/moult.css">
 </head>
 <body class="page-fade">
 
-<!-- ===================== HEADER ===================== -->
-<header class="header is-solid" data-header-static>
-  <div class="wrap">
-    <a href="index.html" class="logo">
-      <svg viewBox="0 0 24 24"><use href="#icon-droplet"></use></svg>
-      AQUAVAULT
-    </a>
-    <nav class="nav-links">
-      <a href="index.html">Accueil</a>
+<header class="m-header" id="mHeader">
+  <div class="m-wrap m-header-inner">
+    <a href="index.html" class="m-logo">FURSWEEP</a>
+    <nav class="m-nav">
       <a href="product.html">Produit</a>
-      <a href="index.html#dive-pin">Étanchéité</a>
-      <a href="index.html#avis">Avis</a>
+      <a href="index.html#comment-ca-marche">Comment ça marche</a>
+      <a href="index.html#materiaux">Matériaux</a>
       <a href="faq.html">FAQ</a>
     </nav>
-    <div class="header-actions">
-      <button class="icon-btn"><svg viewBox="0 0 24 24"><use href="#icon-search"></use></svg></button>
-      <a class="icon-btn" id="shopify-buy-button-cart" href="https://aquavault-8696.myshopify.com/cart" title="Voir mon panier">
-        <svg viewBox="0 0 24 24"><use href="#icon-bag"></use></svg>
-      </a>
-      <button class="icon-btn mobile-toggle"><svg viewBox="0 0 24 24"><use href="#icon-menu"></use></svg></button>
-    </div>
+    <a href="product.html" class="m-cta">Se procurer FURSWEEP</a>
+    <button class="m-mobile-toggle" aria-label="Menu"><span></span><span></span><span></span></button>
   </div>
 </header>
 
-<div class="mobile-nav">
-  <button class="icon-btn mobile-nav-close"><svg viewBox="0 0 24 24"><use href="#icon-x"></use></svg></button>
-  <a href="index.html">Accueil</a>
+<div class="m-mobile-nav" id="mMobileNav">
+  <button class="m-mobile-nav-close" aria-label="Fermer">✕</button>
   <a href="product.html">Produit</a>
-  <a href="index.html#dive-pin">Étanchéité</a>
-  <a href="index.html#avis">Avis</a>
+  <a href="index.html#comment-ca-marche">Comment ça marche</a>
+  <a href="index.html#materiaux">Matériaux</a>
   <a href="faq.html">FAQ</a>
+  <a href="product.html" class="m-btn m-btn-primary">Se procurer FURSWEEP</a>
 </div>
 
-<!-- ===================== FAQ HERO ===================== -->
-<section class="faq-hero">
-  <div class="wrap">
-    <span class="eyebrow" style="justify-content:center;">Centre d'aide</span>
-    <h1 class="display-1" style="font-size:clamp(36px,5vw,56px);">Comment pouvons-nous vous aider ?</h1>
-    <p class="lede center" style="color:rgba(255,255,255,0.7);">Livraison, étanchéité, paiement — toutes les réponses en un seul endroit.</p>
-    <div class="faq-search">
-      <svg viewBox="0 0 24 24"><use href="#icon-search"></use></svg>
-      <input type="text" id="faqSearch" placeholder="Rechercher une question (ex. profondeur, livraison, paiement…)">
-    </div>
-    <div class="faq-categories">
-      <a href="#commande" class="faq-cat-chip">Commande & Livraison</a>
-      <a href="#produit" class="faq-cat-chip">Produit & Étanchéité</a>
-      <a href="#paiement" class="faq-cat-chip">Paiement & Sécurité</a>
-    </div>
+<!-- ===================== HÉRO FAQ ===================== -->
+<section class="m-section m-section--tight" style="padding-top:160px; text-align:center;">
+  <div class="m-wrap">
+    <span class="m-eyebrow">Besoin d'aide</span>
+    <h1 class="m-display-1">Questions fréquentes</h1>
+    <p class="m-lede" style="max-width:520px; margin:16px auto 0;">Tout ce qu'il faut savoir sur FURSWEEP, la livraison et le paiement.</p>
   </div>
 </section>
 
-<!-- ===================== LIVRAISON ===================== -->
-<section class="section section--tight" id="livraison">
-  <div class="wrap">
-    <div class="section-head" data-reveal>
-      <span class="eyebrow">Ce qu'il faut savoir</span>
-      <h2 class="display-2">Livraison</h2>
-      <p class="lede center">L'essentiel en un coup d'œil — le détail complet reste disponible dans la FAQ ci-dessous.</p>
+<!-- ===================== FAQ — PRODUIT ===================== -->
+<section class="m-section m-section--tight">
+  <div class="m-wrap" style="max-width:820px;">
+    <div class="m-section-head" data-mreveal>
+      <span class="m-eyebrow">Le produit</span>
+      <h2 class="m-display-2">FURSWEEP</h2>
     </div>
-    <div class="grid grid-4" data-reveal-group>
-      <div class="card why-card">
-        <div class="why-icon"><svg viewBox="0 0 24 24"><use href="#icon-truck"></use></svg></div>
-        <h3>Livraison suivie</h3>
-        <p>Expédition rapide après validation de la commande, avec un numéro de suivi transmis par email. Le délai varie selon votre localisation.</p>
+    <div data-mreveal>
+      <div class="m-accordion-item is-open">
+        <button class="m-accordion-trigger" data-faq-trigger>Sur quelles matières FURSWEEP fonctionne-t-il ? <span class="m-plus"></span></button>
+        <div class="m-accordion-panel"><p>Laine, coton, velours, polaire, tissus synthétiques, canapés, plaids, manteaux — la tête striée capture le poil et la peluche sur la quasi-totalité des textiles du quotidien.</p></div>
       </div>
-      <div class="card why-card">
-        <div class="why-icon"><svg viewBox="0 0 24 24"><use href="#icon-map-pin"></use></svg></div>
-        <h3>Zones desservies</h3>
-        <p>France métropolitaine, Union européenne, Suisse et Royaume-Uni.</p>
+      <div class="m-accordion-item">
+        <button class="m-accordion-trigger" data-faq-trigger>Comment vider la tête après utilisation ? <span class="m-plus"></span></button>
+        <div class="m-accordion-panel"><p>Il suffit de rincer la tête sous l'eau ou de retirer le poil accumulé à la main. Aucune feuille adhésive, aucune pièce à jeter.</p></div>
       </div>
-      <div class="card why-card">
-        <div class="why-icon"><svg viewBox="0 0 24 24"><use href="#icon-package"></use></svg></div>
-        <h3>Suivi de commande</h3>
-        <p>Un email avec numéro de suivi est envoyé dès l'expédition, pour suivre le colis en temps réel.</p>
+      <div class="m-accordion-item">
+        <button class="m-accordion-trigger" data-faq-trigger>FURSWEEP fonctionne-t-il sans pile ni électricité ? <span class="m-plus"></span></button>
+        <div class="m-accordion-panel"><p>Oui. FURSWEEP est entièrement mécanique — aucune pile, aucune charge, aucune recharge à racheter. Le geste seul suffit.</p></div>
       </div>
-      <div class="card why-card">
-        <div class="why-icon"><svg viewBox="0 0 24 24"><use href="#icon-lock"></use></svg></div>
-        <h3>Paiement sécurisé</h3>
-        <p>Toutes les commandes sont traitées via un paiement chiffré et sécurisé.</p>
+      <div class="m-accordion-item">
+        <button class="m-accordion-trigger" data-faq-trigger>Combien de temps dure FURSWEEP ? <span class="m-plus"></span></button>
+        <div class="m-accordion-panel"><p>Le manche en bois massif et la tête en alliage strié sont conçus pour durer des années d'utilisation régulière, contrairement aux rouleaux adhésifs à usage limité.</p></div>
+      </div>
+      <div class="m-accordion-item">
+        <button class="m-accordion-trigger" data-faq-trigger>Peut-on l'utiliser sur un animal directement ? <span class="m-plus"></span></button>
+        <div class="m-accordion-panel"><p>FURSWEEP est conçu pour les textiles (canapés, vêtements, plaids) et non pour être passé directement sur le pelage d'un animal.</p></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ===================== FAQ CONTENT ===================== -->
-<section class="section">
-  <div class="wrap container-narrow">
-
-    <div class="faq-category" id="commande" data-faq-category>
-      <div class="faq-category-head">
-        <div class="why-icon"><svg viewBox="0 0 24 24"><use href="#icon-truck"></use></svg></div>
-        <h2 class="display-3">Commande & Livraison</h2>
+<!-- ===================== FAQ — LIVRAISON ===================== -->
+<section class="m-section m-section--tight" style="background:var(--ivory-dim);">
+  <div class="m-wrap" style="max-width:820px;">
+    <div class="m-section-head" data-mreveal>
+      <span class="m-eyebrow">Commande</span>
+      <h2 class="m-display-2">Livraison</h2>
+    </div>
+    <div data-mreveal>
+      <div class="m-accordion-item">
+        <button class="m-accordion-trigger" data-faq-trigger>Quels sont les délais de livraison ? <span class="m-plus"></span></button>
+        <div class="m-accordion-panel"><p>Les commandes sont généralement livrées sous 7 à 14 jours ouvrés en France métropolitaine, selon le transporteur.</p></div>
       </div>
-      <div data-accordion-group>
-        <div class="accordion-item" data-faq-item>
-          <button class="accordion-trigger" data-faq-question>Quels sont les délais de livraison ? <span class="plus"></span></button>
-          <div class="accordion-panel"><div class="accordion-panel-inner">Votre commande est expédiée rapidement après validation, et vous recevez un numéro de suivi par email dès l'envoi. Le délai de livraison peut varier selon votre localisation.</div></div>
-        </div>
-        <div class="accordion-item" data-faq-item>
-          <button class="accordion-trigger" data-faq-question>Livrez-vous en dehors de la France ? <span class="plus"></span></button>
-          <div class="accordion-panel"><div class="accordion-panel-inner">Oui, nous livrons dans toute l'Union européenne, en Suisse et au Royaume-Uni. Les frais et délais sont calculés automatiquement au moment du paiement.</div></div>
-        </div>
-        <div class="accordion-item" data-faq-item>
-          <button class="accordion-trigger" data-faq-question>Comment suivre ma commande ? <span class="plus"></span></button>
-          <div class="accordion-panel"><div class="accordion-panel-inner">Dès l'expédition, vous recevez un email avec un numéro de suivi valable auprès de notre transporteur, vous permettant de suivre votre colis en temps réel.</div></div>
-        </div>
-        <div class="accordion-item" data-faq-item>
-          <button class="accordion-trigger" data-faq-question>Puis-je modifier ou annuler ma commande ? <span class="plus"></span></button>
-          <div class="accordion-panel"><div class="accordion-panel-inner">Contactez-nous dans les 2 heures suivant votre achat : nous pouvons encore modifier l'adresse, la couleur ou annuler la commande avant son expédition.</div></div>
-        </div>
+      <div class="m-accordion-item">
+        <button class="m-accordion-trigger" data-faq-trigger>Livrez-vous en dehors de la France ? <span class="m-plus"></span></button>
+        <div class="m-accordion-panel"><p>La livraison est disponible dans plusieurs pays d'Europe. Les zones exactes et frais éventuels sont indiqués au moment du paiement sur Shopify.</p></div>
+      </div>
+      <div class="m-accordion-item">
+        <button class="m-accordion-trigger" data-faq-trigger>Comment suivre ma commande ? <span class="m-plus"></span></button>
+        <div class="m-accordion-panel"><p>Un email de confirmation avec un lien de suivi est envoyé dès l'expédition de votre commande.</p></div>
+      </div>
+      <div class="m-accordion-item">
+        <button class="m-accordion-trigger" data-faq-trigger>Puis-je modifier ou annuler ma commande ? <span class="m-plus"></span></button>
+        <div class="m-accordion-panel"><p>Contactez-nous rapidement après votre achat par email — nous ferons notre possible avant l'expédition.</p></div>
       </div>
     </div>
-
-    <div class="faq-category" id="produit" data-faq-category>
-      <div class="faq-category-head">
-        <div class="why-icon"><svg viewBox="0 0 24 24"><use href="#icon-droplet"></use></svg></div>
-        <h2 class="display-3">Produit & Étanchéité</h2>
-      </div>
-      <div data-accordion-group>
-        <div class="accordion-item" data-faq-item>
-          <button class="accordion-trigger" data-faq-question>Jusqu'à quelle profondeur AquaVault Pro est-elle étanche ? <span class="plus"></span></button>
-          <div class="accordion-panel"><div class="accordion-panel-inner">Elle est certifiée IP68 et testée jusqu'à 30 mètres de profondeur. Chaque unité est immergée et contrôlée individuellement avant expédition.</div></div>
-        </div>
-        <div class="accordion-item" data-faq-item>
-          <button class="accordion-trigger" data-faq-question>Puis-je utiliser l'écran tactile à travers le sac ? <span class="plus"></span></button>
-          <div class="accordion-panel"><div class="accordion-panel-inner">Oui, le PVC premium est assez transparent et sensible pour permettre photos, vidéos et navigation sans jamais sortir votre téléphone du sac.</div></div>
-        </div>
-        <div class="accordion-item" data-faq-item>
-          <button class="accordion-trigger" data-faq-question>Quelle taille de téléphone est compatible ? <span class="plus"></span></button>
-          <div class="accordion-panel"><div class="accordion-panel-inner">AquaVault Pro accueille tous les smartphones jusqu'à 7 pouces, ainsi que cartes, clés et passeport (dimensions intérieures : 21,5 x 13 x 2,5 cm).</div></div>
-        </div>
-        <div class="accordion-item" data-faq-item>
-          <button class="accordion-trigger" data-faq-question>Comment la sangle s'ajuste-t-elle ? <span class="plus"></span></button>
-          <div class="accordion-panel"><div class="accordion-panel-inner">La sangle est réglable jusqu'à 120 cm et se porte à la ceinture ou en bandoulière. La boucle clipsable permet un ajustement rapide, sans outil.</div></div>
-        </div>
-        <div class="accordion-item" data-faq-item>
-          <button class="accordion-trigger" data-faq-question>Comment tester l'étanchéité moi-même avant utilisation ? <span class="plus"></span></button>
-          <div class="accordion-panel"><div class="accordion-panel-inner">Avant d'y placer vos affaires, fermez le sac (clipser, rouler, verrouiller) avec un mouchoir à l'intérieur et immergez-le 1 minute : le mouchoir doit rester parfaitement sec.</div></div>
-        </div>
-      </div>
-    </div>
-
-
-    <div class="faq-category" id="paiement" data-faq-category>
-      <div class="faq-category-head">
-        <div class="why-icon"><svg viewBox="0 0 24 24"><use href="#icon-lock"></use></svg></div>
-        <h2 class="display-3">Paiement & Sécurité</h2>
-      </div>
-      <div data-accordion-group>
-        <div class="accordion-item" data-faq-item>
-          <button class="accordion-trigger" data-faq-question>Quels moyens de paiement acceptez-vous ? <span class="plus"></span></button>
-          <div class="accordion-panel"><div class="accordion-panel-inner">Visa, Mastercard, PayPal et Apple Pay sont proposés sur la page de paiement sécurisée Shopify, affichée au moment de valider votre commande.</div></div>
-        </div>
-        <div class="accordion-item" data-faq-item>
-          <button class="accordion-trigger" data-faq-question>Mes données bancaires sont-elles sécurisées ? <span class="plus"></span></button>
-          <div class="accordion-panel"><div class="accordion-panel-inner">Oui : notre site ne collecte ni ne stocke jamais aucune donnée bancaire. Le paiement est saisi et traité intégralement par Shopify, certifié PCI-DSS.</div></div>
-        </div>
-        <div class="accordion-item" data-faq-item>
-          <button class="accordion-trigger" data-faq-question>Proposez-vous le paiement en plusieurs fois ? <span class="plus"></span></button>
-          <div class="accordion-panel"><div class="accordion-panel-inner">Selon les options activées sur la page de paiement Shopify au moment de la commande.</div></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="faq-no-results" id="faqNoResults">
-      <p>Aucune question ne correspond à votre recherche.</p>
-    </div>
-
   </div>
 </section>
 
-<!-- ===================== CONTACT CTA ===================== -->
-<section class="section section--tight">
-  <div class="wrap">
-    <div class="faq-contact-cta" data-reveal="scale">
-      <span class="eyebrow" style="justify-content:center;">Toujours une question ?</span>
-      <h2 class="display-3">Notre équipe répond en moins de 4h</h2>
-      <p class="lede center mt-16" style="margin-bottom:32px;">7 jours sur 7, toute l'année.</p>
-      <a href="mailto:contact@aquavault.fr" class="btn btn-primary btn-lg"><svg viewBox="0 0 24 24"><use href="#icon-mail"></use></svg> Contacter le support</a>
+<!-- ===================== FAQ — PAIEMENT ===================== -->
+<section class="m-section m-section--tight">
+  <div class="m-wrap" style="max-width:820px;">
+    <div class="m-section-head" data-mreveal>
+      <span class="m-eyebrow">Paiement</span>
+      <h2 class="m-display-2">Sécurité &amp; paiement</h2>
     </div>
+    <div data-mreveal>
+      <div class="m-accordion-item">
+        <button class="m-accordion-trigger" data-faq-trigger>Quels moyens de paiement acceptez-vous ? <span class="m-plus"></span></button>
+        <div class="m-accordion-panel"><p>Carte bancaire (Visa, Mastercard, Amex) et autres moyens proposés par Shopify Payments au moment du paiement.</p></div>
+      </div>
+      <div class="m-accordion-item">
+        <button class="m-accordion-trigger" data-faq-trigger>Mes données bancaires sont-elles sécurisées ? <span class="m-plus"></span></button>
+        <div class="m-accordion-panel"><p>Oui. Le paiement est intégralement géré par Shopify — ce site ne collecte, ne traite ni ne stocke aucune donnée bancaire.</p></div>
+      </div>
+      <div class="m-accordion-item">
+        <button class="m-accordion-trigger" data-faq-trigger>Puis-je être remboursé si le produit ne me convient pas ? <span class="m-plus"></span></button>
+        <div class="m-accordion-panel"><p>Oui, contactez-nous par email dans les 14 jours suivant la réception pour organiser un retour.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CTA CONTACT ===================== -->
+<section class="m-final-cta" data-mreveal>
+  <div class="m-wrap">
+    <span class="m-eyebrow">Une autre question</span>
+    <h2 class="m-display-1">Écrivez-nous.</h2>
+    <p class="m-lede" style="color:rgba(243,240,232,0.65); max-width:420px; margin:16px auto 32px;">On répond sous 24 à 48h ouvrées.</p>
+    <a href="mailto:contact@moult.fr" class="m-btn m-btn-light">Contacter le support <svg viewBox="0 0 24 24" style="width:16px;height:16px;"><use href="#icon-arrow-right"></use></svg></a>
   </div>
 </section>
 
 <!-- ===================== FOOTER ===================== -->
-<footer class="footer">
-  <div class="wrap">
-    <div class="footer-top">
-      <div class="footer-brand">
-        <a href="index.html" class="logo"><svg viewBox="0 0 24 24"><use href="#icon-droplet"></use></svg> AQUAVAULT</a>
-        <p>Des accessoires étanches premium pensés pour vivre vos vacances sans jamais craindre pour vos objets de valeur.</p>
-        <div class="footer-socials">
-          <a href="#"><svg viewBox="0 0 24 24"><use href="#icon-instagram"></use></svg></a>
-          <a href="#"><svg viewBox="0 0 24 24"><use href="#icon-facebook"></use></svg></a>
-          <a href="#"><svg viewBox="0 0 24 24"><use href="#icon-tiktok"></use></svg></a>
-        </div>
+<footer class="m-footer">
+  <div class="m-wrap">
+    <div class="m-footer-top">
+      <div class="m-footer-brand">
+        <a href="index.html" class="m-logo">FURSWEEP</a>
+        <p style="margin-top:16px;">Un outil simple, fait pour durer — pensé pour retirer poils et peluches sans jamais rien racheter.</p>
       </div>
       <div>
         <h4>Boutique</h4>
         <ul>
-          <li><a href="product.html">AquaVault Pro</a></li>
-          <li><a href="product.html#avis-produit">Avis clients</a></li>
-          <li><a href="index.html#dive-pin">Test d'étanchéité</a></li>
+          <li><a href="product.html">FURSWEEP</a></li>
+          <li><a href="index.html#comment-ca-marche">Comment ça marche</a></li>
+          <li><a href="index.html#materiaux">Matériaux</a></li>
         </ul>
       </div>
       <div>
         <h4>Aide</h4>
         <ul>
           <li><a href="faq.html">FAQ</a></li>
-          <li><a href="faq.html#livraison">Livraison</a></li>
-          <li><a href="faq.html#commande">Suivre ma commande</a></li>
-          <li><a href="mailto:contact@aquavault.fr">Contact</a></li>
+          <li><a href="mailto:contact@moult.fr">Contact</a></li>
         </ul>
       </div>
-      <div>
-        <h4>Restez informé</h4>
-        <p style="font-size:14px;margin-bottom:16px;">Offres exclusives et conseils vacances, une fois par mois.</p>
-        <form class="newsletter-form" data-newsletter-form>
-          <input type="email" placeholder="Votre email" required>
-          <button type="submit"><svg viewBox="0 0 24 24"><use href="#icon-arrow-right"></use></svg></button>
-        </form>
-      </div>
     </div>
-    <div class="footer-legal-links">
-      <a href="politique-confidentialite.html">Politique de confidentialité</a>
-    </div>
-    <div class="footer-bottom">
-      <span>© 2026 AquaVault. Le paiement et le traitement des commandes sont assurés par Shopify.</span>
-      <div class="payment-icons">
-        <span>VISA</span><span>MASTERCARD</span><span>PAYPAL</span><span>APPLE PAY</span>
+    <div class="m-footer-bottom">
+      <span>© 2026 FURSWEEP. Le paiement et le traitement des commandes sont assurés par Shopify.</span>
+      <div style="display:flex;gap:16px;">
+        <a href="#"><svg viewBox="0 0 24 24" style="width:18px;height:18px;"><use href="#icon-instagram"></use></svg></a>
+        <a href="#"><svg viewBox="0 0 24 24" style="width:18px;height:18px;"><use href="#icon-tiktok"></use></svg></a>
       </div>
     </div>
   </div>
 </footer>
 
 <script src="js/icons.js"></script>
-<script src="js/main.js"></script>
 <script>
-  (function () {
-    var input = document.getElementById('faqSearch');
-    var noResults = document.getElementById('faqNoResults');
-    if (!input) return;
-    input.addEventListener('input', function () {
-      var q = input.value.trim().toLowerCase();
-      var visibleCount = 0;
-      document.querySelectorAll('[data-faq-category]').forEach(function (cat) {
-        var catVisible = 0;
-        cat.querySelectorAll('[data-faq-item]').forEach(function (item) {
-          var text = item.querySelector('[data-faq-question]').textContent.toLowerCase();
-          var match = q === '' || text.indexOf(q) !== -1;
-          item.style.display = match ? '' : 'none';
-          if (match) catVisible++;
-        });
-        cat.style.display = catVisible > 0 ? '' : 'none';
-        visibleCount += catVisible;
-      });
-      noResults.classList.toggle('is-visible', visibleCount === 0);
+  document.querySelectorAll('[data-faq-trigger]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var item = btn.closest('.m-accordion-item');
+      var wasOpen = item.classList.contains('is-open');
+      item.parentElement.querySelectorAll('.m-accordion-item').forEach(function (i) { i.classList.remove('is-open'); });
+      if (!wasOpen) item.classList.add('is-open');
     });
-  })();
+  });
+  var header = document.getElementById('mHeader');
+  document.addEventListener('scroll', function () { header.classList.toggle('is-solid', window.scrollY > 40); }, { passive: true });
+  var mobileToggle = document.querySelector('.m-mobile-toggle');
+  var mobileNav = document.getElementById('mMobileNav');
+  var mobileClose = document.querySelector('.m-mobile-nav-close');
+  if (mobileToggle && mobileNav) mobileToggle.addEventListener('click', function () { mobileNav.classList.add('is-open'); });
+  if (mobileClose && mobileNav) mobileClose.addEventListener('click', function () { mobileNav.classList.remove('is-open'); });
+  document.querySelectorAll('.m-mobile-nav a').forEach(function (a) { a.addEventListener('click', function () { mobileNav.classList.remove('is-open'); }); });
+  var revealEls = document.querySelectorAll('[data-mreveal]');
+  if ('IntersectionObserver' in window && revealEls.length) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) { if (entry.isIntersecting) { entry.target.classList.add('is-visible'); io.unobserve(entry.target); } });
+    }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+    revealEls.forEach(function (el) { io.observe(el); });
+  } else {
+    revealEls.forEach(function (el) { el.classList.add('is-visible'); });
+  }
 </script>
 </body>
 </html>
