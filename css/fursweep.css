@@ -299,6 +299,14 @@ body.m-has-cursor a, body.m-has-cursor button { cursor: none; }
 .m-product-price del { font-size: 18px; color: rgba(251,241,230,0.4); }
 .m-product-price .m-price-badge { font-size: 12px; font-weight: 700; color: var(--pop); background: rgba(214,255,63,0.12); padding: 4px 10px; border-radius: var(--radius); }
 
+.m-stock-line { display: flex; align-items: center; gap: 9px; font-size: 13px; font-weight: 600; color: rgba(251,241,230,0.8); margin: -8px 0 26px; }
+.m-stock-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--pop); flex: none; box-shadow: 0 0 0 0 rgba(214,255,63,0.5); animation: m-pulse 2s infinite; }
+@keyframes m-pulse {
+  0% { box-shadow: 0 0 0 0 rgba(214,255,63,0.45); }
+  70% { box-shadow: 0 0 0 6px rgba(214,255,63,0); }
+  100% { box-shadow: 0 0 0 0 rgba(214,255,63,0); }
+}
+
 .m-trust-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 32px 0; padding: 20px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
 .m-trust-item { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 8px; font-size: 12px; font-weight: 600; color: rgba(251,241,230,0.65); }
 .m-trust-item svg { width: 22px; height: 22px; color: var(--pop); }
