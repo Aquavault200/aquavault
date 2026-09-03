@@ -19,7 +19,6 @@
      sur fond clair ivoire, où le chartreuse pur serait trop peu lisible). */
   --pop: #D6FF3F;
   --pop-deep: #6E8A18;
-  --glow: 0 0 32px rgba(214,255,63,0.35);
   --radius: 3px;
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
   --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
@@ -49,12 +48,21 @@ a { color: inherit; text-decoration: none; }
 
 ::selection { background: var(--pop); color: var(--black); }
 
-/* ---------- Typographie éditoriale, très grande ---------- */
+/* ---------- Typographie éditoriale — contraste d'échelle volontairement
+   brutal : le texte est traité comme un élément de composition, pas comme
+   du contenu rangé dans un conteneur. ---------- */
+.m-display-mega {
+  font-size: clamp(88px, 15.5vw, 260px);
+  font-weight: 800;
+  letter-spacing: -0.045em;
+  line-height: 0.86;
+  margin: 0;
+}
 .m-display-huge {
   font-size: clamp(64px, 11vw, 168px);
   font-weight: 800;
-  letter-spacing: -0.035em;
-  line-height: 0.92;
+  letter-spacing: -0.04em;
+  line-height: 0.9;
   margin: 0;
 }
 .m-display-1 { font-size: clamp(40px, 5.5vw, 76px); font-weight: 700; letter-spacing: -0.03em; line-height: 1.02; margin: 0; }
@@ -62,23 +70,28 @@ a { color: inherit; text-decoration: none; }
 .m-lede { font-size: clamp(16px, 1.4vw, 19px); line-height: 1.6; color: rgba(251,241,230,0.62); font-weight: 400; }
 .m-eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--pop); display: inline-block; margin-bottom: 18px; }
 
-/* ---------- Boutons ---------- */
+/* ---------- Boutons ----------
+   Pas de glow, pas de pilule géante : un contact net, une réponse
+   tactile discrète (le mouvement magnétique est piloté en JS, voir
+   initMagneticButtons dans fursweep.js). */
 .m-btn {
   display: inline-flex; align-items: center; gap: 10px;
   padding: 16px 30px;
   font-size: 14px; font-weight: 600; letter-spacing: 0.02em;
   border-radius: var(--radius);
-  transition: transform .5s var(--ease), background .4s var(--ease), color .4s var(--ease);
+  transition: transform .35s var(--ease), background .35s var(--ease), color .35s var(--ease), border-color .35s var(--ease);
   cursor: pointer;
   border: 1px solid transparent;
   white-space: nowrap;
+  will-change: transform;
 }
-.m-btn-primary { background: var(--pop); color: var(--black); box-shadow: var(--glow); }
-.m-btn-primary:hover { background: transparent; color: var(--pop); box-shadow: none; border-color: var(--pop); }
+.m-btn:active { transform: scale(0.96) !important; }
+.m-btn-primary { background: var(--pop); color: var(--black); }
+.m-btn-primary:hover { background: transparent; color: var(--pop); border-color: var(--pop); }
 .m-btn-outline { border-color: var(--ivory); color: var(--ivory); }
 .m-btn-outline:hover { background: var(--pop); border-color: var(--pop); color: var(--black); }
-.m-btn-light { background: var(--pop); color: var(--black); box-shadow: var(--glow); }
-.m-btn-light:hover { background: transparent; color: var(--pop); border-color: var(--pop); box-shadow: none; }
+.m-btn-light { background: var(--pop); color: var(--black); }
+.m-btn-light:hover { background: transparent; color: var(--pop); border-color: var(--pop); }
 
 /* ---------- Header ---------- */
 .m-header {
@@ -94,8 +107,9 @@ a { color: inherit; text-decoration: none; }
 .m-nav { display: flex; align-items: center; gap: 40px; }
 .m-nav a { font-size: 13px; font-weight: 600; letter-spacing: 0.02em; opacity: 0.7; transition: opacity .3s var(--ease); }
 .m-nav a:hover { opacity: 1; }
-.m-cta { display: inline-flex; padding: 11px 21px; background: var(--pop); color: var(--black); font-size: 13px; font-weight: 700; border-radius: var(--radius); border: 1px solid var(--pop); transition: background .4s var(--ease), color .4s var(--ease), box-shadow .4s var(--ease); box-shadow: 0 0 18px rgba(214,255,63,0.3); }
-.m-cta:hover { background: transparent; color: var(--pop); box-shadow: none; }
+.m-cta { display: inline-flex; padding: 11px 21px; background: var(--pop); color: var(--black); font-size: 13px; font-weight: 700; border-radius: var(--radius); border: 1px solid var(--pop); transition: background .35s var(--ease), color .35s var(--ease), transform .35s var(--ease); will-change: transform; }
+.m-cta:hover { background: transparent; color: var(--pop); }
+.m-cta:active { transform: scale(0.96); }
 .m-mobile-toggle { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 6px; }
 .m-mobile-toggle span { width: 22px; height: 2px; background: var(--ivory); }
 
@@ -179,29 +193,44 @@ body.m-has-cursor a, body.m-has-cursor button { cursor: none; }
 }
 .m-gesture-compare img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .m-gesture-after { clip-path: inset(0 0 0 50%); }
+/* Le curseur du comparateur reprend l'aspect du bord de nettoyage réel du
+   produit (fine barre laiton striée) plutôt qu'un séparateur de slider
+   générique — un détail qui rattache l'interaction à l'objet. */
 .m-gesture-handle {
-  position: absolute; top: 0; bottom: 0; left: 50%; width: 2px; background: var(--ivory);
+  position: absolute; top: 0; bottom: 0; left: 50%; width: 5px;
+  background: repeating-linear-gradient(180deg, #d3ab6c 0 2px, #9c7644 2px 4px);
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.25), 0 0 18px rgba(0,0,0,0.35);
   transform: translateX(-50%);
 }
 .m-gesture-handle::after {
-  content: '↔'; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-  width: 44px; height: 44px; border-radius: 50%; background: var(--ivory); color: var(--black);
-  display: flex; align-items: center; justify-content: center; font-size: 18px;
+  content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  width: 15px; height: 54px; border-radius: 7px;
+  background: linear-gradient(90deg, #8a6532, #d3ab6c 45%, #8a6532);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.4);
 }
 .m-gesture-label { position: absolute; bottom: 20px; font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 6px 12px; background: rgba(17,17,17,0.6); color: var(--ivory); border-radius: var(--radius); }
 .m-gesture-label.before { left: 20px; }
 .m-gesture-label.after { right: 20px; }
 
-/* ---------- Surfaces grid ---------- */
-.m-surfaces-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
-.m-surface-card { position: relative; aspect-ratio: 3/4; overflow: hidden; }
-.m-surface-card img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--ease); }
-.m-surface-card:hover img { transform: scale(1.06); }
-.m-surface-card .m-surface-label {
-  position: absolute; left: 20px; bottom: 20px; z-index: 2;
-  font-size: 13px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: var(--ivory);
+/* ---------- Real life : présentation éditoriale plein écran, alternée,
+   plutôt qu'une grille de cartes identiques façon Shopify. ---------- */
+.m-editorial-row {
+  display: grid; grid-template-columns: 1.15fr 1fr; align-items: stretch;
 }
-.m-surface-card::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 50%, rgba(17,17,17,0.55) 100%); }
+.m-editorial-row.is-reverse .m-editorial-media { order: 2; }
+.m-editorial-row.is-reverse .m-editorial-text { order: 1; }
+.m-editorial-media { position: relative; overflow: hidden; height: 76vh; }
+.m-editorial-media img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.6s var(--ease); }
+.m-editorial-row:hover .m-editorial-media img { transform: scale(1.045); }
+.m-editorial-text {
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 48px min(8vw, 96px);
+}
+.m-editorial-text h3 {
+  font-size: clamp(52px, 7.4vw, 118px); font-weight: 800; letter-spacing: -0.035em;
+  line-height: 0.9; margin: 0 0 20px;
+}
+.m-editorial-text p { font-size: 15px; line-height: 1.6; color: rgba(251,241,230,0.5); max-width: 320px; margin: 0; }
 
 /* ---------- No refills ---------- */
 .m-refills { text-align: center; }
@@ -305,16 +334,17 @@ body.m-has-cursor a, body.m-has-cursor button { cursor: none; }
 @media (max-width: 980px) {
   .m-nav, .m-cta { display: none; }
   .m-mobile-toggle { display: flex; }
-  .m-surfaces-grid { grid-template-columns: repeat(2, 1fr); }
   .m-materials { grid-template-columns: 1fr; gap: 40px; }
   .m-footer-top { grid-template-columns: 1fr; gap: 32px; }
   .m-hero-brush { width: min(72vw, 380px); height: 64vh; }
   .m-product-grid { grid-template-columns: 1fr; gap: 40px; }
   .m-reviews-grid { grid-template-columns: 1fr; }
   .m-trust-row { grid-template-columns: 1fr; }
+  .m-editorial-row, .m-editorial-row.is-reverse { grid-template-columns: 1fr; }
+  .m-editorial-row .m-editorial-media, .m-editorial-row.is-reverse .m-editorial-media { order: 1; height: 52vh; }
+  .m-editorial-row .m-editorial-text, .m-editorial-row.is-reverse .m-editorial-text { order: 2; padding: 40px 24px; }
 }
 @media (max-width: 620px) {
-  .m-surfaces-grid { grid-template-columns: 1fr; }
   .m-wrap { padding: 0 22px; }
 }
 

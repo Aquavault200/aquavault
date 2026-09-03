@@ -58,6 +58,25 @@
     });
   }
 
+  /* ---------- Boutons magnétiques (souris fine uniquement) ----------
+     Le bouton suit légèrement le curseur à l'approche, puis revient à sa
+     place avec un léger dépassement élastique — un contact tactile discret,
+     pas un gadget. Rayon d'action limité à sa propre taille pour rester
+     subtil et ne jamais gêner le clic. */
+  if (canFineCursor) {
+    document.querySelectorAll('.m-btn, .m-cta').forEach(function (btn) {
+      btn.addEventListener('mousemove', function (e) {
+        var r = btn.getBoundingClientRect();
+        var x = (e.clientX - r.left - r.width / 2) * 0.35;
+        var y = (e.clientY - r.top - r.height / 2) * 0.45;
+        btn.style.transform = 'translate(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px)';
+      });
+      btn.addEventListener('mouseleave', function () {
+        btn.style.transform = '';
+      });
+    });
+  }
+
   /* ---------- Comparateur avant/après (glisser) ---------- */
   document.querySelectorAll('.m-gesture-compare').forEach(function (compare) {
     var after = compare.querySelector('.m-gesture-after');
@@ -405,14 +424,14 @@
          hauteur — même piège que la mesure 0×0 du pin lui-même. Une fois le
          pin créé, la position réelle est correcte : la transition est un
          vrai fondu scrubbed, lié au scroll, pas une coupure nette. */
-      var nextSection = document.getElementById('mProductReveal');
-      /* On anime/déclenche sur le contenu réellement visible (le bloc texte
-         + image), pas sur la section englobante : celle-ci a ~160px de
-         padding + l'eyebrow au-dessus avant le premier pixel utile, donc
-         un déclencheur basé sur la section se retrouvait "complet" (opacity
-         proche de 1) alors que tout le contenu était encore sous le bas de
-         l'écran — un vrai trou vide, pas juste une impression. */
-      var nextContent = nextSection ? nextSection.querySelector('.m-product-reveal') : null;
+      var nextSection = document.getElementById('comment-ca-marche');
+      /* On anime/déclenche sur le contenu réellement visible (le titre +
+         comparateur), pas sur la section englobante : celle-ci a ~160px de
+         padding avant le premier pixel utile, donc un déclencheur basé sur
+         la section se retrouvait "complet" (opacity proche de 1) alors que
+         tout le contenu était encore sous le bas de l'écran — un vrai trou
+         vide, pas juste une impression. */
+      var nextContent = nextSection ? nextSection.querySelector('.m-gesture-head') : null;
       if (nextSection && nextContent) {
         gsap.set(nextContent, { opacity: 0, y: 60 });
         gsap.to(nextContent, {
