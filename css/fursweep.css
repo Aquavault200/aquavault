@@ -173,12 +173,14 @@ body.m-has-cursor a, body.m-has-cursor button { cursor: none; }
 .m-scroll-hint {
   position: absolute; left: 50%; bottom: 36px; z-index: 6;
   display: flex; flex-direction: column; align-items: center; gap: 8px;
-  color: rgba(251,241,230,0.75);
+  color: var(--ivory);
+  text-shadow: 0 1px 3px rgba(0,0,0,0.6), 0 2px 14px rgba(0,0,0,0.5);
+  filter: drop-shadow(0 1px 3px rgba(0,0,0,0.6)) drop-shadow(0 2px 10px rgba(0,0,0,0.4));
   transform: translateX(-50%);
   pointer-events: none;
   animation: m-scroll-bounce 1.8s ease-in-out infinite;
 }
-.m-scroll-hint span { font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; }
+.m-scroll-hint span { font-size: 11px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; }
 .m-scroll-hint svg { width: 18px; height: 18px; }
 @keyframes m-scroll-bounce {
   0%, 100% { transform: translate(-50%, 0); }
