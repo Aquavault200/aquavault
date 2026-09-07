@@ -170,6 +170,22 @@ body.m-has-cursor a, body.m-has-cursor button { cursor: none; }
 .m-hero-statement .m-display-huge { margin-bottom: 18px; color: var(--ivory); text-shadow: 0 4px 30px rgba(0,0,0,0.35); }
 .m-hero-statement p { font-size: 17px; color: rgba(251,241,230,0.8); margin-bottom: 36px; }
 
+.m-scroll-hint {
+  position: absolute; left: 50%; bottom: 36px; z-index: 6;
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  color: rgba(251,241,230,0.75);
+  transform: translateX(-50%);
+  pointer-events: none;
+  animation: m-scroll-bounce 1.8s ease-in-out infinite;
+}
+.m-scroll-hint span { font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; }
+.m-scroll-hint svg { width: 18px; height: 18px; }
+@keyframes m-scroll-bounce {
+  0%, 100% { transform: translate(-50%, 0); }
+  50% { transform: translate(-50%, 8px); }
+}
+body.m-static .m-scroll-hint { display: none; }
+
 /* ==========================================================================
    Sections génériques
    ========================================================================== */

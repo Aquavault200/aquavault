@@ -154,6 +154,7 @@
     var brush = document.getElementById('mBrush');
     var statement = document.getElementById('mHeroStatement');
     var carpet = document.getElementById('mCarpet');
+    var scrollHint = document.getElementById('mScrollHint');
     if (!canvas || !brush || !statement) return;
 
     /* La toute première mesure que ScrollTrigger fait d'un élément fixé peut
@@ -425,6 +426,8 @@
         },
         onUpdate: applyBrush
       });
+
+      if (scrollHint) tl.to(scrollHint, { opacity: 0, duration: 0.015 }, 0);
 
       tl.to(brush, { opacity: 1, duration: 0.03 }, 0)
         /* Chute verticale unique, légère oscillation latérale pour un mouvement
